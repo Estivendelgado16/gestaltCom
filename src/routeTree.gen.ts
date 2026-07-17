@@ -9,38 +9,194 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreMiRouteImport } from './routes/sobre-mi'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServiciosRouteImport } from './routes/servicios'
+import { Route as FormacionesRouteImport } from './routes/formaciones'
+import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminNuevoRouteImport } from './routes/admin/nuevo'
+import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminEditarIdRouteImport } from './routes/admin/editar.$id'
 
+const SobreMiRoute = SobreMiRouteImport.update({
+  id: '/sobre-mi',
+  path: '/sobre-mi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiciosRoute = ServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FormacionesRoute = FormacionesRouteImport.update({
+  id: '/formaciones',
+  path: '/formaciones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminNuevoRoute = AdminNuevoRouteImport.update({
+  id: '/admin/nuevo',
+  path: '/admin/nuevo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/admin/dashboard',
+  path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminEditarIdRoute = AdminEditarIdRouteImport.update({
+  id: '/admin/editar/$id',
+  path: '/admin/editar/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contacto': typeof ContactoRoute
+  '/formaciones': typeof FormacionesRoute
+  '/servicios': typeof ServiciosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre-mi': typeof SobreMiRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/nuevo': typeof AdminNuevoRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/editar/$id': typeof AdminEditarIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contacto': typeof ContactoRoute
+  '/formaciones': typeof FormacionesRoute
+  '/servicios': typeof ServiciosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre-mi': typeof SobreMiRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/nuevo': typeof AdminNuevoRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/editar/$id': typeof AdminEditarIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contacto': typeof ContactoRoute
+  '/formaciones': typeof FormacionesRoute
+  '/servicios': typeof ServiciosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre-mi': typeof SobreMiRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/nuevo': typeof AdminNuevoRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/editar/$id': typeof AdminEditarIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/contacto'
+    | '/formaciones'
+    | '/servicios'
+    | '/sitemap.xml'
+    | '/sobre-mi'
+    | '/admin/dashboard'
+    | '/admin/nuevo'
+    | '/admin/'
+    | '/admin/editar/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/contacto'
+    | '/formaciones'
+    | '/servicios'
+    | '/sitemap.xml'
+    | '/sobre-mi'
+    | '/admin/dashboard'
+    | '/admin/nuevo'
+    | '/admin'
+    | '/admin/editar/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/contacto'
+    | '/formaciones'
+    | '/servicios'
+    | '/sitemap.xml'
+    | '/sobre-mi'
+    | '/admin/dashboard'
+    | '/admin/nuevo'
+    | '/admin/'
+    | '/admin/editar/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContactoRoute: typeof ContactoRoute
+  FormacionesRoute: typeof FormacionesRoute
+  ServiciosRoute: typeof ServiciosRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SobreMiRoute: typeof SobreMiRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminNuevoRoute: typeof AdminNuevoRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminEditarIdRoute: typeof AdminEditarIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sobre-mi': {
+      id: '/sobre-mi'
+      path: '/sobre-mi'
+      fullPath: '/sobre-mi'
+      preLoaderRoute: typeof SobreMiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicios': {
+      id: '/servicios'
+      path: '/servicios'
+      fullPath: '/servicios'
+      preLoaderRoute: typeof ServiciosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/formaciones': {
+      id: '/formaciones'
+      path: '/formaciones'
+      fullPath: '/formaciones'
+      preLoaderRoute: typeof FormacionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +204,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/nuevo': {
+      id: '/admin/nuevo'
+      path: '/admin/nuevo'
+      fullPath: '/admin/nuevo'
+      preLoaderRoute: typeof AdminNuevoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/editar/$id': {
+      id: '/admin/editar/$id'
+      path: '/admin/editar/$id'
+      fullPath: '/admin/editar/$id'
+      preLoaderRoute: typeof AdminEditarIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContactoRoute: ContactoRoute,
+  FormacionesRoute: FormacionesRoute,
+  ServiciosRoute: ServiciosRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SobreMiRoute: SobreMiRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminNuevoRoute: AdminNuevoRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminEditarIdRoute: AdminEditarIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
