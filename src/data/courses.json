@@ -1,0 +1,47 @@
+[
+  {
+    "id": "diplomado-internacional-2026-2027",
+    "title": "Diplomado Internacional en Gestalt de Campo 2026-2027",
+    "startDate": "2026-03-14",
+    "shortDescription": "Formación intensiva de dos años en Terapia Gestalt de Campo, con inmersiones presenciales, supervisión clínica y comunidad de práctica internacional.",
+    "status": "Próximo",
+    "location": "Maracaibo · Modalidad híbrida",
+    "duration": "24 meses"
+  },
+  {
+    "id": "seminario-contacto-2026",
+    "title": "Seminario: El Contacto como Fenómeno de Campo",
+    "startDate": "2026-01-20",
+    "shortDescription": "Ciclo de ocho encuentros quincenales sobre teoría del contacto, self y ajuste creativo desde la perspectiva de campo.",
+    "status": "En Curso",
+    "location": "Online en vivo",
+    "duration": "4 meses"
+  },
+  {
+    "id": "taller-corporalidad-2025",
+    "title": "Taller: Corporalidad y Awareness",
+    "startDate": "2025-09-05",
+    "shortDescription": "Exploración vivencial del cuerpo como lugar de contacto y regulación en el proceso terapéutico.",
+    "status": "Finalizado",
+    "location": "Presencial",
+    "duration": "3 días"
+  },
+  {
+    "id": "diplomado-2023-2024",
+    "title": "Diplomado en Gestalt de Campo 2023-2024",
+    "startDate": "2023-04-01",
+    "shortDescription": "Primera edición del diplomado internacional. 42 profesionales formados en 8 países.",
+    "status": "Finalizado",
+    "location": "Híbrido",
+    "duration": "18 meses"
+  },
+  {
+    "id": "supervision-clinica-2024",
+    "title": "Grupo de Supervisión Clínica",
+    "startDate": "2024-02-10",
+    "shortDescription": "Espacio mensual de supervisión de casos para terapeutas gestálticos en ejercicio.",
+    "status": "Finalizado",
+    "location": "Online",
+    "duration": "10 meses"
+  }
+]
