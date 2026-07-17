@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreMiRouteImport } from './routes/sobre-mi'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as FormacionesRouteImport } from './routes/formaciones'
 import { Route as ContactoRouteImport } from './routes/contacto'
@@ -22,6 +23,11 @@ import { Route as AdminEditarIdRouteImport } from './routes/admin/editar.$id'
 const SobreMiRoute = SobreMiRouteImport.update({
   id: '/sobre-mi',
   path: '/sobre-mi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiciosRoute = ServiciosRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/contacto': typeof ContactoRoute
   '/formaciones': typeof FormacionesRoute
   '/servicios': typeof ServiciosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/contacto': typeof ContactoRoute
   '/formaciones': typeof FormacionesRoute
   '/servicios': typeof ServiciosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/contacto': typeof ContactoRoute
   '/formaciones': typeof FormacionesRoute
   '/servicios': typeof ServiciosRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/formaciones'
     | '/servicios'
+    | '/sitemap.xml'
     | '/sobre-mi'
     | '/admin/dashboard'
     | '/admin/nuevo'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/formaciones'
     | '/servicios'
+    | '/sitemap.xml'
     | '/sobre-mi'
     | '/admin/dashboard'
     | '/admin/nuevo'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/formaciones'
     | '/servicios'
+    | '/sitemap.xml'
     | '/sobre-mi'
     | '/admin/dashboard'
     | '/admin/nuevo'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   ContactoRoute: typeof ContactoRoute
   FormacionesRoute: typeof FormacionesRoute
   ServiciosRoute: typeof ServiciosRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreMiRoute: typeof SobreMiRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminNuevoRoute: typeof AdminNuevoRoute
@@ -154,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/sobre-mi'
       fullPath: '/sobre-mi'
       preLoaderRoute: typeof SobreMiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/servicios': {
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactoRoute: ContactoRoute,
   FormacionesRoute: FormacionesRoute,
   ServiciosRoute: ServiciosRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreMiRoute: SobreMiRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminNuevoRoute: AdminNuevoRoute,
