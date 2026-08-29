@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "sdk_version": "0.28.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "gestalt-space",
+      "version": "0.1.0",
+      "title": "Gestalt Space"
+    },
+    "tools": [
+      {
+        "name": "list_courses",
+        "title": "Listar formaciones",
+        "description": "Lista las formaciones publicadas de Comunidad Gestáltica (diplomados, seminarios, talleres y supervisión), opcionalmente filtradas por estado.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "status": {
+              "description": "Filtrar por estado de la formación.",
+              "type": "string",
+              "enum": [
+                "Próximo",
+                "En Curso",
+                "Finalizado"
+              ]
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_course",
+        "title": "Ver una formación",
+        "description": "Devuelve el detalle de una formación publicada a partir de su id (slug).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Id / slug de la formación, ej. 'diplomado-internacional-2026-2027'."
+            }
+          },
+          "required": [
+            "id"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_contact_info",
+        "title": "Información de contacto",
+        "description": "Devuelve la información pública de contacto y las secciones del sitio de Comunidad Gestáltica.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": null,
+        "outputSchema": null
+      }
+    ]
+  }
+}
