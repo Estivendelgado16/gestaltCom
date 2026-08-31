@@ -31,16 +31,12 @@ function About() {
 
       <section className="container-clinic pb-28 grid md:grid-cols-12 gap-16">
         <div className="md:col-span-5">
-          <div
-            className="aspect-[4/5] rounded-sm relative overflow-hidden"
-            style={{
-              background: "linear-gradient(180deg, var(--sand-light), var(--cream))",
-            }}
-          >
-            <div className="absolute inset-6 border" style={{ borderColor: "color-mix(in oklab, var(--ink) 20%, transparent)" }} />
-            <div className="absolute bottom-8 left-8 right-8 text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--ink-soft)" }}>
-              Retrato · 2026
-            </div>
+          <div className="aspect-[4/5] rounded-sm relative overflow-hidden">
+            <img
+              src="/img/dany-mora.jpg"
+              alt="Dany Mora Bracho"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
           </div>
         </div>
         <div className="md:col-span-7 space-y-8 text-lg leading-relaxed" style={{ color: "var(--ink)" }}>
