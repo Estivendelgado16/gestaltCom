@@ -28,11 +28,7 @@
             "status": {
               "description": "Filtrar por estado de la formación.",
               "type": "string",
-              "enum": [
-                "Próximo",
-                "En Curso",
-                "Finalizado"
-              ]
+              "enum": ["Próximo", "En Curso", "Finalizado"]
             }
           }
         },
@@ -57,9 +53,7 @@
               "description": "Id / slug de la formación, ej. 'diplomado-internacional-2026-2027'."
             }
           },
-          "required": [
-            "id"
-          ]
+          "required": ["id"]
         },
         "outputSchema": null
       },

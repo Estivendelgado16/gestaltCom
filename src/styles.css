@@ -48,14 +48,14 @@
 :root {
   --radius: 0.5rem;
 
-  --ink: oklch(0.245 0.06 268);         /* #1D2444 */
-  --ink-soft: oklch(0.355 0.055 250);   /* #294461 */
-  --gold: oklch(0.735 0.07 75);         /* #C9A982 */
+  --ink: oklch(0.245 0.06 268); /* #1D2444 */
+  --ink-soft: oklch(0.355 0.055 250); /* #294461 */
+  --gold: oklch(0.735 0.07 75); /* #C9A982 */
   --sand: oklch(0.735 0.07 75);
-  --sand-light: oklch(0.88 0.045 70);   /* #EFD6BA */
-  --cream: oklch(0.945 0.03 75);        /* #FDEAD3 */
+  --sand-light: oklch(0.88 0.045 70); /* #EFD6BA */
+  --cream: oklch(0.945 0.03 75); /* #FDEAD3 */
 
-  --background: oklch(0.98 0.012 80);   /* near-cream page */
+  --background: oklch(0.98 0.012 80); /* near-cream page */
   --foreground: var(--ink);
 
   --card: oklch(1 0 0);
@@ -100,15 +100,21 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html, body {
+  * {
+    border-color: var(--color-border);
+  }
+  html,
+  body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
     font-weight: 700;
@@ -127,17 +133,27 @@
 }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 @utility animate-rise {
-  animation: rise 0.7s cubic-bezier(.2,.7,.2,1) both;
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 @utility animate-rise-delay {
-  animation: rise 0.7s cubic-bezier(.2,.7,.2,1) both;
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   animation-delay: 0.15s;
 }

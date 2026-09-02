@@ -1,17 +1,30 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { type ReactNode } from "react";
-import { Logo } from "./Logo";
+import { Logo } from "@/components/site/Logo";
 
 const nav = [
   { to: "/", label: "Inicio" },
   { to: "/sobre-mi", label: "Sobre mí" },
-  { to: "/servicios", label: "Servicios" },
+  {
+    to: "/servicios",
+    label: "Servicios",
+    items: [
+      { to: "/formaciones?tipo=DIPLOMADO", label: "Diplomados" },
+      { to: "/formaciones?tipo=CURSO", label: "Cursos" },
+      { to: "/formaciones?tipo=TALLER", label: "Talleres" },
+    ],
+  },
   { to: "/formaciones", label: "Formaciones" },
   { to: "/contacto", label: "Contacto" },
 ];
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const isActive = (route: string) => {
+    if (route === "/") return pathname === "/";
+    return pathname === route || pathname.startsWith(route + "/");
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -22,7 +35,28 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           </Link>
           <nav className="hidden md:flex items-center gap-10">
             {nav.map((n) => {
-              const active = n.to === "/" ? pathname === "/" : pathname.startsWith(n.to);
+              const active = isActive(n.to);
+
+              if (n.items) {
+                return (
+                  <Link
+                    key={n.to}
+                    to={n.to}
+                    className="relative text-[13px] tracking-wide uppercase transition-colors"
+                    style={{ color: active ? "var(--ink)" : "var(--ink-soft)" }}
+                  >
+                    {n.label}
+                    <svg
+                      className="w-4 h-4 transition-transform group-hover:rotate-180 inline-block"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M6 10l6 6 6-6" stroke="currentColor" strokeWidth="2" />
+                    </svg>
+                  </Link>
+                );
+              }
+
               return (
                 <Link
                   key={n.to}
@@ -59,18 +93,31 @@ export function SiteLayout({ children }: { children: ReactNode }) {
           <div>
             <Logo tone="cream" />
             <p className="mt-6 text-sm opacity-70 leading-relaxed max-w-xs">
-              Espacio de estudio, práctica y comunidad en Gestalt de Campo.
-              Fundado por Dany Mora Bracho.
+              Espacio de estudio, práctica y comunidad en Gestalt de Campo. Fundado por Dany Mora
+              Bracho.
             </p>
           </div>
           <div>
             <div className="text-[10px] uppercase tracking-[0.3em] opacity-60 mb-4">Navegación</div>
             <ul className="space-y-2 text-sm">
-              {nav.map((n) => (
-                <li key={n.to}>
-                  <Link to={n.to} className="opacity-80 hover:opacity-100">{n.label}</Link>
-                </li>
-              ))}
+              {nav.map((n) => {
+                if (n.items) {
+                  return (
+                    <li key={n.to}>
+                      <Link to={n.to} className="opacity-80 hover:opacity-100">
+                        {n.label}
+                      </Link>
+                    </li>
+                  );
+                }
+                return (
+                  <li key={n.to}>
+                    <Link to={n.to} className="opacity-80 hover:opacity-100">
+                      {n.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div>

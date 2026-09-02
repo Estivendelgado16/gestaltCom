@@ -1,4 +1,10 @@
-export function Logo({ className = "", tone = "ink" }: { className?: string; tone?: "ink" | "cream" }) {
+export function Logo({
+  className = "",
+  tone = "ink",
+}: {
+  className?: string;
+  tone?: "ink" | "cream";
+}) {
   const color = tone === "cream" ? "var(--cream)" : "var(--ink)";
   const accent = "var(--gold)";
   return (
@@ -14,10 +20,7 @@ export function Logo({ className = "", tone = "ink" }: { className?: string; ton
         <circle cx="28" cy="12" r="2.6" fill={accent} />
       </svg>
       <div className="leading-none">
-        <div
-          className="text-[15px] font-bold tracking-tight"
-          style={{ color }}
-        >
+        <div className="text-[15px] font-bold tracking-tight" style={{ color }}>
           Comunidad Gestáltica
         </div>
         <div

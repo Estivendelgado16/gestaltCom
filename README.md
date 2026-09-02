@@ -4,7 +4,7 @@ Actúa como un Arquitecto de Software Fullstack Senior. Quiero que desarrolles l
 
 ### 1. Identidad Visual (Guía de HUV):
 
-- Aplica estrictamente los colores de la marca: Oscuros (`#1D2444`, `#294461`), Dorados/Arena (`#C9A982`), Claros (`#EFD6BA`, `#FDEAD3`). 
+- Aplica estrictamente los colores de la marca: Oscuros (`#1D2444`, `#294461`), Dorados/Arena (`#C9A982`), Claros (`#EFD6BA`, `#FDEAD3`).
 
 - Utiliza fuentes sans-serif geométricas limpias y sofisticadas (estilo Nexa) con amplios márgenes que transmitan "silencio y espacio clínico".
 
@@ -14,13 +14,13 @@ Actúa como un Arquitecto de Software Fullstack Senior. Quiero que desarrolles l
 
 - Prepara y simula en el frontend la ruta privada `/admin` de Decap CMS (antiguo Netlify CMS). Diseña la interfaz visual de este panel de control privado que vería el cliente:
 
-  * Interfaz de Login minimalista y limpia para Dany Mora.
+  - Interfaz de Login minimalista y limpia para Dany Mora.
 
-  * Dashboard de administración visual donde se listen los cursos guardados en el JSON.
+  - Dashboard de administración visual donde se listen los cursos guardados en el JSON.
 
-  * Formulario intuitivo para "Crear un Nuevo Curso" con los campos: Título, Fecha de Inicio, Descripción Corta, y un Selector de Estado (con las opciones: "Próximo", "En Curso" y "Finalizado").
+  - Formulario intuitivo para "Crear un Nuevo Curso" con los campos: Título, Fecha de Inicio, Descripción Corta, y un Selector de Estado (con las opciones: "Próximo", "En Curso" y "Finalizado").
 
-  * Simula la acción de guardar simulando que escribe o actualiza el archivo JSON de constantes locales.
+  - Simula la acción de guardar simulando que escribe o actualiza el archivo JSON de constantes locales.
 
 ### 3. Vistas Públicas Independientes:
 
@@ -28,9 +28,9 @@ Actúa como un Arquitecto de Software Fullstack Senior. Quiero que desarrolles l
 
 - **Formaciones (Dinámica):** Esta página debe leer los cursos y clasificarlos automáticamente en pantalla según su estado:
 
-  * Arriba: Tarjetas destacadas con animaciones fluidas para los cursos marcados como "Próximo" o "En Curso" (ej. Diplomado Internacional 2026-2027).
+  - Arriba: Tarjetas destacadas con animaciones fluidas para los cursos marcados como "Próximo" o "En Curso" (ej. Diplomado Internacional 2026-2027).
 
-  * Abajo: Un acordeón o sección sutil de "Historial de Formaciones" que agrupe y muestre de manera más opaca los cursos marcados como "Finalizado".
+  - Abajo: Un acordeón o sección sutil de "Historial de Formaciones" que agrupe y muestre de manera más opaca los cursos marcados como "Finalizado".
 
 - **Contacto:** Formulario validado conectado a un servicio simulado de emails que redirige también a WhatsApp.
 

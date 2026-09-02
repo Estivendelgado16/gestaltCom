@@ -1,10 +1,16 @@
-import type { Course } from "@/lib/courses-store";
+import type { Course } from "@/types";
 import { Calendar, MapPin, Clock } from "lucide-react";
 
 function fmt(d: string) {
   try {
-    return new Date(d).toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" });
-  } catch { return d; }
+    return new Date(d).toLocaleDateString("es-ES", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  } catch {
+    return d;
+  }
 }
 
 export function FeaturedCourseCard({ course, delay = 0 }: { course: Course; delay?: number }) {
@@ -29,12 +35,8 @@ export function FeaturedCourseCard({ course, delay = 0 }: { course: Course; dela
       >
         {course.status}
       </div>
-      <div className="text-[11px] uppercase tracking-[0.35em] opacity-70">
-        Formación
-      </div>
-      <h3 className="mt-6 text-3xl md:text-4xl leading-tight max-w-xl">
-        {course.title}
-      </h3>
+      <div className="text-[11px] uppercase tracking-[0.35em] opacity-70">Formación</div>
+      <h3 className="mt-6 text-3xl md:text-4xl leading-tight max-w-xl">{course.title}</h3>
       <p className="mt-6 text-base leading-relaxed max-w-xl opacity-80">
         {course.shortDescription}
       </p>

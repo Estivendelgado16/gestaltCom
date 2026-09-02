@@ -11,9 +11,8 @@ import { useEffect, type ReactNode } from "react";
 import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
-
-
+import { reportLovableError } from "@/lib/errors/lovable-error-reporting";
+import { AuthProvider } from "@/context/AuthContext";
 
 function NotFoundComponent() {
   return (
@@ -81,11 +80,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Comunidad Gestáltica — Estudios de Gestalt de Campo" },
-      { name: "description", content: "Espacio de formación, práctica clínica y comunidad en Terapia Gestalt de Campo dirigido por Dany Mora Bracho." },
+      {
+        name: "description",
+        content:
+          "Espacio de formación, práctica clínica y comunidad en Terapia Gestalt de Campo dirigido por Dany Mora Bracho.",
+      },
       { name: "author", content: "Dany Mora Bracho" },
       { name: "theme-color", content: "#1D2444" },
       { property: "og:title", content: "Comunidad Gestáltica" },
-      { property: "og:description", content: "Estudios de Gestalt de Campo. Formación, terapia y comunidad." },
+      {
+        property: "og:description",
+        content: "Estudios de Gestalt de Campo. Formación, terapia y comunidad.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -94,7 +100,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -122,9 +131,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
-      <Toaster position="top-right" richColors closeButton />
+      <AuthProvider>
+        <Outlet />
+        <Toaster position="top-right" richColors closeButton />
+      </AuthProvider>
     </QueryClientProvider>
   );
-
 }

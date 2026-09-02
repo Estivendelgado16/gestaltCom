@@ -19,7 +19,11 @@ export default defineTool({
   title: "Ver una formación",
   description: "Devuelve el detalle de una formación publicada a partir de su id (slug).",
   inputSchema: {
-    id: z.string().trim().min(1).describe("Id / slug de la formación, ej. 'diplomado-internacional-2026-2027'."),
+    id: z
+      .string()
+      .trim()
+      .min(1)
+      .describe("Id / slug de la formación, ej. 'diplomado-internacional-2026-2027'."),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ id }) => {

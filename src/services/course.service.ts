@@ -1,17 +1,6 @@
 import { useSyncExternalStore } from "react";
 import seed from "@/data/courses.json";
-
-export type CourseStatus = "Próximo" | "En Curso" | "Finalizado";
-
-export interface Course {
-  id: string;
-  title: string;
-  startDate: string;
-  shortDescription: string;
-  status: CourseStatus;
-  location?: string;
-  duration?: string;
-}
+import type { Course } from "@/types";
 
 const STORAGE_KEY = "cg:courses:v1";
 const listeners = new Set<() => void>();
@@ -33,24 +22,21 @@ function write(next: Course[]) {
   listeners.forEach((l) => l());
 }
 
-export function getCourses(): Course[] {
-  return read();
-}
-
-export function subscribe(cb: () => void) {
+function subscribe(cb: () => void) {
   listeners.add(cb);
   return () => listeners.delete(cb);
 }
 
 export function useCourses(): Course[] {
   return useSyncExternalStore(
-    (cb) => {
-      listeners.add(cb);
-      return () => listeners.delete(cb);
-    },
+    (cb) => subscribe(cb),
     () => read(),
     () => seed as Course[],
   );
+}
+
+export function getCourses(): Course[] {
+  return read();
 }
 
 export function saveCourse(course: Course) {

@@ -9,44 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SobreMiRouteImport } from './routes/sobre-mi'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ServiciosRouteImport } from './routes/servicios'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as FormacionesRouteImport } from './routes/formaciones'
-import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as AdminNuevoRouteImport } from './routes/admin/nuevo'
-import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as ClasesRouteImport } from './routes/clases'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as FormacionesRouteImport } from './routes/formaciones'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as PagosRouteImport } from './routes/pagos'
+import { Route as ServiciosRouteImport } from './routes/servicios'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SobreMiRouteImport } from './routes/sobre-mi'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as AdminEditarIdRouteImport } from './routes/admin/editar.$id'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminNuevoRouteImport } from './routes/admin/nuevo'
+import { Route as AdminPagosRouteImport } from './routes/admin/pagos'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as AdminEditarIdRouteImport } from './routes/admin/editar.$id'
 
-const SobreMiRoute = SobreMiRouteImport.update({
-  id: '/sobre-mi',
-  path: '/sobre-mi',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServiciosRoute = ServiciosRouteImport.update({
-  id: '/servicios',
-  path: '/servicios',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FormacionesRoute = FormacionesRouteImport.update({
-  id: '/formaciones',
-  path: '/formaciones',
+const ClasesRoute = ClasesRouteImport.update({
+  id: '/clases',
+  path: '/clases',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactoRoute = ContactoRouteImport.update({
@@ -54,19 +42,51 @@ const ContactoRoute = ContactoRouteImport.update({
   path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const FormacionesRoute = FormacionesRouteImport.update({
+  id: '/formaciones',
+  path: '/formaciones',
   getParentRoute: () => rootRouteImport,
 } as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagosRoute = PagosRouteImport.update({
+  id: '/pagos',
+  path: '/pagos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiciosRoute = ServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreMiRoute = SobreMiRouteImport.update({
+  id: '/sobre-mi',
+  path: '/sobre-mi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminNuevoRoute = AdminNuevoRouteImport.update({
-  id: '/admin/nuevo',
-  path: '/admin/nuevo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
@@ -74,21 +94,14 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
   path: '/admin/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AdminEditarIdRoute = AdminEditarIdRouteImport.update({
-  id: '/admin/editar/$id',
-  path: '/admin/editar/$id',
+const AdminNuevoRoute = AdminNuevoRouteImport.update({
+  id: '/admin/nuevo',
+  path: '/admin/nuevo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPagosRoute = AdminPagosRouteImport.update({
+  id: '/admin/pagos',
+  path: '/admin/pagos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
@@ -97,12 +110,19 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AdminEditarIdRoute = AdminEditarIdRouteImport.update({
+  id: '/admin/editar/$id',
+  path: '/admin/editar/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
   '/formaciones': typeof FormacionesRoute
   '/mcp': typeof McpRoute
+  '/pagos': typeof PagosRoute
   '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
@@ -110,15 +130,18 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
+  '/admin/pagos': typeof AdminPagosRoute
   '/admin/': typeof AdminIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/editar/$id': typeof AdminEditarIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
   '/formaciones': typeof FormacionesRoute
   '/mcp': typeof McpRoute
+  '/pagos': typeof PagosRoute
   '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
@@ -126,6 +149,7 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
+  '/admin/pagos': typeof AdminPagosRoute
   '/admin': typeof AdminIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/editar/$id': typeof AdminEditarIdRoute
@@ -133,9 +157,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
   '/formaciones': typeof FormacionesRoute
   '/mcp': typeof McpRoute
+  '/pagos': typeof PagosRoute
   '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
@@ -143,6 +169,7 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
+  '/admin/pagos': typeof AdminPagosRoute
   '/admin/': typeof AdminIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/editar/$id': typeof AdminEditarIdRoute
@@ -151,9 +178,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/clases'
     | '/contacto'
     | '/formaciones'
     | '/mcp'
+    | '/pagos'
     | '/servicios'
     | '/sitemap.xml'
     | '/sobre-mi'
@@ -161,15 +190,18 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/admin/dashboard'
     | '/admin/nuevo'
+    | '/admin/pagos'
     | '/admin/'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/editar/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/clases'
     | '/contacto'
     | '/formaciones'
     | '/mcp'
+    | '/pagos'
     | '/servicios'
     | '/sitemap.xml'
     | '/sobre-mi'
@@ -177,15 +209,18 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/admin/dashboard'
     | '/admin/nuevo'
+    | '/admin/pagos'
     | '/admin'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/editar/$id'
   id:
     | '__root__'
     | '/'
+    | '/clases'
     | '/contacto'
     | '/formaciones'
     | '/mcp'
+    | '/pagos'
     | '/servicios'
     | '/sitemap.xml'
     | '/sobre-mi'
@@ -193,6 +228,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/admin/dashboard'
     | '/admin/nuevo'
+    | '/admin/pagos'
     | '/admin/'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/editar/$id'
@@ -200,9 +236,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ClasesRoute: typeof ClasesRoute
   ContactoRoute: typeof ContactoRoute
   FormacionesRoute: typeof FormacionesRoute
   McpRoute: typeof McpRoute
+  PagosRoute: typeof PagosRoute
   ServiciosRoute: typeof ServiciosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreMiRoute: typeof SobreMiRoute
@@ -210,6 +248,7 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminNuevoRoute: typeof AdminNuevoRoute
+  AdminPagosRoute: typeof AdminPagosRoute
   AdminIndexRoute: typeof AdminIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   AdminEditarIdRoute: typeof AdminEditarIdRoute
@@ -217,39 +256,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sobre-mi': {
-      id: '/sobre-mi'
-      path: '/sobre-mi'
-      fullPath: '/sobre-mi'
-      preLoaderRoute: typeof SobreMiRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/servicios': {
-      id: '/servicios'
-      path: '/servicios'
-      fullPath: '/servicios'
-      preLoaderRoute: typeof ServiciosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/formaciones': {
-      id: '/formaciones'
-      path: '/formaciones'
-      fullPath: '/formaciones'
-      preLoaderRoute: typeof FormacionesRouteImport
+    '/clases': {
+      id: '/clases'
+      path: '/clases'
+      fullPath: '/clases'
+      preLoaderRoute: typeof ClasesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacto': {
@@ -259,39 +277,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/formaciones': {
+      id: '/formaciones'
+      path: '/formaciones'
+      fullPath: '/formaciones'
+      preLoaderRoute: typeof FormacionesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/nuevo': {
-      id: '/admin/nuevo'
-      path: '/admin/nuevo'
-      fullPath: '/admin/nuevo'
-      preLoaderRoute: typeof AdminNuevoRouteImport
+    '/pagos': {
+      id: '/pagos'
+      path: '/pagos'
+      fullPath: '/pagos'
+      preLoaderRoute: typeof PagosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/dashboard': {
-      id: '/admin/dashboard'
-      path: '/admin/dashboard'
-      fullPath: '/admin/dashboard'
-      preLoaderRoute: typeof AdminDashboardRouteImport
+    '/servicios': {
+      id: '/servicios'
+      path: '/servicios'
+      fullPath: '/servicios'
+      preLoaderRoute: typeof ServiciosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre-mi': {
+      id: '/sobre-mi'
+      path: '/sobre-mi'
+      fullPath: '/sobre-mi'
+      preLoaderRoute: typeof SobreMiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -301,11 +326,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/editar/$id': {
-      id: '/admin/editar/$id'
-      path: '/admin/editar/$id'
-      fullPath: '/admin/editar/$id'
-      preLoaderRoute: typeof AdminEditarIdRouteImport
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/nuevo': {
+      id: '/admin/nuevo'
+      path: '/admin/nuevo'
+      fullPath: '/admin/nuevo'
+      preLoaderRoute: typeof AdminNuevoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/pagos': {
+      id: '/admin/pagos'
+      path: '/admin/pagos'
+      fullPath: '/admin/pagos'
+      preLoaderRoute: typeof AdminPagosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/invoke-tool/$tool': {
@@ -315,14 +368,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/editar/$id': {
+      id: '/admin/editar/$id'
+      path: '/admin/editar/$id'
+      fullPath: '/admin/editar/$id'
+      preLoaderRoute: typeof AdminEditarIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ClasesRoute: ClasesRoute,
   ContactoRoute: ContactoRoute,
   FormacionesRoute: FormacionesRoute,
   McpRoute: McpRoute,
+  PagosRoute: PagosRoute,
   ServiciosRoute: ServiciosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreMiRoute: SobreMiRoute,
@@ -331,6 +393,7 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminNuevoRoute: AdminNuevoRoute,
+  AdminPagosRoute: AdminPagosRoute,
   AdminIndexRoute: AdminIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   AdminEditarIdRoute: AdminEditarIdRoute,
