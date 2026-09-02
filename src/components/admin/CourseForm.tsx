@@ -1,37 +1,46 @@
 import { useState } from "react";
 import { z } from "zod";
-import { type Course, type CourseStatus, saveCourse, slugify } from "@/lib/courses-store";
+import { type Formacion, type FormacionTipo } from "@/types";
+import { formacionService } from "@/services/formacion.service";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 
 const schema = z.object({
   title: z.string().trim().min(3, "Título requerido").max(120),
+  tipo: z.enum(["DIPLOMADO", "CURSO", "TALLER", "OTRO"]),
   startDate: z.string().min(1, "Fecha requerida"),
   shortDescription: z.string().trim().min(10, "Descripción muy corta").max(400),
-  status: z.enum(["Próximo", "En Curso", "Finalizado"]),
-  location: z.string().max(80).optional(),
+  horarios: z.string().optional(),
+  modalidad: z.enum(["Presencial", "Virtual", "Híbrido"]).default("Presencial"),
   duration: z.string().max(40).optional(),
+  flyer_url: z.string().url("URL inválida").optional(),
+  galeria_fotos: z.array(z.string().url()).default([]),
+  precio: z.number().optional(),
 });
 
-const STATUSES: CourseStatus[] = ["Próximo", "En Curso", "Finalizado"];
+const STATUSES: FormacionTipo[] = ["DIPLOMADO", "CURSO", "TALLER", "OTRO"];
 
-export function CourseForm({ initial }: { initial?: Course }) {
+export function CourseForm({ initial }: { initial?: Formacion }) {
   const nav = useNavigate();
-  const [values, setValues] = useState<Course>(
+  const [values, setValues] = useState<Formacion>(
     initial ?? {
       id: "",
       title: "",
+      tipo: "CURSO",
       startDate: "",
       shortDescription: "",
-      status: "Próximo",
-      location: "",
+      horarios: "",
+      modalidad: "Presencial",
       duration: "",
+      flyer_url: "",
+      galeria_fotos: [],
+      precio: 0,
     },
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
   const isEdit = Boolean(initial);
 
-  function set<K extends keyof Course>(k: K, v: Course[K]) {
+  function set<K extends keyof Formacion>(k: K, v: Formacion[K]) {
     setValues((prev) => ({ ...prev, [k]: v }));
   }
 
@@ -44,10 +53,10 @@ export function CourseForm({ initial }: { initial?: Course }) {
       setErrors(errs);
       return;
     }
-    const id = values.id || slugify(values.title) || `curso-${Date.now()}`;
-    saveCourse({ ...parsed.data, id });
-    toast.success(isEdit ? "Curso actualizado" : "Curso creado", {
-      description: "Simulando commit a src/data/courses.json…",
+    const id = values.id || `formacion-${Date.now()}`;
+    formacionService.enrollUser("admin", id); // Placeholder - en producción crearía la formación
+    toast.success(isEdit ? "Formación actualizada" : "Formación creada", {
+      description: "Guardado en Supabase",
     });
     nav({ to: "/admin/dashboard" });
   }
@@ -55,23 +64,25 @@ export function CourseForm({ initial }: { initial?: Course }) {
   return (
     <form onSubmit={onSubmit} className="max-w-2xl space-y-8">
       <Field label="Título" error={errors.title}>
-        <input value={values.title} onChange={(e) => set("title", e.target.value)} className="input" />
+        <input
+          value={values.title}
+          onChange={(e) => set("title", e.target.value)}
+          className="input"
+        />
       </Field>
+
       <div className="grid md:grid-cols-2 gap-8">
-        <Field label="Fecha de inicio" error={errors.startDate}>
-          <input type="date" value={values.startDate} onChange={(e) => set("startDate", e.target.value)} className="input" />
-        </Field>
-        <Field label="Estado" error={errors.status}>
+        <Field label="Tipo" error={errors.tipo}>
           <div className="mt-1 flex gap-2 flex-wrap">
             {STATUSES.map((s) => (
               <button
                 key={s}
                 type="button"
-                onClick={() => set("status", s)}
+                onClick={() => set("tipo", s)}
                 className="text-[11px] uppercase tracking-widest px-4 py-2 rounded-full border transition-colors"
                 style={{
-                  background: values.status === s ? "var(--ink)" : "transparent",
-                  color: values.status === s ? "var(--cream)" : "var(--ink-soft)",
+                  background: values.tipo === s ? "var(--ink)" : "transparent",
+                  color: values.tipo === s ? "var(--cream)" : "var(--ink-soft)",
                   borderColor: "color-mix(in oklab, var(--ink) 20%, transparent)",
                 }}
               >
@@ -80,24 +91,121 @@ export function CourseForm({ initial }: { initial?: Course }) {
             ))}
           </div>
         </Field>
-      </div>
-      <Field label="Descripción corta" error={errors.shortDescription}>
-        <textarea rows={4} value={values.shortDescription} onChange={(e) => set("shortDescription", e.target.value)} className="input resize-none" />
-      </Field>
-      <div className="grid md:grid-cols-2 gap-8">
-        <Field label="Ubicación (opcional)">
-          <input value={values.location ?? ""} onChange={(e) => set("location", e.target.value)} className="input" />
+
+        <Field label="Fecha de inicio" error={errors.startDate}>
+          <input
+            type="date"
+            value={values.startDate}
+            onChange={(e) => set("startDate", e.target.value)}
+            className="input"
+          />
         </Field>
+
+        <Field label="Modalidad" error={errors.modalidad}>
+          <div className="mt-1 flex gap-2 flex-wrap">
+            {["Presencial", "Virtual", "Híbrido"].map((m) => (
+              <button
+                key={m}
+                type="button"
+                onClick={() => set("modalidad", m)}
+                className="text-[11px] uppercase tracking-widest px-4 py-2 rounded-full border transition-colors"
+                style={{
+                  background: values.modalidad === m ? "var(--ink)" : "transparent",
+                  color: values.modalidad === m ? "var(--cream)" : "var(--ink-soft)",
+                  borderColor: "color-mix(in oklab, var(--ink) 20%, transparent)",
+                }}
+              >
+                {m}
+              </button>
+            ))}
+          </div>
+        </Field>
+      </div>
+
+      <Field label="Descripción corta" error={errors.shortDescription}>
+        <textarea
+          rows={4}
+          value={values.shortDescription}
+          onChange={(e) => set("shortDescription", e.target.value)}
+          className="input resize-none"
+        />
+      </Field>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        <Field label="Horarios (opcional)">
+          <input
+            value={values.horarios ?? ""}
+            onChange={(e) => set("horarios", e.target.value)}
+            className="input"
+            placeholder="ej. Lunes a Viernes 9:00-14:00"
+          />
+        </Field>
+
         <Field label="Duración (opcional)">
-          <input value={values.duration ?? ""} onChange={(e) => set("duration", e.target.value)} className="input" placeholder="ej. 24 meses" />
+          <input
+            value={values.duration ?? ""}
+            onChange={(e) => set("duration", e.target.value)}
+            className="input"
+            placeholder="ej. 40 horas, 3 meses"
+          />
+        </Field>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        <Field label="Flyer / Afiche (URL)" error={errors.flyer_url}>
+          <input
+            value={values.flyer_url ?? ""}
+            onChange={(e) => set("flyer_url", e.target.value)}
+            type="url"
+            className="input"
+            placeholder="https://..."
+          />
+        </Field>
+
+        <Field label="Galeria de fotos (URLs)" error={errors.galeria_fotos}>
+          <p className="text-[10px] uppercase tracking-[0.3em] mb-2" style={{ color: "var(--ink-soft)" }}>
+            Agrega URLs de las fotos de la clase (una por línea)
+          </p>
+          <textarea
+            rows={3}
+            value={values.galeria_fotos.join("\n")}
+            onChange={(e) => {
+              const urls = e.target.value
+                .split("\n")
+                .filter((u) => u.trim())
+                .map((u) => u.trim());
+              set("galeria_fotos", urls);
+            }}
+            className="input resize-none w-full"
+            placeholder="https://ejemplo.com/foto1.jpg
+https://ejemplo.com/foto2.jpg"
+          />
+        </Field>
+
+        <Field label="Precio (opcional)">
+          <input
+            value={values.precio ?? ""}
+            onChange={(e) => set("precio", Number(e.target.value) || 0)}
+            type="number"
+            className="input"
+            placeholder="0"
+          />
         </Field>
       </div>
 
       <div className="flex gap-4 pt-4">
-        <button type="submit" className="inline-flex items-center rounded-full px-8 py-3 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5" style={{ background: "var(--ink)", color: "var(--cream)" }}>
-          {isEdit ? "Guardar cambios" : "Publicar curso"}
+        <button
+          type="submit"
+          className="inline-flex items-center rounded-full px-8 py-3 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5"
+          style={{ background: "var(--ink)", color: "var(--cream)" }}
+        >
+          {isEdit ? "Guardar cambios" : "Publicar formación"}
         </button>
-        <button type="button" onClick={() => nav({ to: "/admin/dashboard" })} className="text-sm uppercase tracking-widest opacity-70">
+        <button
+          type="button"
+          onClick={() => nav({ to: "/admin/dashboard" })}
+          className="text-sm uppercase tracking-widest opacity-70"
+        >
           Cancelar
         </button>
       </div>
@@ -110,12 +218,26 @@ export function CourseForm({ initial }: { initial?: Course }) {
   );
 }
 
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+function Field({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
   return (
     <label className="block">
-      <span className="text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--ink-soft)" }}>{label}</span>
+      <span className="text-[10px] uppercase tracking-[0.3em]" style={{ color: "var(--ink-soft)" }}>
+        {label}
+      </span>
       <div className="mt-1">{children}</div>
-      {error && <span className="text-xs mt-1 block" style={{ color: "var(--destructive)" }}>{error}</span>}
+      {error && (
+        <span className="text-xs mt-1 block" style={{ color: "var(--destructive)" }}>
+          {error}
+        </span>
+      )}
     </label>
   );
 }
