@@ -27,7 +27,7 @@ export function FormacionesPage() {
 
   return (
     <SiteLayout>
-      <section className="container-clinic pt-24 pb-16">
+      <section className="container-clinic pt-6 pb-16">
         <div
           className="text-[11px] uppercase tracking-[0.35em]"
           style={{ color: "var(--ink-soft)" }}
