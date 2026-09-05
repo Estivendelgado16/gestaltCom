@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import type { Session, User } from "@supabase/supabase-js";
+import { useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/lib/supabaseClient";
 
 interface AuthState {
@@ -94,7 +95,20 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export function useRequireAuth() {
+/**
+ * Guard de autenticación para páginas privadas.
+ * Redirige a `redirectTo` (login) cuando no hay sesión activa.
+ * Devuelve el estado de auth para renderizar loading / contenido.
+ */
+export function useRequireAuth(redirectTo: string = "/admin") {
   const auth = useAuth();
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (!auth.loading && !auth.user) {
+      nav({ to: redirectTo });
+    }
+  }, [auth.loading, auth.user, nav, redirectTo]);
+
   return auth;
 }
