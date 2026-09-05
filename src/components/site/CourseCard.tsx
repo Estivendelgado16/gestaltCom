@@ -1,4 +1,4 @@
-import type { Course } from "@/types";
+import type { Formacion } from "@/types";
 import { Calendar, MapPin, Clock } from "lucide-react";
 
 function fmt(d: string) {
@@ -13,8 +13,8 @@ function fmt(d: string) {
   }
 }
 
-export function FeaturedCourseCard({ course, delay = 0 }: { course: Course; delay?: number }) {
-  const isProx = course.status === "Próximo";
+export function FeaturedCourseCard({ course, delay = 0 }: { course: Formacion; delay?: number }) {
+  const isProx = course.tipo === "DIPLOMADO";
   return (
     <article
       className="group relative overflow-hidden rounded-sm p-10 md:p-12 transition-transform hover:-translate-y-1"
@@ -33,25 +33,25 @@ export function FeaturedCourseCard({ course, delay = 0 }: { course: Course; dela
           color: isProx ? "var(--ink)" : "var(--cream)",
         }}
       >
-        {course.status}
+        {course.tipo}
       </div>
       <div className="text-[11px] uppercase tracking-[0.35em] opacity-70">Formación</div>
-      <h3 className="mt-6 text-3xl md:text-4xl leading-tight max-w-xl">{course.title}</h3>
+      <h3 className="mt-6 text-3xl md:text-4xl leading-tight max-w-xl">{course.titulo}</h3>
       <p className="mt-6 text-base leading-relaxed max-w-xl opacity-80">
-        {course.shortDescription}
+        {course.descripcion}
       </p>
       <div className="mt-10 flex flex-wrap gap-6 text-[13px]">
         <span className="inline-flex items-center gap-2 opacity-80">
-          <Calendar className="w-4 h-4" /> {fmt(course.startDate)}
+          <Calendar className="w-4 h-4" /> {fmt(course.fecha_inicio)}
         </span>
-        {course.location && (
+        {course.modalidad && (
           <span className="inline-flex items-center gap-2 opacity-80">
-            <MapPin className="w-4 h-4" /> {course.location}
+            <MapPin className="w-4 h-4" /> {course.modalidad}
           </span>
         )}
-        {course.duration && (
+        {course.duracion && (
           <span className="inline-flex items-center gap-2 opacity-80">
-            <Clock className="w-4 h-4" /> {course.duration}
+            <Clock className="w-4 h-4" /> {course.duracion}
           </span>
         )}
       </div>

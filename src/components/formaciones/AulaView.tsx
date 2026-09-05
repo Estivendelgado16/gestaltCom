@@ -1,8 +1,8 @@
 import { useAuth } from "@/context/AuthContext";
 import { useLessons } from "@/hooks/useLessons";
-import { useFormacionModules } from "@/services/formacion.service";
 import { Lesson } from "@/types";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { useFormacionModules } from "@/services/formacion.service";
 import { Lock, Play, FileText, Upload } from "lucide-react";
 
 export function AulaView({ formacionId }: { formacionId: string }) {
@@ -12,7 +12,7 @@ export function AulaView({ formacionId }: { formacionId: string }) {
 
   useEffect(() => {
     if (!authLoading && !user) {
-      // En producción redirigiría al login
+      // Navigate to login if no user
     }
   }, [user, authLoading]);
 
@@ -32,8 +32,6 @@ export function AulaView({ formacionId }: { formacionId: string }) {
 
   if (!user) return null;
 
-  // Verificar acceso pagado a esta formación específica
-  // Por ahora mostramos mensaje genérico - en producción verificaría user_enrollments
   if (!hasPaidAccess) {
     return (
       <SiteLayout>
@@ -46,13 +44,13 @@ export function AulaView({ formacionId }: { formacionId: string }) {
             Para acceder a las clases de esta formación, necesitas tener una inscripción activa
             y el pago aprobado por el administrador.
           </p>
-          <Link
-            to={`/formaciones/${formacionId}/payment`}
+          <a
+            href={`/formaciones/${formacionId}/payment`}
             className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5"
             style={{ background: "var(--ink)", color: "var(--cream)" }}
           >
             <Upload className="w-4 h-4" /> Inscribirme y pagar
-          </Link>
+          </a>
         </div>
       </SiteLayout>
     );
@@ -113,7 +111,48 @@ export function AulaView({ formacionId }: { formacionId: string }) {
                   )}
                   <div className="space-y-3">
                     {modLessons.map((lesson) => (
-                      <LessonCard key={lesson.id} lesson={lesson} />
+                      <div key={lesson.id} className="flex items-center gap-4 p-3 rounded-sm border transition-colors hover:bg-[color-mix(in_oklab,var(--sand-light)_30%,transparent)]" style={{ borderColor: "color-mix(in oklab, var(--ink) 12%, transparent)" }}>
+                        <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "var(--sand-light)" }}>
+                          <Play className="w-4 h-4" style={{ color: "var(--ink)" }} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium" style={{ color: "var(--ink)" }}>
+                            {lesson.title}
+                          </div>
+                          {lesson.description && (
+                            <div className="text-xs mt-0.5 truncate" style={{ color: "var(--ink-soft)" }}>
+                              {lesson.description}
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex gap-2">
+                          {lesson.video_url && (
+                            <a
+                              href={lesson.video_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs uppercase tracking-widest px-3 py-1.5 rounded-full transition-colors"
+                              style={{ background: "var(--ink)", color: "var(--cream)" }}
+                            >
+                              <Play className="w-3 h-3" /> Ver
+                            </a>
+                          )}
+                          {lesson.pdf_url && (
+                            <a
+                              href={lesson.pdf_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs uppercase tracking-widest px-3 py-1.5 rounded-full border"
+                              style={{
+                                borderColor: "color-mix(in oklab, var(--ink) 20%, transparent)",
+                                color: "var(--ink-soft)",
+                              }}
+                            >
+                              <FileText className="w-3 h-3" /> PDF
+                            </a>
+                          )}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -127,7 +166,48 @@ export function AulaView({ formacionId }: { formacionId: string }) {
                 </h2>
                 <div className="space-y-3">
                   {ungrouped.map((lesson) => (
-                    <LessonCard key={lesson.id} lesson={lesson} />
+                    <div key={lesson.id} className="flex items-center gap-4 p-3 rounded-sm border transition-colors hover:bg-[color-mix(in_oklab,var(--sand-light)_30%,transparent)]" style={{ borderColor: "color-mix(in oklab, var(--ink) 12%, transparent)" }}>
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "var(--sand-light)" }}>
+                        <Play className="w-4 h-4" style={{ color: "var(--ink)" }} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium" style={{ color: "var(--ink)" }}>
+                          {lesson.title}
+                        </div>
+                        {lesson.description && (
+                          <div className="text-xs mt-0.5 truncate" style={{ color: "var(--ink-soft)" }}>
+                            {lesson.description}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex gap-2">
+                        {lesson.video_url && (
+                          <a
+                            href={lesson.video_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs uppercase tracking-widest px-3 py-1.5 rounded-full transition-colors"
+                            style={{ background: "var(--ink)", color: "var(--cream)" }}
+                          >
+                            <Play className="w-3 h-3" /> Ver
+                          </a>
+                        )}
+                        {lesson.pdf_url && (
+                          <a
+                            href={lesson.pdf_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs uppercase tracking-widest px-3 py-1.5 rounded-full border"
+                            style={{
+                              borderColor: "color-mix(in oklab, var(--ink) 20%, transparent)",
+                              color: "var(--ink-soft)",
+                            }}
+                          >
+                            <FileText className="w-3 h-3" /> PDF
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -136,37 +216,5 @@ export function AulaView({ formacionId }: { formacionId: string }) {
         )}
       </section>
     </SiteLayout>
-  );
-}
-
-function LessonCard({ lesson }: { lesson: Lesson }) {
-  return (
-    <div className="flex items-center gap-4 p-5 rounded-sm border transition-colors hover:bg-[color-mix(in_oklab,var(--sand-light)_30%,transparent)]" style={{ borderColor: "color-mix(in oklab, var(--ink) 12%, transparent)" }}>
-      <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={{ background: "var(--sand-light)" }}>
-        <Play className="w-4 h-4" style={{ color: "var(--ink)" }} />
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="text-sm font-medium" style={{ color: "var(--ink)" }}>
-          {lesson.title}
-        </div>
-        {lesson.description && (
-          <div className="text-xs mt-0.5 truncate" style={{ color: "var(--ink-soft)" }}>
-            {lesson.description}
-          </div>
-        )}
-      </div>
-      <div className="flex gap-2">
-        {lesson.video_url && (
-          <a href={lesson.video_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs uppercase tracking-widest px-3 py-1.5 rounded-full transition-colors" style={{ background: "var(--ink)", color: "var(--cream)" }}>
-            <Play className="w-3 h-3" /> Ver
-          </a>
-        )}
-        {lesson.pdf_url && (
-          <a href={lesson.pdf_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs uppercase tracking-widest px-3 py-1.5 rounded-full border" style={{ borderColor: "color-mix(in oklab, var(--ink) 20%, transparent)", color: "var(--ink-soft)" }}>
-            <FileText className="w-3 h-3" /> PDF
-          </a>
-        )}
-      </div>
-    </div>
   );
 }

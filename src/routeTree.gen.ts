@@ -24,6 +24,9 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminNuevoRouteImport } from './routes/admin/nuevo'
 import { Route as AdminPagosRouteImport } from './routes/admin/pagos'
+import { Route as FormacionesIndexRouteImport } from './routes/formaciones/index'
+import { Route as FormacionesFormacionIdRouteImport } from './routes/formaciones/$formacionId'
+import { Route as FormacionesClasesRouteImport } from './routes/formaciones/clases'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as AdminEditarIdRouteImport } from './routes/admin/editar.$id'
 
@@ -104,6 +107,21 @@ const AdminPagosRoute = AdminPagosRouteImport.update({
   path: '/admin/pagos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FormacionesIndexRoute = FormacionesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => FormacionesRoute,
+} as any)
+const FormacionesFormacionIdRoute = FormacionesFormacionIdRouteImport.update({
+  id: '/$formacionId',
+  path: '/$formacionId',
+  getParentRoute: () => FormacionesRoute,
+} as any)
+const FormacionesClasesRoute = FormacionesClasesRouteImport.update({
+  id: '/clases',
+  path: '/clases',
+  getParentRoute: () => FormacionesRoute,
+} as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -120,7 +138,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
-  '/formaciones': typeof FormacionesRoute
+  '/formaciones': typeof FormacionesRouteWithChildren
   '/mcp': typeof McpRoute
   '/pagos': typeof PagosRoute
   '/servicios': typeof ServiciosRoute
@@ -131,7 +149,10 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
   '/admin/pagos': typeof AdminPagosRoute
+  '/formaciones/$formacionId': typeof FormacionesFormacionIdRoute
+  '/formaciones/clases': typeof FormacionesClasesRoute
   '/admin/': typeof AdminIndexRoute
+  '/formaciones/': typeof FormacionesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/editar/$id': typeof AdminEditarIdRoute
 }
@@ -139,7 +160,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
-  '/formaciones': typeof FormacionesRoute
   '/mcp': typeof McpRoute
   '/pagos': typeof PagosRoute
   '/servicios': typeof ServiciosRoute
@@ -150,7 +170,10 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
   '/admin/pagos': typeof AdminPagosRoute
+  '/formaciones/$formacionId': typeof FormacionesFormacionIdRoute
+  '/formaciones/clases': typeof FormacionesClasesRoute
   '/admin': typeof AdminIndexRoute
+  '/formaciones': typeof FormacionesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/editar/$id': typeof AdminEditarIdRoute
 }
@@ -159,7 +182,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
-  '/formaciones': typeof FormacionesRoute
+  '/formaciones': typeof FormacionesRouteWithChildren
   '/mcp': typeof McpRoute
   '/pagos': typeof PagosRoute
   '/servicios': typeof ServiciosRoute
@@ -170,7 +193,10 @@ export interface FileRoutesById {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
   '/admin/pagos': typeof AdminPagosRoute
+  '/formaciones/$formacionId': typeof FormacionesFormacionIdRoute
+  '/formaciones/clases': typeof FormacionesClasesRoute
   '/admin/': typeof AdminIndexRoute
+  '/formaciones/': typeof FormacionesIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/editar/$id': typeof AdminEditarIdRoute
 }
@@ -191,7 +217,10 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/nuevo'
     | '/admin/pagos'
+    | '/formaciones/$formacionId'
+    | '/formaciones/clases'
     | '/admin/'
+    | '/formaciones/'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/editar/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -199,7 +228,6 @@ export interface FileRouteTypes {
     | '/'
     | '/clases'
     | '/contacto'
-    | '/formaciones'
     | '/mcp'
     | '/pagos'
     | '/servicios'
@@ -210,7 +238,10 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/nuevo'
     | '/admin/pagos'
+    | '/formaciones/$formacionId'
+    | '/formaciones/clases'
     | '/admin'
+    | '/formaciones'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/editar/$id'
   id:
@@ -229,7 +260,10 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/nuevo'
     | '/admin/pagos'
+    | '/formaciones/$formacionId'
+    | '/formaciones/clases'
     | '/admin/'
+    | '/formaciones/'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/editar/$id'
   fileRoutesById: FileRoutesById
@@ -238,7 +272,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ClasesRoute: typeof ClasesRoute
   ContactoRoute: typeof ContactoRoute
-  FormacionesRoute: typeof FormacionesRoute
+  FormacionesRoute: typeof FormacionesRouteWithChildren
   McpRoute: typeof McpRoute
   PagosRoute: typeof PagosRoute
   ServiciosRoute: typeof ServiciosRoute
@@ -361,6 +395,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPagosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/formaciones/': {
+      id: '/formaciones/'
+      path: '/'
+      fullPath: '/formaciones/'
+      preLoaderRoute: typeof FormacionesIndexRouteImport
+      parentRoute: typeof FormacionesRoute
+    }
+    '/formaciones/$formacionId': {
+      id: '/formaciones/$formacionId'
+      path: '/$formacionId'
+      fullPath: '/formaciones/$formacionId'
+      preLoaderRoute: typeof FormacionesFormacionIdRouteImport
+      parentRoute: typeof FormacionesRoute
+    }
+    '/formaciones/clases': {
+      id: '/formaciones/clases'
+      path: '/clases'
+      fullPath: '/formaciones/clases'
+      preLoaderRoute: typeof FormacionesClasesRouteImport
+      parentRoute: typeof FormacionesRoute
+    }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
       path: '/.mcp/invoke-tool/$tool'
@@ -378,11 +433,27 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface FormacionesRouteChildren {
+  FormacionesFormacionIdRoute: typeof FormacionesFormacionIdRoute
+  FormacionesClasesRoute: typeof FormacionesClasesRoute
+  FormacionesIndexRoute: typeof FormacionesIndexRoute
+}
+
+const FormacionesRouteChildren: FormacionesRouteChildren = {
+  FormacionesFormacionIdRoute: FormacionesFormacionIdRoute,
+  FormacionesClasesRoute: FormacionesClasesRoute,
+  FormacionesIndexRoute: FormacionesIndexRoute,
+}
+
+const FormacionesRouteWithChildren = FormacionesRoute._addFileChildren(
+  FormacionesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ClasesRoute: ClasesRoute,
   ContactoRoute: ContactoRoute,
-  FormacionesRoute: FormacionesRoute,
+  FormacionesRoute: FormacionesRouteWithChildren,
   McpRoute: McpRoute,
   PagosRoute: PagosRoute,
   ServiciosRoute: ServiciosRoute,

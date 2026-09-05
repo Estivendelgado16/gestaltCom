@@ -19,21 +19,30 @@ function EditarCursoPage() {
   const nav = useNavigate();
   const { user, loading } = useAuth();
   const { id } = Route.useParams();
+  const [formacion, setFormacion] = useState(null);
 
   useEffect(() => {
-    if (!loading && !user) nav({ to: "/admin" });
-  }, [user, loading, nav]);
+    if (!loading && !user) {
+      nav({ to: "/admin" });
+      return;
+    }
+
+    // Obtener formación de Supabase
+    formacionService.getFormacionById(id).then(({ data }) => {
+      if (!data) return;
+      setFormacion(data);
+    });
+  }, [user, loading, id, nav]);
+
   if (loading || !user) return null;
 
-  // Obtener formación de Supabase
-  const { data: formacion, error } = await formacionService.getFormacionById(id);
-
-  if (error) {
-    toast.error("Error al cargar formación", { description: error.message });
-    return null;
+  if (!formacion) {
+    return (
+      <p className="text-sm" style={{ color: "var(--ink-soft)" }}>
+        Formación no encontrada.
+      </p>
+    );
   }
-
-  if (!formacion) return null;
 
   return (
     <AdminShell>
