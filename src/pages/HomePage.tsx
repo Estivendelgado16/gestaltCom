@@ -1,13 +1,15 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { ArrowRight } from "lucide-react";
 
 export function HomePage() {
+  const [showMore, setShowMore] = useState(false);
   return (
     <SiteLayout>
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="container-clinic pt-24 pb-32 md:pt-36 md:pb-44 grid md:grid-cols-12 gap-12 items-end">
+        <div className="container-clinic pt-6 pb-32 md:pt-10 md:pb-44 grid md:grid-cols-12 gap-12 items-start">
           <div className="md:col-span-8 animate-rise">
             <div
               className="text-[11px] uppercase tracking-[0.35em] mb-8"
@@ -28,14 +30,49 @@ export function HomePage() {
               <br />
               de campo.
             </h1>
-            <p
-              className="mt-10 max-w-xl text-lg leading-relaxed"
+            <div
+              className="mt-10 max-w-xl text-lg leading-relaxed space-y-5"
               style={{ color: "var(--ink-soft)" }}
             >
-              Comunidad Gestáltica es un espacio de estudio, práctica clínica y comunidad fundado
-              por Dany Mora Bracho. Formamos terapeutas en el paradigma contemporáneo de la Gestalt
-              de Campo.
-            </p>
+              <p>
+                Comunidad Gestáltica es un espacio de encuentro, formación y difusión de la
+                Terapia Gestalt con perspectiva de campo. Nace con el propósito de propiciar un
+                diálogo entre teoría, clínica y experiencia, favoreciendo la construcción
+                colectiva de conocimiento y el intercambio académico entre profesionales de
+                distintos contextos culturales.
+              </p>
+              {showMore && (
+                <>
+                  <p>
+                    Entendemos la Gestalt de Campo como una práctica viva, contextual y en
+                    permanente transformación. Por ello, promovemos la formación, supervisión y
+                    entrenamiento clínico, la reflexión epistemológica y el estudio de la
+                    psicopatología desde una mirada de campo, sosteniendo la pluralidad de
+                    desarrollos que enriquecen la tradición gestáltica.
+                  </p>
+                  <p>
+                    Aspiramos a continuar la difusión y desarrollo de la Terapia Gestalt de
+                    Campo, fortaleciendo una red de profesionales comprometidos con la
+                    actualización permanente y la creación de comunidad como fundamento ético y
+                    formativo.
+                  </p>
+                </>
+              )}
+            </div>
+            <div
+              className="mt-6 inline-flex rounded-full p-px"
+              style={{
+                background: "linear-gradient(to left, var(--sand-light), transparent)",
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => setShowMore((v) => !v)}
+                className="inline-flex items-center gap-2 rounded-full bg-background px-7 py-3 text-sm font-semibold uppercase tracking-widest text-ink transition-colors hover:bg-[var(--sand-light)]"
+              >
+                {showMore ? "Ver menos" : "Ver más"}
+              </button>
+            </div>
             <div className="mt-12 flex flex-wrap items-center gap-6">
               <Link
                 to="/formaciones"
