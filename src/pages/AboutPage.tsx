@@ -37,7 +37,7 @@ export function AboutPage() {
 
       <section className="container-clinic pb-28 grid md:grid-cols-12 gap-16">
         <div className="md:col-span-5">
-          <div className="aspect-[4/5] rounded-sm relative overflow-hidden">
+          <div className="aspect-4/5 rounded-sm relative overflow-hidden">
             <img
               src="/img/dany-mora.jpg"
               alt="Dany Mora Bracho"
