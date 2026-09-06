@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContYoutubeRouteImport } from './routes/ContYoutube'
 import { Route as ClasesRouteImport } from './routes/clases'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as FormacionesRouteImport } from './routes/formaciones'
@@ -33,6 +34,11 @@ import { Route as AdminEditarIdRouteImport } from './routes/admin/editar.$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContYoutubeRoute = ContYoutubeRouteImport.update({
+  id: '/ContYoutube',
+  path: '/ContYoutube',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ClasesRoute = ClasesRouteImport.update({
@@ -136,6 +142,7 @@ const AdminEditarIdRoute = AdminEditarIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ContYoutube': typeof ContYoutubeRoute
   '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
   '/formaciones': typeof FormacionesRouteWithChildren
@@ -158,6 +165,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ContYoutube': typeof ContYoutubeRoute
   '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
   '/mcp': typeof McpRoute
@@ -180,6 +188,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ContYoutube': typeof ContYoutubeRoute
   '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
   '/formaciones': typeof FormacionesRouteWithChildren
@@ -204,6 +213,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ContYoutube'
     | '/clases'
     | '/contacto'
     | '/formaciones'
@@ -226,6 +236,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ContYoutube'
     | '/clases'
     | '/contacto'
     | '/mcp'
@@ -247,6 +258,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ContYoutube'
     | '/clases'
     | '/contacto'
     | '/formaciones'
@@ -270,6 +282,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContYoutubeRoute: typeof ContYoutubeRoute
   ClasesRoute: typeof ClasesRoute
   ContactoRoute: typeof ContactoRoute
   FormacionesRoute: typeof FormacionesRouteWithChildren
@@ -295,6 +308,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ContYoutube': {
+      id: '/ContYoutube'
+      path: '/ContYoutube'
+      fullPath: '/ContYoutube'
+      preLoaderRoute: typeof ContYoutubeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/clases': {
@@ -451,6 +471,7 @@ const FormacionesRouteWithChildren = FormacionesRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContYoutubeRoute: ContYoutubeRoute,
   ClasesRoute: ClasesRoute,
   ContactoRoute: ContactoRoute,
   FormacionesRoute: FormacionesRouteWithChildren,

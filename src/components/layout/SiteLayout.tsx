@@ -37,26 +37,6 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             {nav.map((n) => {
               const active = isActive(n.to);
 
-              if (n.items) {
-                return (
-                  <Link
-                    key={n.to}
-                    to={n.to}
-                    className="relative text-[13px] tracking-wide uppercase transition-colors"
-                    style={{ color: active ? "var(--ink)" : "var(--ink-soft)" }}
-                  >
-                    {n.label}
-                    <svg
-                      className="w-4 h-4 transition-transform group-hover:rotate-180 inline-block"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M6 10l6 6 6-6" stroke="currentColor" strokeWidth="2" />
-                    </svg>
-                  </Link>
-                );
-              }
-
               return (
                 <Link
                   key={n.to}
@@ -77,11 +57,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             })}
           </nav>
           <Link
-            to="/contacto"
+            to="/ContYoutube"
             className="hidden md:inline-flex items-center rounded-full px-5 py-2 text-[12px] uppercase tracking-widest transition-transform hover:-translate-y-0.5"
             style={{ background: "var(--ink)", color: "var(--cream)" }}
           >
-            Agendar cita
+            Youtube
           </Link>
         </div>
       </header>
