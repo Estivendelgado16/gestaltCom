@@ -130,31 +130,19 @@ export function ContYoutubePage() {
 
   return (
     <SiteLayout>
-      <section className="container-clinic pt-6 pb-16">
-        <div
-          className="text-[11px] uppercase tracking-[0.35em]"
-          style={{ color: "var(--ink-soft)" }}
-        >
-          Contenido
-        </div>
-        <h1 className="mt-8 text-5xl md:text-7xl max-w-4xl leading-[0.98]">
-          Contenido en <span style={{ color: "var(--gold)" }}>YouTube</span>
-        </h1>
-        <p className="mt-8 max-w-2xl text-lg" style={{ color: "var(--ink-soft)" }}>
-          Entrevistas, divulgación y diálogo en torno a la Terapia Gestalt desde una perspectiva de
-          campo.
-        </p>
-      </section>
-
-      <section className="container-clinic pb-28">
+      {/* Banner del canal — ancho completo */}
+      <section className="pb-16">
         <a
           href="https://www.youtube.com/@danymora.gestalt"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm uppercase tracking-widest border-b pb-1 transition-colors"
-          style={{ color: "var(--ink)", borderColor: "var(--gold)" }}
+          className="block"
         >
-          YouTube · @danymora.gestalt
+          <img
+            src="/img/banner-youtube.png"
+            alt="Ps. Dany Rafael Mora Bracho — Comunidad Gestáltica, canal de difusión de Terapia Gestalt de Campo"
+            className="w-full object-cover"
+          />
         </a>
       </section>
 
