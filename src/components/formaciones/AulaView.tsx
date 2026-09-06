@@ -1,16 +1,15 @@
 import { useRequireAuth } from "@/context/AuthContext";
-import { useLessons } from "@/hooks/useLessons";
+import { useLessons, useModules } from "@/hooks/useLessons";
 import { Lesson } from "@/types";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { PageLoading } from "@/components/layout/PageLoading";
 import { LessonCard } from "@/components/site/LessonCard";
-import { useFormacionModules } from "@/services/formacion.service";
 import { Lock, Upload } from "lucide-react";
 
 export function AulaView({ formacionId }: { formacionId: string }) {
   const { user, hasPaidAccess, loading: authLoading } = useRequireAuth();
   const { data: lessons = [], isLoading: lessonsLoading } = useLessons(formacionId);
-  const { data: modules = [], isLoading: modulesLoading } = useFormacionModules(formacionId);
+  const { data: modules = [], isLoading: modulesLoading } = useModules(formacionId);
 
   const fetching = authLoading || lessonsLoading || modulesLoading;
 
@@ -27,8 +26,8 @@ export function AulaView({ formacionId }: { formacionId: string }) {
           <Lock className="w-16 h-16 mx-auto mb-6 text-gold" />
           <h1 className="text-4xl mb-4 text-ink">Acceso restringido</h1>
           <p className="text-sm mb-8 text-ink-soft">
-            Para acceder a las clases de esta formación, necesitas tener una inscripción activa
-            y el pago aprobado por el administrador.
+            Para acceder a las clases de esta formación, necesitas tener una inscripción activa y el
+            pago aprobado por el administrador.
           </p>
           <a
             href={`/formaciones/${formacionId}/payment`}

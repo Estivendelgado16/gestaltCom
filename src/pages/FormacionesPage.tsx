@@ -1,4 +1,5 @@
-import { useCourses } from "@/services/course.service";
+import { useQuery } from "@tanstack/react-query";
+import { formacionService } from "@/services/formacion.service";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { FeaturedCourseCard } from "@/components/site/CourseCard";
 import {
@@ -21,9 +22,14 @@ function fmt(d: string) {
 }
 
 export function FormacionesPage() {
-  const courses = useCourses();
-  const active = courses.filter((c) => c.status !== "Finalizado");
-  const finished = courses.filter((c) => c.status === "Finalizado");
+  const { data: courses = [] } = useQuery({
+    queryKey: ["formaciones", "publicadas"],
+    queryFn: () => formacionService.getFormaciones({ soloPublicadas: true }),
+  });
+  // Activa = sin fecha de fin, o cuya fecha de fin aún no ha pasado
+  const today = new Date().toISOString().slice(0, 10);
+  const active = courses.filter((c) => !c.fecha_fin || c.fecha_fin >= today);
+  const finished = courses.filter((c) => c.fecha_fin && c.fecha_fin < today);
 
   return (
     <SiteLayout>
@@ -88,13 +94,13 @@ export function FormacionesPage() {
                         className="col-span-8 md:col-span-6 text-base md:text-lg"
                         style={{ color: "var(--ink)" }}
                       >
-                        {c.title}
+                        {c.titulo}
                       </span>
                       <span
                         className="hidden md:block col-span-3 text-xs uppercase tracking-widest"
                         style={{ color: "var(--ink-soft)" }}
                       >
-                        {fmt(c.startDate)}
+                        {c.fecha_inicio ? fmt(c.fecha_inicio) : "—"}
                       </span>
                       <span
                         className="col-span-4 md:col-span-3 text-[10px] uppercase tracking-[0.3em] justify-self-end px-3 py-1 rounded-full"
@@ -112,12 +118,12 @@ export function FormacionesPage() {
                       className="pb-6 pl-1 max-w-2xl text-sm leading-relaxed"
                       style={{ color: "var(--ink-soft)" }}
                     >
-                      {c.shortDescription}
-                      {(c.location || c.duration) && (
+                      {c.descripcion}
+                      {(c.modalidad || c.duracion) && (
                         <div className="mt-3 text-xs opacity-70">
-                          {c.location}
-                          {c.location && c.duration ? " · " : ""}
-                          {c.duration}
+                          {c.modalidad}
+                          {c.modalidad && c.duracion ? " · " : ""}
+                          {c.duracion}
                         </div>
                       )}
                     </div>

@@ -6,13 +6,13 @@ import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 
 const schema = z.object({
-  title: z.string().trim().min(3, "Título requerido").max(120),
+  titulo: z.string().trim().min(3, "Título requerido").max(120),
   tipo: z.enum(["DIPLOMADO", "CURSO", "TALLER", "OTRO"]),
-  startDate: z.string().min(1, "Fecha requerida"),
-  shortDescription: z.string().trim().min(10, "Descripción muy corta").max(400),
+  fecha_inicio: z.string().min(1, "Fecha requerida"),
+  descripcion: z.string().trim().min(10, "Descripción muy corta").max(400),
   horarios: z.string().optional(),
   modalidad: z.enum(["Presencial", "Virtual", "Híbrido"]).default("Presencial"),
-  duration: z.string().max(40).optional(),
+  duracion: z.string().max(40).optional(),
   flyer_url: z.string().url("URL inválida").optional(),
   galeria_fotos: z.array(z.string().url()).default([]),
   precio: z.number().optional(),
@@ -25,16 +25,19 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
   const [values, setValues] = useState<Formacion>(
     initial ?? {
       id: "",
-      title: "",
+      titulo: "",
+      descripcion: "",
       tipo: "CURSO",
-      startDate: "",
-      shortDescription: "",
+      fecha_inicio: "",
+      fecha_fin: null,
       horarios: "",
       modalidad: "Presencial",
-      duration: "",
+      duracion: "",
       flyer_url: "",
       galeria_fotos: [],
       precio: 0,
+      is_published: true,
+      created_at: "",
     },
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -63,10 +66,10 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
 
   return (
     <form onSubmit={onSubmit} className="max-w-2xl space-y-8">
-      <Field label="Título" error={errors.title}>
+      <Field label="Título" error={errors.titulo}>
         <input
-          value={values.title}
-          onChange={(e) => set("title", e.target.value)}
+          value={values.titulo}
+          onChange={(e) => set("titulo", e.target.value)}
           className="input"
         />
       </Field>
@@ -92,11 +95,11 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
           </div>
         </Field>
 
-        <Field label="Fecha de inicio" error={errors.startDate}>
+        <Field label="Fecha de inicio" error={errors.fecha_inicio}>
           <input
             type="date"
-            value={values.startDate}
-            onChange={(e) => set("startDate", e.target.value)}
+            value={values.fecha_inicio ?? ""}
+            onChange={(e) => set("fecha_inicio", e.target.value)}
             className="input"
           />
         </Field>
@@ -122,11 +125,11 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
         </Field>
       </div>
 
-      <Field label="Descripción corta" error={errors.shortDescription}>
+      <Field label="Descripción corta" error={errors.descripcion}>
         <textarea
           rows={4}
-          value={values.shortDescription}
-          onChange={(e) => set("shortDescription", e.target.value)}
+          value={values.descripcion}
+          onChange={(e) => set("descripcion", e.target.value)}
           className="input resize-none"
         />
       </Field>
@@ -143,8 +146,8 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
 
         <Field label="Duración (opcional)">
           <input
-            value={values.duration ?? ""}
-            onChange={(e) => set("duration", e.target.value)}
+            value={values.duracion ?? ""}
+            onChange={(e) => set("duracion", e.target.value)}
             className="input"
             placeholder="ej. 40 horas, 3 meses"
           />
@@ -163,7 +166,10 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
         </Field>
 
         <Field label="Galeria de fotos (URLs)" error={errors.galeria_fotos}>
-          <p className="text-[10px] uppercase tracking-[0.3em] mb-2" style={{ color: "var(--ink-soft)" }}>
+          <p
+            className="text-[10px] uppercase tracking-[0.3em] mb-2"
+            style={{ color: "var(--ink-soft)" }}
+          >
             Agrega URLs de las fotos de la clase (una por línea)
           </p>
           <textarea

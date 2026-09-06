@@ -25,9 +25,7 @@ export function ClasesPage() {
       <SiteLayout>
         <div className="container-clinic pt-10 pb-20 max-w-lg text-center">
           <Lock className="w-16 h-16 mx-auto mb-6 text-gold" />
-          <h1 className="text-4xl mb-4 text-ink">
-            Acceso restringido
-          </h1>
+          <h1 className="text-4xl mb-4 text-ink">Acceso restringido</h1>
           <p className="text-sm mb-8 text-ink-soft">
             Para acceder a las clases, necesitas que tu pago haya sido verificado por el
             administrador. Si aún no has enviado tu comprobante de pago, hazlo ahora.
@@ -35,7 +33,6 @@ export function ClasesPage() {
           <Link
             to="/pagos"
             className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5 bg-ink text-cream"
-           
           >
             <Upload className="w-4 h-4" /> Subir comprobante
           </Link>
@@ -60,9 +57,7 @@ export function ClasesPage() {
   return (
     <SiteLayout>
       <section className="container-clinic pt-6 pb-16">
-        <div
-          className="text-[11px] uppercase tracking-[0.35em] text-ink-soft"
-        >
+        <div className="text-[11px] uppercase tracking-[0.35em] text-ink-soft">
           Contenido del curso
         </div>
         <h1 className="mt-8 text-5xl md:text-7xl max-w-4xl leading-[0.98]">
@@ -75,9 +70,7 @@ export function ClasesPage() {
 
       <section className="container-clinic pb-28">
         {fetching ? (
-          <p className="text-sm text-ink-soft">
-            Cargando clases...
-          </p>
+          <p className="text-sm text-ink-soft">Cargando clases...</p>
         ) : lessons.length === 0 ? (
           <div className="text-center py-16">
             <p className="text-sm text-ink-soft">
@@ -91,13 +84,9 @@ export function ClasesPage() {
               if (modLessons.length === 0) return null;
               return (
                 <div key={mod.id}>
-                  <h2 className="text-2xl mb-2 text-ink">
-                    {mod.title}
-                  </h2>
+                  <h2 className="text-2xl mb-2 text-ink">{mod.title}</h2>
                   {mod.description && (
-                    <p className="text-sm mb-6 text-ink-soft">
-                      {mod.description}
-                    </p>
+                    <p className="text-sm mb-6 text-ink-soft">{mod.description}</p>
                   )}
                   <div className="space-y-3">
                     {modLessons.map((lesson) => (
@@ -110,9 +99,7 @@ export function ClasesPage() {
 
             {ungrouped.length > 0 && (
               <div>
-                <h2 className="text-2xl mb-6 text-ink">
-                  Clases
-                </h2>
+                <h2 className="text-2xl mb-6 text-ink">Clases</h2>
                 <div className="space-y-3">
                   {ungrouped.map((lesson) => (
                     <LessonCard key={lesson.id} lesson={lesson} />
@@ -126,4 +113,3 @@ export function ClasesPage() {
     </SiteLayout>
   );
 }
-

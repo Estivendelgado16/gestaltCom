@@ -50,10 +50,18 @@ export function AboutPage() {
           style={{ color: "var(--ink)" }}
         >
           <p>
-            Creo en la terapia como una experiencia co-construida y situacional, entendiendo esta como una matriz de sentido en permanente configuración. Soy psicólogo y terapeuta gestáltico con un profundo interés en la Terapia Gestalt desde una perspectiva de campo. Mi trayectoria integra la práctica clínica, la formación académica y la construcción de comunidad como espacios vivos de encuentro, diálogo y transformación.
+            Creo en la terapia como una experiencia co-construida y situacional, entendiendo esta
+            como una matriz de sentido en permanente configuración. Soy psicólogo y terapeuta
+            gestáltico con un profundo interés en la Terapia Gestalt desde una perspectiva de campo.
+            Mi trayectoria integra la práctica clínica, la formación académica y la construcción de
+            comunidad como espacios vivos de encuentro, diálogo y transformación.
           </p>
           <p>
-            A lo largo de más de una década he acompañado procesos terapéuticos, formativos e institucionales. Soy fundador de Comunidad Gestáltica: Estudios de Terapia Gestalt de Campo, un proyecto orientado a la reflexión, el intercambio internacional y la formación permanente en Gestalt que articula la clínica fenomenológica, la supervisión clínica, la clínica y la psicopatología gestáltica.
+            A lo largo de más de una década he acompañado procesos terapéuticos, formativos e
+            institucionales. Soy fundador de Comunidad Gestáltica: Estudios de Terapia Gestalt de
+            Campo, un proyecto orientado a la reflexión, el intercambio internacional y la formación
+            permanente en Gestalt que articula la clínica fenomenológica, la supervisión clínica, la
+            clínica y la psicopatología gestáltica.
           </p>
           <div className="hairline pt-8 grid grid-cols-2 gap-8">
             <div>
@@ -105,7 +113,10 @@ export function AboutPage() {
             </h3>
 
             {/* Timeline */}
-            <ol className="mt-8 grid md:grid-cols-2 gap-x-16 gap-y-8 text-base" style={{ borderColor: "color-mix(in oklab, var(--ink) 15%, transparent)" }}>
+            <ol
+              className="mt-8 grid md:grid-cols-2 gap-x-16 gap-y-8 text-base"
+              style={{ borderColor: "color-mix(in oklab, var(--ink) 15%, transparent)" }}
+            >
               {[
                 "Soy Psicólogo egresado de la Universidad Rafael Urdaneta (Venezuela, 2009). Magíster en Orientación mención Educación por la Universidad del Zulia (Venezuela, 2021).",
                 "Inicié mi formación en Terapia Gestalt en el Centro Gestáltico San Isidro (Argentina, 2011). Desde entonces he venido profundizando en la perspectiva de campo, inicialmente junto a José Miguel Echarte (Argentina, 2021–2026).",
@@ -121,18 +132,22 @@ export function AboutPage() {
                     className="inline-block mr-3 w-2 h-2 rounded-full align-middle"
                     style={{ background: "var(--gold)" }}
                   />
-                  <span className="align-middle" style={{ color: "var(--ink-soft)" }}>{item}</span>
+                  <span className="align-middle" style={{ color: "var(--ink-soft)" }}>
+                    {item}
+                  </span>
                 </li>
               ))}
             </ol>
 
             <p className="mt-10 text-base" style={{ color: "var(--ink-soft)" }}>
               Actualmente lidero
-              <strong style={{ color: "var(--ink)" }}>Comunidad Gestáltica: Estudios de Terapia Gestalt de Campo</strong>,
-              un espacio orientado a la reflexión académica, la supervisión y entrenamiento
+              <strong style={{ color: "var(--ink)" }}>
+                Comunidad Gestáltica: Estudios de Terapia Gestalt de Campo
+              </strong>
+              , un espacio orientado a la reflexión académica, la supervisión y entrenamiento
               clínico y el diálogo internacional en torno a la Terapia Gestalt. Nació como un
-              proyecto de entrevistas y divulgación que busca ampliar la circulación de saberes
-              y experiencias en el campo gestáltico.
+              proyecto de entrevistas y divulgación que busca ampliar la circulación de saberes y
+              experiencias en el campo gestáltico.
             </p>
             <a
               href="https://www.youtube.com/@danymora.gestalt"

@@ -36,11 +36,11 @@ export function HomePage() {
               style={{ color: "var(--ink-soft)" }}
             >
               <p>
-                Comunidad Gestáltica es un espacio de encuentro, formación y difusión de la
-                Terapia Gestalt con perspectiva de campo. Nace con el propósito de propiciar un
-                diálogo entre teoría, clínica y experiencia, favoreciendo la construcción
-                colectiva de conocimiento y el intercambio académico entre profesionales de
-                distintos contextos culturales.
+                Comunidad Gestáltica es un espacio de encuentro, formación y difusión de la Terapia
+                Gestalt con perspectiva de campo. Nace con el propósito de propiciar un diálogo
+                entre teoría, clínica y experiencia, favoreciendo la construcción colectiva de
+                conocimiento y el intercambio académico entre profesionales de distintos contextos
+                culturales.
               </p>
               {showMore && (
                 <>
@@ -52,10 +52,9 @@ export function HomePage() {
                     desarrollos que enriquecen la tradición gestáltica.
                   </p>
                   <p>
-                    Aspiramos a continuar la difusión y desarrollo de la Terapia Gestalt de
-                    Campo, fortaleciendo una red de profesionales comprometidos con la
-                    actualización permanente y la creación de comunidad como fundamento ético y
-                    formativo.
+                    Aspiramos a continuar la difusión y desarrollo de la Terapia Gestalt de Campo,
+                    fortaleciendo una red de profesionales comprometidos con la actualización
+                    permanente y la creación de comunidad como fundamento ético y formativo.
                   </p>
                 </>
               )}

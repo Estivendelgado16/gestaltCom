@@ -1,8 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { AdminShell } from "@/components/layout/AdminShell";
 import { useAuth } from "@/context/AuthContext";
 import { formacionService } from "@/services/formacion.service";
+import type { Formacion } from "@/types";
 
 const CourseForm = lazy(() =>
   import("@/components/admin/CourseForm").then((m) => ({ default: m.CourseForm })),
@@ -19,7 +20,7 @@ function EditarCursoPage() {
   const nav = useNavigate();
   const { user, loading } = useAuth();
   const { id } = Route.useParams();
-  const [formacion, setFormacion] = useState(null);
+  const [formacion, setFormacion] = useState<Formacion | null>(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -28,7 +29,7 @@ function EditarCursoPage() {
     }
 
     // Obtener formación de Supabase
-    formacionService.getFormacionById(id).then(({ data }) => {
+    formacionService.getFormacionById(id).then((data) => {
       if (!data) return;
       setFormacion(data);
     });

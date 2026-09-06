@@ -77,9 +77,7 @@ export function PagosPage() {
             {payment.status === "APPROVED" ? (
               <>
                 <CheckCircle className="w-16 h-16 mx-auto text-gold" />
-                <h1 className="text-3xl text-ink">
-                  Pago aprobado
-                </h1>
+                <h1 className="text-3xl text-ink">Pago aprobado</h1>
                 <p className="text-sm text-ink-soft">
                   Tu acceso ha sido habilitado. Puedes acceder a las clases.
                 </p>
@@ -93,9 +91,7 @@ export function PagosPage() {
             ) : (
               <>
                 <Clock className="w-16 h-16 mx-auto text-gold" />
-                <h1 className="text-3xl text-ink">
-                  Pago en revisión
-                </h1>
+                <h1 className="text-3xl text-ink">Pago en revisión</h1>
                 <p className="text-sm text-ink-soft">
                   Hemos recibido tu comprobante. El administrador lo revisará pronto.
                 </p>
@@ -126,14 +122,10 @@ export function PagosPage() {
   return (
     <SiteLayout>
       <div className="container-clinic pt-10 pb-20 max-w-lg">
-        <div
-          className="text-[11px] uppercase tracking-[0.35em] mb-4 text-ink-soft"
-        >
+        <div className="text-[11px] uppercase tracking-[0.35em] mb-4 text-ink-soft">
           Formulario de pago
         </div>
-        <h1 className="text-4xl mb-2 text-ink">
-          Subir comprobante
-        </h1>
+        <h1 className="text-4xl mb-2 text-ink">Subir comprobante</h1>
         <p className="text-sm mb-10 text-ink-soft">
           Adjunta tu comprobante de transferencia y el número de referencia para que el
           administrador verifique tu pago.
@@ -141,9 +133,7 @@ export function PagosPage() {
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div>
-            <label
-              className="text-[10px] uppercase tracking-[0.3em] text-ink-soft"
-            >
+            <label className="text-[10px] uppercase tracking-[0.3em] text-ink-soft">
               Número de referencia
             </label>
             <input
@@ -156,23 +146,15 @@ export function PagosPage() {
           </div>
 
           <div>
-            <label
-              className="text-[10px] uppercase tracking-[0.3em] text-ink-soft"
-            >
+            <label className="text-[10px] uppercase tracking-[0.3em] text-ink-soft">
               Imagen del comprobante
             </label>
-            <div
-              className="mt-2 relative flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-8 transition-colors hover:border-[var(--gold)] border-ink/20"
-            >
+            <div className="mt-2 relative flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-8 transition-colors hover:border-[var(--gold)] border-ink/20">
               <Upload className="w-8 h-8 mb-3 text-ink-soft" />
               {file ? (
-                <p className="text-sm text-ink">
-                  {file.name}
-                </p>
+                <p className="text-sm text-ink">{file.name}</p>
               ) : (
-                <p className="text-xs text-ink-soft">
-                  Haz clic o arrastra una imagen
-                </p>
+                <p className="text-xs text-ink-soft">Haz clic o arrastra una imagen</p>
               )}
               <input
                 type="file"

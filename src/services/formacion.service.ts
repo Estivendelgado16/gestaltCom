@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabaseClient";
-import type { Formacion, UserEnrollment } from "@/types";
+import type { Formacion, Module, UserEnrollment } from "@/types";
 
 export const formacionService = {
   async getFormaciones(filters?: {
@@ -23,11 +23,7 @@ export const formacionService = {
   },
 
   async getFormacionById(id: string): Promise<Formacion | null> {
-    const { data, error } = await supabase
-      .from("formaciones")
-      .select("*")
-      .eq("id", id)
-      .single();
+    const { data, error } = await supabase.from("formaciones").select("*").eq("id", id).single();
 
     if (error) throw error;
     return data ?? null;
@@ -44,10 +40,7 @@ export const formacionService = {
     return data ?? [];
   },
 
-  async getUserEnrollment(
-    userId: string,
-    formacionId: string
-  ): Promise<UserEnrollment | null> {
+  async getUserEnrollment(userId: string, formacionId: string): Promise<UserEnrollment | null> {
     const { data, error } = await supabase
       .from("user_enrollments")
       .select("*")

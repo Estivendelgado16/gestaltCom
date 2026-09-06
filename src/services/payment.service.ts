@@ -11,10 +11,7 @@ export const paymentService = {
       query = query.eq("formacion_id", formacionId);
     }
 
-    return query
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
+    return query.order("created_at", { ascending: false }).limit(1).maybeSingle();
   },
 
   async getAllPayments(formacionId?: string) {
@@ -27,7 +24,12 @@ export const paymentService = {
     return query.order("created_at", { ascending: false });
   },
 
-  async uploadReceipt(userId: string, file: File, referenceNumber: string | null, formacionId?: string) {
+  async uploadReceipt(
+    userId: string,
+    file: File,
+    referenceNumber: string | null,
+    formacionId?: string,
+  ) {
     const fileExt = file.name.split(".").pop();
     const filePath = `${userId}_${Date.now()}.${fileExt}`;
 

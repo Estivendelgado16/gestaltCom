@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { AdminShell } from "@/components/layout/AdminShell";
 import { useAuth } from "@/context/AuthContext";
@@ -9,7 +10,10 @@ import { Pencil, Trash2, PlusCircle, RotateCcw } from "lucide-react";
 export function DashboardPage() {
   const nav = useNavigate();
   const { user, loading } = useAuth();
-  const formaciones = formacionService.getFormaciones();
+  const { data: formaciones = [] } = useQuery({
+    queryKey: ["formaciones", "all"],
+    queryFn: () => formacionService.getFormaciones(),
+  });
 
   useEffect(() => {
     if (!loading && !user) nav({ to: "/admin" });
@@ -17,8 +21,7 @@ export function DashboardPage() {
 
   if (loading || !user) return null;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const formacionesList = formaciones.data ?? formaciones;
+  const formacionesList = formaciones;
 
   return (
     <AdminShell>
@@ -93,10 +96,10 @@ export function DashboardPage() {
                 f.tipo === "DIPLOMADO"
                   ? "Diplomado"
                   : f.tipo === "CURSO"
-                  ? "Curso"
-                  : f.tipo === "TALLER"
-                  ? "Taller"
-                  : "Otro";
+                    ? "Curso"
+                    : f.tipo === "TALLER"
+                      ? "Taller"
+                      : "Otro";
 
               const statusStyles: Record<string, { bg: string; fg: string }> = {
                 DIPLOMADO: { bg: "var(--gold)", fg: "var(--ink)" },
@@ -134,7 +137,8 @@ export function DashboardPage() {
                   <td className="px-6 py-4">
                     <div className="inline-flex gap-2">
                       <Link
-                        to={`/admin/editar/${f.id}`}
+                        to="/admin/editar/$id"
+                        params={{ id: f.id }}
                         className="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-secondary"
                         aria-label="Editar"
                       >

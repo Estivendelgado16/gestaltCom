@@ -1,7 +1,8 @@
 import { supabase } from "@/lib/supabaseClient";
+import type { Lesson, Module } from "@/types";
 
 export const lessonService = {
-  async getPublishedLessons(formacionId?: string) {
+  async getPublishedLessons(formacionId?: string): Promise<Lesson[]> {
     let query = supabase.from("lessons").select("*").eq("is_published", true);
 
     if (formacionId) {
@@ -16,7 +17,7 @@ export const lessonService = {
         query = query.in("module_id", moduleIds);
       } else {
         // No modules found, return empty
-        return { data: [], error: null };
+        return [];
       }
     }
 
@@ -26,14 +27,16 @@ export const lessonService = {
     return data ?? [];
   },
 
-  async getModules(formacionId?: string) {
+  async getModules(formacionId?: string): Promise<Module[]> {
+    let query = supabase.from("modules").select("*");
+
     if (formacionId) {
-      return supabase
-        .from("modules")
-        .select("*")
-        .eq("formacion_id", formacionId)
-        .order("order_index", { ascending: true });
+      query = query.eq("formacion_id", formacionId);
     }
-    return supabase.from("modules").select("*").order("order_index", { ascending: true });
+
+    const { data, error } = await query.order("order_index", { ascending: true });
+
+    if (error) throw error;
+    return data ?? [];
   },
 };

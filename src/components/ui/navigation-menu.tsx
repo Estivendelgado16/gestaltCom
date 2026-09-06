@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components -- exporta variantes/utilidades junto al componente (patrón shadcn/context) */
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";

@@ -10,12 +10,8 @@ test.describe("Home", () => {
   test("carga y muestra el hero", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveTitle(/.+/);
-    await expect(
-      page.getByRole("heading", { name: /el encuentro/i }).first(),
-    ).toBeVisible();
-    await expect(
-      page.getByRole("main").getByText("Estudios de Gestalt de Campo"),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /el encuentro/i }).first()).toBeVisible();
+    await expect(page.getByRole("main").getByText("Estudios de Gestalt de Campo")).toBeVisible();
   });
 
   test("errores de consola inesperados", async ({ page }) => {
@@ -30,11 +26,12 @@ test.describe("Home", () => {
 test.describe("Navegación", () => {
   test("navega a Formaciones desde el CTA del hero", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: /ver formaciones/i }).first().click();
+    await page
+      .getByRole("link", { name: /ver formaciones/i })
+      .first()
+      .click();
     await expect(page).toHaveURL(/\/formaciones/);
-    await expect(
-      page.getByRole("heading", { name: /estudiar la gestalt/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /estudiar la gestalt/i })).toBeVisible();
   });
 
   test("los enlaces principales de navegación están presentes", async ({ page }) => {
@@ -49,23 +46,17 @@ test.describe("Navegación", () => {
 test.describe("Páginas públicas", () => {
   test("Servicios renderiza", async ({ page }) => {
     await page.goto("/servicios");
-    await expect(
-      page.getByRole("heading", { name: /cuatro modos de/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /cuatro modos de/i })).toBeVisible();
   });
 
   test("Formaciones renderiza", async ({ page }) => {
     await page.goto("/formaciones");
-    await expect(
-      page.getByRole("heading", { name: /estudiar la gestalt/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /estudiar la gestalt/i })).toBeVisible();
   });
 
   test("Sobre mí renderiza", async ({ page }) => {
     await page.goto("/sobre-mi");
-    await expect(
-      page.getByRole("heading", { name: /dany rafael/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /dany rafael/i })).toBeVisible();
   });
 
   test("Clases redirige al login de admin sin sesión", async ({ page }) => {
@@ -85,15 +76,11 @@ test.describe("Contacto", () => {
   test("renderiza el formulario completo", async ({ page }) => {
     await page.goto("/contacto");
     await waitForHydration(page);
-    await expect(
-      page.getByRole("heading", { name: /escribe, con/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: /escribe, con/i })).toBeVisible();
     await expect(page.locator("form input").nth(0)).toBeVisible();
     await expect(page.locator("form select")).toBeVisible();
     await expect(page.locator("form textarea")).toBeVisible();
-    await expect(
-      page.getByRole("button", { name: /enviar y abrir whatsapp/i }),
-    ).toBeVisible();
+    await expect(page.getByRole("button", { name: /enviar y abrir whatsapp/i })).toBeVisible();
   });
 
   test("muestra errores de validación al enviar vacío", async ({ page }) => {

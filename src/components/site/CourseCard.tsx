@@ -37,12 +37,10 @@ export function FeaturedCourseCard({ course, delay = 0 }: { course: Formacion; d
       </div>
       <div className="text-[11px] uppercase tracking-[0.35em] opacity-70">Formación</div>
       <h3 className="mt-6 text-3xl md:text-4xl leading-tight max-w-xl">{course.titulo}</h3>
-      <p className="mt-6 text-base leading-relaxed max-w-xl opacity-80">
-        {course.descripcion}
-      </p>
+      <p className="mt-6 text-base leading-relaxed max-w-xl opacity-80">{course.descripcion}</p>
       <div className="mt-10 flex flex-wrap gap-6 text-[13px]">
         <span className="inline-flex items-center gap-2 opacity-80">
-          <Calendar className="w-4 h-4" /> {fmt(course.fecha_inicio)}
+          <Calendar className="w-4 h-4" /> {course.fecha_inicio ? fmt(course.fecha_inicio) : "—"}
         </span>
         {course.modalidad && (
           <span className="inline-flex items-center gap-2 opacity-80">
