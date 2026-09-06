@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { VerMasButton } from "@/components/site/VerMasButton";
 import { ArrowRight } from "lucide-react";
 
 export function HomePage() {
@@ -59,20 +60,7 @@ export function HomePage() {
                 </>
               )}
             </div>
-            <div
-              className="mt-6 inline-flex rounded-full p-px"
-              style={{
-                background: "linear-gradient(to left, var(--sand-light), transparent)",
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => setShowMore((v) => !v)}
-                className="inline-flex items-center gap-2 rounded-full bg-background px-7 py-3 text-sm font-semibold uppercase tracking-widest text-ink transition-colors hover:bg-[var(--sand-light)]"
-              >
-                {showMore ? "Ver menos" : "Ver más"}
-              </button>
-            </div>
+            <VerMasButton expanded={showMore} onToggle={() => setShowMore((v) => !v)} />
             <div className="mt-12 flex flex-wrap items-center gap-6">
               <Link
                 to="/formaciones"
