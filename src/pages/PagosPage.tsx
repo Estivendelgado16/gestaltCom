@@ -17,7 +17,7 @@ interface ExistingPayment {
 }
 
 export function PagosPage() {
-  const { user, loading: authLoading } = useRequireAuth();
+  const { user, loading: authLoading } = useRequireAuth("/login");
 
   const [referenceNumber, setReferenceNumber] = useState("");
   const [file, setFile] = useState<File | null>(null);

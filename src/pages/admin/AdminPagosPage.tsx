@@ -1,7 +1,6 @@
-import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/layout/AdminShell";
-import { useAuth } from "@/context/AuthContext";
+import { useRequireAdmin } from "@/context/AuthContext";
 import { paymentService } from "@/services/payment.service";
 import { toast } from "sonner";
 import { CheckCircle, XCircle, ExternalLink, RefreshCw } from "lucide-react";
@@ -38,15 +37,10 @@ const statusConfig: Record<string, { label: string; bg: string; fg: string }> = 
 };
 
 export function AdminPagosPage() {
-  const nav = useNavigate();
-  const { user, loading } = useAuth();
+  const { user, isAdmin, loading } = useRequireAdmin();
   const [payments, setPayments] = useState<PaymentRow[]>([]);
   const [fetching, setFetching] = useState(true);
   const [approving, setApproving] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!loading && !user) nav({ to: "/admin" });
-  }, [user, loading, nav]);
 
   const fetchPayments = async () => {
     setFetching(true);
@@ -101,7 +95,7 @@ export function AdminPagosPage() {
     setApproving(null);
   }
 
-  if (loading || !user) return null;
+  if (loading || !user || !isAdmin) return null;
 
   const pending = payments.filter((p) => p.status === "PENDING");
   const processed = payments.filter((p) => p.status !== "PENDING");

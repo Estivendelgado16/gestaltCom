@@ -16,6 +16,7 @@ interface AuthState {
   session: Session | null;
   user: User | null;
   hasPaidAccess: boolean | null;
+  isAdmin: boolean;
   loading: boolean;
 }
 
@@ -23,14 +24,21 @@ const AuthContext = createContext<AuthState>({
   session: null,
   user: null,
   hasPaidAccess: null,
+  isAdmin: false,
   loading: true,
 });
+
+function resolveRole(user: User | null): boolean {
+  if (!user) return false;
+  return (user.app_metadata?.role as string | undefined) === "admin";
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AuthState>({
     session: null,
     user: null,
     hasPaidAccess: null,
+    isAdmin: false,
     loading: true,
   });
 
@@ -56,10 +64,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           session,
           user: session.user,
           hasPaidAccess: paid,
+          isAdmin: resolveRole(session.user),
           loading: false,
         });
       } else {
-        setState({ session: null, user: null, hasPaidAccess: false, loading: false });
+        setState({
+          session: null,
+          user: null,
+          hasPaidAccess: false,
+          isAdmin: false,
+          loading: false,
+        });
       }
     });
 
@@ -74,10 +89,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           session,
           user: session.user,
           hasPaidAccess: paid,
+          isAdmin: resolveRole(session.user),
           loading: false,
         });
       } else {
-        setState({ session: null, user: null, hasPaidAccess: false, loading: false });
+        setState({
+          session: null,
+          user: null,
+          hasPaidAccess: false,
+          isAdmin: false,
+          loading: false,
+        });
       }
     });
 
@@ -101,7 +123,7 @@ export function useAuth() {
  * Redirige a `redirectTo` (login) cuando no hay sesión activa.
  * Devuelve el estado de auth para renderizar loading / contenido.
  */
-export function useRequireAuth(redirectTo: string = "/admin") {
+export function useRequireAuth(redirectTo: string = "/login") {
   const auth = useAuth();
   const nav = useNavigate();
 
@@ -110,6 +132,27 @@ export function useRequireAuth(redirectTo: string = "/admin") {
       nav({ to: redirectTo });
     }
   }, [auth.loading, auth.user, nav, redirectTo]);
+
+  return auth;
+}
+
+/**
+ * Guard para páginas exclusivas de administrador.
+ * Redirige a la página de login cuando no hay sesión, o fuera del panel
+ * cuando el usuario está autenticado pero no es admin.
+ */
+export function useRequireAdmin() {
+  const auth = useAuth();
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (auth.loading) return;
+    if (!auth.user) {
+      nav({ to: "/login" });
+    } else if (!auth.isAdmin) {
+      nav({ to: "/clases" });
+    }
+  }, [auth.loading, auth.user, auth.isAdmin, nav]);
 
   return auth;
 }

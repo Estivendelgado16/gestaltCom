@@ -1,25 +1,19 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 import { AdminShell } from "@/components/layout/AdminShell";
-import { useAuth } from "@/context/AuthContext";
+import { useRequireAdmin } from "@/context/AuthContext";
 import { formacionService } from "@/services/formacion.service";
 import { toast } from "sonner";
 import { Pencil, Trash2, PlusCircle, RotateCcw } from "lucide-react";
 
 export function DashboardPage() {
-  const nav = useNavigate();
-  const { user, loading } = useAuth();
+  const { user, isAdmin, loading } = useRequireAdmin();
   const { data: formaciones = [] } = useQuery({
     queryKey: ["formaciones", "all"],
     queryFn: () => formacionService.getFormaciones(),
   });
 
-  useEffect(() => {
-    if (!loading && !user) nav({ to: "/admin" });
-  }, [user, loading, nav]);
-
-  if (loading || !user) return null;
+  if (loading || !user || !isAdmin) return null;
 
   const formacionesList = formaciones;
 

@@ -1,16 +1,10 @@
-import { useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
 import { AdminShell } from "@/components/layout/AdminShell";
 import { CourseForm } from "@/components/admin/CourseForm";
-import { useAuth } from "@/context/AuthContext";
+import { useRequireAdmin } from "@/context/AuthContext";
 
 export function NuevoCursoPage() {
-  const nav = useNavigate();
-  const { user, loading } = useAuth();
-  useEffect(() => {
-    if (!loading && !user) nav({ to: "/admin" });
-  }, [user, loading, nav]);
-  if (loading || !user) return null;
+  const { user, isAdmin, loading } = useRequireAdmin();
+  if (loading || !user || !isAdmin) return null;
   return (
     <AdminShell>
       <div className="mb-10">

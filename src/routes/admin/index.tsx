@@ -1,9 +1,24 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { lazy } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
 
-const AdminLoginPage = lazy(() =>
-  import("@/pages/admin/AdminLoginPage").then((m) => ({ default: m.AdminLoginPage })),
-);
+function AdminIndexRedirect() {
+  const nav = useNavigate();
+  const { user, isAdmin, loading } = useAuth();
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) {
+      nav({ to: "/login" });
+    } else if (isAdmin) {
+      nav({ to: "/admin/dashboard" });
+    } else {
+      nav({ to: "/clases" });
+    }
+  }, [user, isAdmin, loading, nav]);
+
+  return null;
+}
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({
@@ -12,5 +27,5 @@ export const Route = createFileRoute("/admin/")({
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
-  component: AdminLoginPage,
+  component: AdminIndexRedirect,
 });

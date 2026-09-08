@@ -1,1 +1,1 @@
-export { AuthProvider, useAuth, useRequireAuth } from "@/context/AuthContext";
+export { AuthProvider, useAuth, useRequireAuth, useRequireAdmin } from "@/context/AuthContext";

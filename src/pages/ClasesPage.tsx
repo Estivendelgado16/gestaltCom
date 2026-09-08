@@ -8,7 +8,7 @@ import type { Lesson } from "@/types";
 import { Lock, Upload } from "lucide-react";
 
 export function ClasesPage() {
-  const { user, hasPaidAccess, loading: authLoading } = useRequireAuth();
+  const { user, hasPaidAccess, loading: authLoading } = useRequireAuth("/login");
   const { data: lessons = [], isLoading: lessonsLoading } = useLessons();
   const { data: modules = [], isLoading: modulesLoading } = useModules();
 
