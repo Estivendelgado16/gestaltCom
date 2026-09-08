@@ -80,7 +80,7 @@ export function HomePage() {
           </div>
           <div className="md:col-span-4 animate-rise-delay">
             <div
-              className="aspect-[3/4] rounded-sm relative overflow-hidden"
+              className="aspect-3/4 rounded-sm relative overflow-hidden"
               style={{
                 background: "linear-gradient(160deg, var(--sand-light), var(--cream))",
               }}
