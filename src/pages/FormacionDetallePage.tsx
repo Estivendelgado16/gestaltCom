@@ -86,7 +86,10 @@ export function FormacionDetallePage() {
             className="mb-10 w-full rounded-sm object-cover"
           />
         )}
-        <p className="text-lg leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+        <p
+          className="text-base leading-relaxed whitespace-pre-line"
+          style={{ color: "var(--ink-soft)" }}
+        >
           {formacion.descripcion}
         </p>
 

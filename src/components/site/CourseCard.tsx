@@ -13,11 +13,29 @@ function fmt(d: string) {
   }
 }
 
-export function FeaturedCourseCard({ course, delay = 0 }: { course: Formacion; delay?: number }) {
+const TIPO_LABEL: Record<Formacion["tipo"], string> = {
+  DIPLOMADO: "Diplomado",
+  CURSO: "Curso",
+  TALLER: "Taller",
+  OTRO: "Otro",
+};
+
+export function FeaturedCourseCard({
+  course,
+  delay = 0,
+  onClick,
+}: {
+  course: Formacion;
+  delay?: number;
+  onClick?: () => void;
+}) {
+  const today = new Date().toISOString().slice(0, 10);
+  const estado = course.fecha_inicio && course.fecha_inicio > today ? "Próximo" : "En curso";
   const isProx = course.tipo === "DIPLOMADO";
   return (
     <article
-      className="group relative overflow-hidden rounded-sm p-10 md:p-12 transition-transform hover:-translate-y-1"
+      onClick={onClick}
+      className={`group relative overflow-hidden rounded-sm p-10 md:p-12 transition-transform hover:-translate-y-1 ${onClick ? "cursor-pointer" : ""}`}
       style={{
         background: isProx
           ? "linear-gradient(160deg, var(--ink), var(--ink-soft))"
@@ -33,11 +51,32 @@ export function FeaturedCourseCard({ course, delay = 0 }: { course: Formacion; d
           color: isProx ? "var(--ink)" : "var(--cream)",
         }}
       >
-        {course.tipo}
+        {estado}
       </div>
-      <div className="text-[11px] uppercase tracking-[0.35em] opacity-70">Formación</div>
-      <h3 className="mt-6 text-3xl md:text-4xl leading-tight max-w-xl">{course.titulo}</h3>
-      <p className="mt-6 text-base leading-relaxed max-w-xl opacity-80">{course.descripcion}</p>
+      <div className="text-[11px] uppercase tracking-[0.35em] opacity-70">
+        Formación · {TIPO_LABEL[course.tipo]}
+      </div>
+      {(() => {
+        // Separa el subtítulo entre comillas (o tras un guion largo) para mostrarlo
+        // más pequeño y en dorado
+        const [principal, resto] = course.titulo.split(/\s+—\s+|(?=«|")/);
+        return (
+          <h3 className="mt-6 text-3xl md:text-4xl leading-tight max-w-xl">
+            {principal}
+            {resto && (
+              <span
+                className="block mt-2 text-base md:text-lg font-normal"
+                style={{ color: "var(--gold)" }}
+              >
+                {resto}
+              </span>
+            )}
+          </h3>
+        );
+      })()}
+      <p className="mt-6 text-base leading-relaxed max-w-xl opacity-80 line-clamp-4">
+        {course.descripcion}
+      </p>
       <div className="mt-10 flex flex-wrap gap-6 text-[13px]">
         <span className="inline-flex items-center gap-2 opacity-80">
           <Calendar className="w-4 h-4" /> {course.fecha_inicio ? fmt(course.fecha_inicio) : "—"}

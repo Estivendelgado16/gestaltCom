@@ -1,0 +1,189 @@
+import { Link } from "@tanstack/react-router";
+import { SiteLayout } from "@/components/layout/SiteLayout";
+import { SectionLayout } from "@/components/site/SectionLayout";
+import { Typography } from "@/components/site/Typography";
+import { MediaFlexLayout } from "@/components/site/MediaFlexLayout";
+import { diplomadoData } from "@/data/diplomado";
+import { ArrowLeft, User } from "lucide-react";
+
+const D = diplomadoData;
+
+/** Resalta en negrita los segmentos marcados dentro de un párrafo de Generalidades. */
+function Segmentado({
+  texto,
+  segments,
+}: {
+  texto: string;
+  segments?: readonly { text: string; bold: boolean }[];
+}) {
+  if (!segments) return <>{texto}</>;
+  return (
+    <>
+      {segments.map((s, i) =>
+        s.bold ? (
+          <strong key={i} className="font-semibold" style={{ color: "var(--ink)" }}>
+            {s.text}
+          </strong>
+        ) : (
+          <span key={i}>{s.text}</span>
+        ),
+      )}
+    </>
+  );
+}
+
+export function DiplomadoPage() {
+  return (
+    <SiteLayout>
+      {/* Barra de navegación superior */}
+      <nav className="container-clinic pt-6 pb-10 flex items-center justify-between">
+        <Link
+          to="/formaciones"
+          className="inline-flex items-center gap-2 text-sm uppercase tracking-widest border-b pb-1 transition-transform hover:-translate-y-0.5"
+          style={{ color: "var(--ink)", borderColor: "var(--gold)" }}
+        >
+          <ArrowLeft className="w-4 h-4" /> Volver a formaciones
+        </Link>
+        <Link
+          to="/admin"
+          aria-label="Ingresar"
+          className="inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-2 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5"
+          style={{ background: "var(--ink)", color: "var(--cream)" }}
+        >
+          <User className="w-4 h-4" /> Sign in
+        </Link>
+      </nav>
+
+      {/* HERO / PORTADA — piedras zen */}
+      <section
+        className="relative flex items-center justify-center py-32 md:py-48 bg-cover"
+        style={{
+          backgroundImage: `url('${D.hero.imagenFondo}')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{ background: "color-mix(in oklab, var(--ink) 55%, transparent)" }}
+        />
+        <div className="relative container-clinic text-center">
+          <Typography.Subtitle className="text-[12px] mb-4" as="span">
+            Diplomado Internacional
+          </Typography.Subtitle>
+          <h1
+            className="text-4xl md:text-6xl leading-tight max-w-4xl mx-auto"
+            style={{ color: "var(--cream)", fontFamily: "var(--font-serif)", fontWeight: 600 }}
+          >
+            {D.hero.titulo}
+          </h1>
+          <p className="mt-6 text-base md:text-lg" style={{ color: "var(--sand-light)" }}>
+            {D.hero.subtitulo}
+          </p>
+          <div
+            className="mt-8 inline-block px-6 py-2 text-sm uppercase tracking-[0.35em]"
+            style={{ color: "var(--gold)", border: "1px solid var(--gold)" }}
+          >
+            {D.hero.fechas}
+          </div>
+        </div>
+      </section>
+
+      {/* INTRODUCCIÓN — FORMACIÓN ONLINE */}
+      <SectionLayout variant="light">
+        <MediaFlexLayout
+          imageSrc={D.introduccion.imagen}
+          imageAlt={D.introduccion.imagenAlt}
+          imagePosition="right"
+        >
+          <Typography.Subtitle as="span">{D.introduccion.categoria}</Typography.Subtitle>
+          <Typography.Title className="mt-4">{D.introduccion.titulo}</Typography.Title>
+          <Typography.Body className="mt-6">{D.introduccion.descripcion}</Typography.Body>
+        </MediaFlexLayout>
+      </SectionLayout>
+
+      {/* PRESENTACIÓN */}
+      <SectionLayout variant="white">
+        <div className="max-w-3xl">
+          <Typography.Title withHighlight>{D.presentacion.titulo}</Typography.Title>
+          <div className="mt-8 space-y-6">
+            {D.presentacion.parrafos.map((p, i) => (
+              <Typography.Body key={i}>{p}</Typography.Body>
+            ))}
+          </div>
+        </div>
+      </SectionLayout>
+
+      {/* OBJETIVO Y DESTINATARIOS — bloque azul oscuro */}
+      <SectionLayout variant="dark">
+        <div className="grid gap-12 md:grid-cols-2">
+          {D.objetivoYTipo.bloques.map((b) => (
+            <div key={b.titulo}>
+              <Typography.Subtitle as="span">{b.titulo}</Typography.Subtitle>
+              <Typography.Body className="mt-4" tone="on-dark">
+                {b.texto}
+              </Typography.Body>
+            </div>
+          ))}
+        </div>
+        <div className="mt-14 max-w-3xl">
+          <Typography.Quote size="lg">{D.objetivoYTipo.cierre}</Typography.Quote>
+        </div>
+      </SectionLayout>
+
+      {/* DIFERENCIADORES */}
+      <SectionLayout variant="light">
+        <MediaFlexLayout
+          imageSrc={D.diferenciadores.imagen}
+          imageAlt={D.diferenciadores.imagenAlt}
+          imagePosition="left"
+        >
+          <Typography.Title>{D.diferenciadores.titulo}</Typography.Title>
+          <Typography.Body className="mt-6">{D.diferenciadores.texto}</Typography.Body>
+        </MediaFlexLayout>
+      </SectionLayout>
+
+      {/* METODOLOGÍA */}
+      <SectionLayout variant="white">
+        <Typography.Title withHighlight>{D.metodologia.titulo}</Typography.Title>
+        <div className="mt-8 max-w-3xl space-y-6">
+          <Typography.Body>{D.metodologia.parrafo1}</Typography.Body>
+          <Typography.Quote>{D.metodologia.parrafo2}</Typography.Quote>
+        </div>
+        <MediaFlexLayout
+          imageSrc={D.metodologia.imagen}
+          imageAlt={D.metodologia.imagenAlt}
+          imagePosition="right"
+          imageClassName="mt-12"
+        >
+          <Typography.Quote size="lg">{D.metodologia.cita}</Typography.Quote>
+        </MediaFlexLayout>
+      </SectionLayout>
+
+      {/* GENERALIDADES */}
+      <SectionLayout variant="light">
+        <div className="max-w-3xl">
+          <Typography.Title withHighlight>{D.generalidades.titulo}</Typography.Title>
+          <div className="mt-8 space-y-6">
+            {D.generalidades.parrafos.map((p, i) => (
+              <Typography.Body key={i}>
+                <Segmentado texto={p.texto} segments={p.segments} />
+              </Typography.Body>
+            ))}
+          </div>
+        </div>
+      </SectionLayout>
+
+      {/* EVALUACIÓN Y CERTIFICACIÓN */}
+      <SectionLayout variant="white">
+        <div className="max-w-3xl">
+          <Typography.Title withHighlight>{D.evaluacion.titulo}</Typography.Title>
+          <Typography.Body className="mt-8">{D.evaluacion.texto}</Typography.Body>
+          <Typography.Quote size="lg" className="mt-8">
+            {D.evaluacion.cita}
+          </Typography.Quote>
+        </div>
+      </SectionLayout>
+    </SiteLayout>
+  );
+}

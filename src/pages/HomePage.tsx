@@ -86,7 +86,7 @@ export function HomePage() {
               }}
             >
               <img
-                src="/img/hero-piedras.jpg"
+                src="/img/hero-piedras.png"
                 alt="Piedras apiladas en equilibrio"
                 className="absolute inset-0 w-full h-full object-cover"
               />

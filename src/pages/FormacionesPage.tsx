@@ -1,7 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { formacionService } from "@/services/formacion.service";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { FeaturedCourseCard } from "@/components/site/CourseCard";
+import { FormacionDetails } from "@/components/site/FormacionDetails";
+import { useNavigate } from "@tanstack/react-router";
+import type { Formacion } from "@/types";
 import {
   Accordion,
   AccordionContent,
@@ -22,6 +26,17 @@ function fmt(d: string) {
 }
 
 export function FormacionesPage() {
+  const nav = useNavigate();
+  const [expandedId, setExpandedId] = useState<string | null>(null); // card ampliada (cursos/talleres)
+
+  // Diplomado -> /diplomado; cursos/talleres/otros se amplían flotando
+  function handleCardClick(c: Formacion) {
+    if (c.tipo === "DIPLOMADO") {
+      nav({ to: "/diplomado" });
+    } else {
+      setExpandedId((prev) => (prev === c.id ? null : c.id));
+    }
+  }
   const { data: courses = [] } = useQuery({
     queryKey: ["formaciones", "publicadas"],
     queryFn: () => formacionService.getFormaciones({ soloPublicadas: true }),
@@ -30,6 +45,7 @@ export function FormacionesPage() {
   const today = new Date().toISOString().slice(0, 10);
   const active = courses.filter((c) => !c.fecha_fin || c.fecha_fin >= today);
   const finished = courses.filter((c) => c.fecha_fin && c.fecha_fin < today);
+  const expandedCourse = courses.find((c) => c.id === expandedId) ?? null;
 
   return (
     <SiteLayout>
@@ -43,9 +59,28 @@ export function FormacionesPage() {
         <h1 className="mt-8 text-5xl md:text-7xl max-w-4xl leading-[0.98]">
           Estudiar la Gestalt como un <span style={{ color: "var(--gold)" }}>oficio</span> vivo.
         </h1>
+        <blockquote
+          className="mt-8 max-w-2xl border-l-2 pl-6"
+          style={{ borderColor: "var(--gold)" }}
+        >
+          <p className="text-lg italic leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+            "Nunca sabemos bien quién es el otro. Cuando pensamos saber, pronto descubrimos que se
+            trata de un saber que nos refleja de alguna manera".
+          </p>
+          <footer
+            className="mt-3 text-[11px] uppercase tracking-[0.3em]"
+            style={{ color: "var(--gold)" }}
+          >
+            — Marcos José Müller
+          </footer>
+        </blockquote>
         <p className="mt-8 max-w-2xl text-lg" style={{ color: "var(--ink-soft)" }}>
-          Programas actuales y en preparación. Cada formación se sostiene en teoría contemporánea,
-          práctica supervisada y comunidad.
+          Las formaciones son encuentros que se configuran como espacios de aprendizaje
+          experiencial, donde el conocimiento no se transmite únicamente como contenido, sino que se
+          construye en el encuentro, en diálogo con la experiencia y el contexto. Estos espacios
+          están orientados a acompañar procesos de formación que articulen el desarrollo profesional
+          con la experiencia personal, promoviendo una mirada crítica, sensible y comprometida con
+          el quehacer terapéutico.
         </p>
       </section>
 
@@ -64,7 +99,12 @@ export function FormacionesPage() {
         ) : (
           <div className="grid gap-8 md:grid-cols-2">
             {active.map((c, i) => (
-              <FeaturedCourseCard key={c.id} course={c} delay={i * 120} />
+              <FeaturedCourseCard
+                key={c.id}
+                course={c}
+                delay={i * 120}
+                onClick={() => handleCardClick(c)}
+              />
             ))}
           </div>
         )}
@@ -133,6 +173,30 @@ export function FormacionesPage() {
             </Accordion>
           </div>
         </section>
+      )}
+      {/* Cursos/talleres: la card se agranda y flota sobre las demás */}
+      {expandedCourse && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
+          style={{ background: "color-mix(in oklab, var(--ink) 55%, transparent)" }}
+          onClick={() => setExpandedId(null)}
+        >
+          <div
+            className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-sm shadow-2xl animate-rise"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <FeaturedCourseCard course={expandedCourse} />
+            <div
+              className="p-8 md:p-10 border-t"
+              style={{
+                background: "var(--background)",
+                borderColor: "color-mix(in oklab, var(--gold) 40%, transparent)",
+              }}
+            >
+              <FormacionDetails formacion={expandedCourse} />
+            </div>
+          </div>
+        </div>
       )}
     </SiteLayout>
   );

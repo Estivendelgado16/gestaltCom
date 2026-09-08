@@ -13,7 +13,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContYoutubeRouteImport } from './routes/ContYoutube'
 import { Route as ClasesRouteImport } from './routes/clases'
 import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as DiplomadoRouteImport } from './routes/diplomado'
 import { Route as FormacionesRouteImport } from './routes/formaciones'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PagosRouteImport } from './routes/pagos'
 import { Route as ServiciosRouteImport } from './routes/servicios'
@@ -51,9 +53,19 @@ const ContactoRoute = ContactoRouteImport.update({
   path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DiplomadoRoute = DiplomadoRouteImport.update({
+  id: '/diplomado',
+  path: '/diplomado',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FormacionesRoute = FormacionesRouteImport.update({
   id: '/formaciones',
   path: '/formaciones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McpRoute = McpRouteImport.update({
@@ -145,7 +157,9 @@ export interface FileRoutesByFullPath {
   '/ContYoutube': typeof ContYoutubeRoute
   '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
+  '/diplomado': typeof DiplomadoRoute
   '/formaciones': typeof FormacionesRouteWithChildren
+  '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
   '/pagos': typeof PagosRoute
   '/servicios': typeof ServiciosRoute
@@ -168,6 +182,8 @@ export interface FileRoutesByTo {
   '/ContYoutube': typeof ContYoutubeRoute
   '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
+  '/diplomado': typeof DiplomadoRoute
+  '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
   '/pagos': typeof PagosRoute
   '/servicios': typeof ServiciosRoute
@@ -191,7 +207,9 @@ export interface FileRoutesById {
   '/ContYoutube': typeof ContYoutubeRoute
   '/clases': typeof ClasesRoute
   '/contacto': typeof ContactoRoute
+  '/diplomado': typeof DiplomadoRoute
   '/formaciones': typeof FormacionesRouteWithChildren
+  '/login': typeof LoginRoute
   '/mcp': typeof McpRoute
   '/pagos': typeof PagosRoute
   '/servicios': typeof ServiciosRoute
@@ -216,7 +234,9 @@ export interface FileRouteTypes {
     | '/ContYoutube'
     | '/clases'
     | '/contacto'
+    | '/diplomado'
     | '/formaciones'
+    | '/login'
     | '/mcp'
     | '/pagos'
     | '/servicios'
@@ -239,6 +259,8 @@ export interface FileRouteTypes {
     | '/ContYoutube'
     | '/clases'
     | '/contacto'
+    | '/diplomado'
+    | '/login'
     | '/mcp'
     | '/pagos'
     | '/servicios'
@@ -261,7 +283,9 @@ export interface FileRouteTypes {
     | '/ContYoutube'
     | '/clases'
     | '/contacto'
+    | '/diplomado'
     | '/formaciones'
+    | '/login'
     | '/mcp'
     | '/pagos'
     | '/servicios'
@@ -285,7 +309,9 @@ export interface RootRouteChildren {
   ContYoutubeRoute: typeof ContYoutubeRoute
   ClasesRoute: typeof ClasesRoute
   ContactoRoute: typeof ContactoRoute
+  DiplomadoRoute: typeof DiplomadoRoute
   FormacionesRoute: typeof FormacionesRouteWithChildren
+  LoginRoute: typeof LoginRoute
   McpRoute: typeof McpRoute
   PagosRoute: typeof PagosRoute
   ServiciosRoute: typeof ServiciosRoute
@@ -331,11 +357,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/diplomado': {
+      id: '/diplomado'
+      path: '/diplomado'
+      fullPath: '/diplomado'
+      preLoaderRoute: typeof DiplomadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/formaciones': {
       id: '/formaciones'
       path: '/formaciones'
       fullPath: '/formaciones'
       preLoaderRoute: typeof FormacionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -474,7 +514,9 @@ const rootRouteChildren: RootRouteChildren = {
   ContYoutubeRoute: ContYoutubeRoute,
   ClasesRoute: ClasesRoute,
   ContactoRoute: ContactoRoute,
+  DiplomadoRoute: DiplomadoRoute,
   FormacionesRoute: FormacionesRouteWithChildren,
+  LoginRoute: LoginRoute,
   McpRoute: McpRoute,
   PagosRoute: PagosRoute,
   ServiciosRoute: ServiciosRoute,

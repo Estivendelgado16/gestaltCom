@@ -72,9 +72,9 @@ export function AboutPage() {
                 Formación
               </div>
               <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink-soft)" }}>
-                <li>Psicólogo · LUZ</li>
-                <li>Terapia Gestalt · IGB</li>
-                <li>Gestalt de Campo · IIGT Italia</li>
+                <li>Psicólogo de orientación clínica</li>
+                <li>Terapeuta Gestáltico con perspectiva de campo</li>
+                <li>Docente y supervisor</li>
               </ul>
             </div>
             <div>
@@ -139,7 +139,7 @@ export function AboutPage() {
               ))}
             </ol>
 
-            <p className="mt-10 text-base" style={{ color: "var(--ink-soft)" }}>
+            <p className="mt-10  text-base" style={{ color: "var(--ink-soft)" }}>
               Actualmente lidero
               <strong style={{ color: "var(--ink)" }}>
                 Comunidad Gestáltica: Estudios de Terapia Gestalt de Campo
