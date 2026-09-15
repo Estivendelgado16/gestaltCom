@@ -10,7 +10,7 @@ export function AdminLoginPage() {
     if (!loading) {
       if (!user) nav({ to: "/login" });
       else if (isAdmin) nav({ to: "/admin/dashboard" });
-      else nav({ to: "/clases" });
+      else nav({ to: "/usuarios/clases" });
     }
   }, [user, isAdmin, loading, nav]);
 

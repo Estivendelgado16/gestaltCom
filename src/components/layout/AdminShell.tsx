@@ -8,7 +8,7 @@ import {
   LogOut,
   ExternalLink,
   CreditCard,
-  BookOpen,
+  CalendarDays,
 } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
 
@@ -21,7 +21,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     { to: "/admin/dashboard", label: "Cursos", icon: LayoutDashboard },
     { to: "/admin/nuevo", label: "Nuevo curso", icon: PlusCircle },
     { to: "/admin/pagos", label: "Pagos", icon: CreditCard },
-    { to: "/clases", label: "Clases", icon: BookOpen },
+    { to: "/admin/actividades", label: "Actividades", icon: CalendarDays },
   ];
 
   async function handleLogout() {
@@ -35,7 +35,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
       style={{ background: "var(--cream)" }}
     >
       <aside
-        className="border-r flex flex-col"
+        className="md:sticky md:top-0 md:h-screen border-r flex flex-col"
         style={{
           background: "var(--ink)",
           color: "var(--cream)",

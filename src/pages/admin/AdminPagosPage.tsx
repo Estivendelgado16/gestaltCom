@@ -287,17 +287,36 @@ function PaymentCard({
           </button>
         </div>
       </div>
-      {payment.receipt_url && (
-        <a
-          href={payment.receipt_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs underline"
-          style={{ color: "var(--ink-soft)" }}
-        >
-          <ExternalLink className="w-3 h-3" /> Ver comprobante
-        </a>
-      )}
+      {payment.receipt_url && <ReceiptLink receiptUrl={payment.receipt_url} />}
     </div>
+  );
+}
+
+/** Abre el comprobante con una URL firmada (el bucket receipts es privado). */
+function ReceiptLink({ receiptUrl }: { receiptUrl: string }) {
+  const [loading, setLoading] = useState(false);
+
+  const openReceipt = async () => {
+    setLoading(true);
+    try {
+      const url = await paymentService.getReceiptSignedUrl(receiptUrl);
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch {
+      toast.error("No se pudo abrir el comprobante");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={openReceipt}
+      disabled={loading}
+      className="inline-flex items-center gap-1 text-xs underline disabled:opacity-50"
+      style={{ color: "var(--ink-soft)" }}
+    >
+      <ExternalLink className="w-3 h-3" /> {loading ? "Abriendo..." : "Ver comprobante"}
+    </button>
   );
 }

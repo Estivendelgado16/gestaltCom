@@ -37,15 +37,31 @@ export const paymentService = {
 
     if (uploadError) return { error: uploadError };
 
-    const { data: urlData } = supabase.storage.from("receipts").getPublicUrl(filePath);
-
+    // Bucket privado: se guarda la ruta del storage (no una URL pública).
+    // La visualización se hace con URLs firmadas (ver getReceiptSignedUrl).
     return supabase.from("manual_payments").insert({
       user_id: userId,
-      receipt_url: urlData.publicUrl,
+      receipt_url: filePath,
       reference_number: referenceNumber,
       status: "PENDING",
       formacion_id: formacionId,
     });
+  },
+
+  /**
+   * Genera una URL firmada (válida 5 min) para ver un comprobante.
+   * Acepta rutas del storage ("<uid>_<ts>.<ext>") y URLs públicas heredadas
+   * (les extrae la ruta). Si no puede firmar, devuelve el valor original.
+   */
+  async getReceiptSignedUrl(receipt: string): Promise<string> {
+    const match = receipt.match(/\/receipts\/(.+)$/);
+    const path = match?.[1] ?? (receipt.startsWith("http") ? null : receipt);
+    if (!path) return receipt;
+
+    const { data, error } = await supabase.storage.from("receipts").createSignedUrl(path, 60 * 5);
+
+    if (error || !data?.signedUrl) return receipt;
+    return data.signedUrl;
   },
 
   async approvePayment(paymentId: string, userId: string) {

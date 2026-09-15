@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/layout/SiteLayout";
-import { VerMasButton } from "@/components/site/VerMasButton";
 import { ArrowRight } from "lucide-react";
 
 export function HomePage() {
-  const [showMore, setShowMore] = useState(false);
   return (
     <SiteLayout>
       {/* Hero */}
@@ -19,20 +16,21 @@ export function HomePage() {
               Estudios de Gestalt de Campo
             </div>
             <h1
-              className="text-5xl md:text-7xl lg:text-8xl leading-[0.95]"
+              className="text-2xl md:text-4xl lg:text-5xl leading-[1.1]"
               style={{ color: "var(--ink)" }}
             >
-              El encuentro
+              “Necesitamos estar preparados para ser «sorprendidos»
               <br />
-              como{" "}
+              ante el{" "}
               <em className="not-italic" style={{ color: "var(--gold)" }}>
-                fenómeno
+                poder aterrador, la delicada fragilidad y la belleza efímera del mundo
               </em>
               <br />
-              de campo.
+              que emana hacia adelante en cada «ahora»”.
             </h1>
+            <p>Merleau-Ponty</p>
             <div
-              className="mt-10 max-w-xl text-lg leading-relaxed space-y-5"
+              className="mt-10 max-w-3xl text-lg leading-relaxed space-y-5"
               style={{ color: "var(--ink-soft)" }}
             >
               <p>
@@ -42,24 +40,19 @@ export function HomePage() {
                 conocimiento y el intercambio académico entre profesionales de distintos contextos
                 culturales.
               </p>
-              {showMore && (
-                <>
-                  <p>
-                    Entendemos la Gestalt de Campo como una práctica viva, contextual y en
-                    permanente transformación. Por ello, promovemos la formación, supervisión y
-                    entrenamiento clínico, la reflexión epistemológica y el estudio de la
-                    psicopatología desde una mirada de campo, sosteniendo la pluralidad de
-                    desarrollos que enriquecen la tradición gestáltica.
-                  </p>
-                  <p>
-                    Aspiramos a continuar la difusión y desarrollo de la Terapia Gestalt de Campo,
-                    fortaleciendo una red de profesionales comprometidos con la actualización
-                    permanente y la creación de comunidad como fundamento ético y formativo.
-                  </p>
-                </>
-              )}
+              <p>
+                Entendemos la Gestalt de Campo como una práctica viva, contextual y en permanente
+                transformación. Por ello, promovemos la formación, supervisión y entrenamiento
+                clínico, la reflexión epistemológica y el estudio de la psicopatología desde una
+                mirada de campo, sosteniendo la pluralidad de desarrollos que enriquecen la
+                tradición gestáltica.
+              </p>
+              <p>
+                Aspiramos a continuar la difusión y desarrollo de la Terapia Gestalt de Campo,
+                fortaleciendo una red de profesionales comprometidos con la actualización permanente
+                y la creación de comunidad como fundamento ético y formativo.
+              </p>
             </div>
-            <VerMasButton expanded={showMore} onToggle={() => setShowMore((v) => !v)} />
             <div className="mt-12 flex flex-wrap items-center gap-6">
               <Link
                 to="/formaciones"
@@ -74,20 +67,23 @@ export function HomePage() {
                 className="text-sm uppercase tracking-widest border-b pb-1"
                 style={{ color: "var(--ink)", borderColor: "var(--gold)" }}
               >
-                Conocer a Dany
+                Conocer a su fundador
               </Link>
             </div>
           </div>
-          <div className="md:col-span-4 animate-rise-delay">
+          <div className="md:col-span-4 animate-rise-delay mt-8 md:mt-24">
             <div
               className="aspect-3/4 rounded-sm relative overflow-hidden"
               style={{
                 background: "linear-gradient(160deg, var(--sand-light), var(--cream))",
               }}
             >
-              <img
-                src="/img/hero-piedras.png"
-                alt="Piedras apiladas en equilibrio"
+              <video
+                src="/img/videoHome1.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
@@ -95,19 +91,16 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Manifesto strip */}
+      {/* Manifiesto */}
       <section style={{ background: "var(--sand-light)" }}>
         <div className="container-clinic py-24 grid md:grid-cols-3 gap-10 items-center">
           <div className="flex flex-col items-center text-center">
-            <div
-              className="text-[10px] uppercase tracking-[0.35em]"
-              style={{ color: "var(--ink-soft)" }}
-            >
-              Manifiesto
-            </div>
-            <img
-              src="/img/manifiesto.jpg"
-              alt="Dos personas caminando juntas por un camino"
+            <video
+              src="/img/videoHome2.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
               className="mt-6 w-64 rounded-sm object-cover aspect-square"
             />
           </div>
@@ -115,13 +108,18 @@ export function HomePage() {
             className="md:col-span-2 text-2xl md:text-3xl leading-snug"
             style={{ color: "var(--ink)" }}
           >
-            No trabajamos con individuos aislados: trabajamos con el
+            "
             <em className="not-italic" style={{ color: "var(--gold)" }}>
               {" "}
-              campo{" "}
+              Otro debe prestar su propia carne{" "}
             </em>
-            que emerge entre el terapeuta, el paciente y el mundo. El síntoma es un mensaje del
-            campo, no una falla del sujeto.
+            para permitir que lo no formado llegue a la presencia, es necesario
+            <em className="not-italic" style={{ color: "var(--gold)" }}>
+              {" "}
+              que alguien esté presente y disponible{" "}
+            </em>
+            para sentir lo no sentido porque no es sentible”.
+            <span className="flex">Gianni Francesetti</span>
           </p>
         </div>
       </section>

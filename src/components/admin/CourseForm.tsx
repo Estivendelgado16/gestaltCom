@@ -13,7 +13,7 @@ const schema = z.object({
   horarios: z.string().optional(),
   modalidad: z.enum(["Presencial", "Virtual", "Híbrido"]).default("Presencial"),
   duracion: z.string().max(40).optional(),
-  flyer_url: z.string().url("URL inválida").optional(),
+  flyer_url: z.string().url("URL inválida").or(z.literal("")).optional(),
   galeria_fotos: z.array(z.string().url()).default([]),
   precio: z.number().optional(),
 });
@@ -47,7 +47,9 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
     setValues((prev) => ({ ...prev, [k]: v }));
   }
 
-  function onSubmit(e: React.FormEvent) {
+  const [submitting, setSubmitting] = useState(false);
+
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     const parsed = schema.safeParse(values);
     if (!parsed.success) {
@@ -56,12 +58,40 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
       setErrors(errs);
       return;
     }
-    const id = values.id || `formacion-${Date.now()}`;
-    formacionService.enrollUser("admin", id); // Placeholder - en producción crearía la formación
-    toast.success(isEdit ? "Formación actualizada" : "Formación creada", {
-      description: "Guardado en Supabase",
-    });
-    nav({ to: "/admin/dashboard" });
+
+    const payload = {
+      titulo: values.titulo.trim(),
+      descripcion: values.descripcion.trim(),
+      tipo: values.tipo,
+      fecha_inicio: values.fecha_inicio || null,
+      fecha_fin: values.fecha_fin || null,
+      horarios: values.horarios?.trim() || null,
+      modalidad: values.modalidad,
+      duracion: values.duracion?.trim() || null,
+      flyer_url: values.flyer_url?.trim() || null,
+      galeria_fotos: values.galeria_fotos,
+      precio: values.precio ?? 0,
+      is_published: values.is_published,
+    };
+
+    setSubmitting(true);
+    try {
+      if (isEdit) {
+        await formacionService.updateFormacion(values.id, payload);
+      } else {
+        await formacionService.createFormacion(payload);
+      }
+      toast.success(isEdit ? "Formación actualizada" : "Formación creada", {
+        description: "Guardado en Supabase",
+      });
+      nav({ to: "/admin/dashboard" });
+    } catch (err) {
+      toast.error("No se pudo guardar", {
+        description: err instanceof Error ? err.message : "Error desconocido",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -155,7 +185,7 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        <Field label="Flyer / Afiche (URL)" error={errors.flyer_url}>
+        <Field label="Flyer / Afiche (URL, opcional)" error={errors.flyer_url}>
           <input
             value={values.flyer_url ?? ""}
             onChange={(e) => set("flyer_url", e.target.value)}
@@ -202,10 +232,11 @@ https://ejemplo.com/foto2.jpg"
       <div className="flex gap-4 pt-4">
         <button
           type="submit"
-          className="inline-flex items-center rounded-full px-8 py-3 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5"
+          disabled={submitting}
+          className="inline-flex items-center rounded-full px-8 py-3 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5 disabled:opacity-50"
           style={{ background: "var(--ink)", color: "var(--cream)" }}
         >
-          {isEdit ? "Guardar cambios" : "Publicar formación"}
+          {submitting ? "Guardando..." : isEdit ? "Guardar cambios" : "Publicar formación"}
         </button>
         <button
           type="button"

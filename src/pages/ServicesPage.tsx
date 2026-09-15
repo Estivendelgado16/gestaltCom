@@ -46,9 +46,12 @@ export function ServicesPage() {
         >
           Servicios
         </div>
-        <h1 className="mt-8 text-5xl md:text-7xl max-w-4xl leading-[0.98]">
-          Cuatro modos de <span style={{ color: "var(--gold)" }}>habitar</span> el campo.
-        </h1>
+<h1 className="mt-8 text-3xl md:text-4xl lg:text-5xl leading-[1.1]" style={{ width: "90%" }}>
+          “El dolor no es otra cosa que
+          <span style={{ color: "var(--gold)" }}>la sorpresa de no encontrarnos</span> De todos los
+          pecados de la psicología, el más mortal es su indiferencia ante la belleza.”
+</h1>
+        <p>J. Hillman</p>
       </section>
 
       <section className="pb-28">
@@ -64,15 +67,49 @@ export function ServicesPage() {
             >
               <div className="container-clinic p-10 md:p-16 md:py-16 py-10 grid md:grid-cols-12 gap-8">
                 <div className="md:col-span-2">
-                  <div className="text-[11px] tracking-[0.3em]" style={{ color: "var(--gold)" }}>
-                    {s.n}
-                  </div>
-                  <div
-                    className="mt-2 text-[10px] uppercase tracking-[0.28em]"
-                    style={{ color: "var(--ink-soft)" }}
-                  >
-                    {s.tag}
-                  </div>
+                  {i === 0 ? (
+                    <video
+                      src="/img/service1.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-64 rounded-sm object-cover"
+                    />
+                  ) : i === 1 ? (
+                    <video
+                      src="/img/service2.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-64 rounded-sm object-cover"
+                    />
+                  ) : i === 2 ? (
+                    <video
+                      src="/img/service3.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-64 rounded-sm object-cover"
+                    />
+                  ) : (
+                    <>
+                      <div
+                        className="text-[11px] tracking-[0.3em]"
+                        style={{ color: "var(--gold)" }}
+                      >
+                        {s.n}
+                      </div>
+                      <div
+                        className="mt-2 text-[10px] uppercase tracking-[0.28em]"
+                        style={{ color: "var(--ink-soft)" }}
+                      >
+                        {s.tag}
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className="md:col-span-7">
                   <h2 className="text-3xl md:text-4xl">{s.t}</h2>

@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabaseClient";
-import type { Formacion, Module, UserEnrollment } from "@/types";
+import type { Formacion } from "@/types";
 
 export const formacionService = {
   async getFormaciones(filters?: {
@@ -22,40 +22,21 @@ export const formacionService = {
     return data ?? [];
   },
 
-  async getFormacionById(id: string): Promise<Formacion | null> {
-    const { data, error } = await supabase.from("formaciones").select("*").eq("id", id).single();
+  async createFormacion(payload: Omit<Formacion, "id" | "created_at">): Promise<Formacion> {
+    const { data, error } = await supabase.from("formaciones").insert(payload).select().single();
 
     if (error) throw error;
-    return data ?? null;
+    return data;
   },
 
-  async getFormacionModules(formacionId: string): Promise<Module[]> {
+  async updateFormacion(
+    id: string,
+    payload: Partial<Omit<Formacion, "id" | "created_at">>,
+  ): Promise<Formacion> {
     const { data, error } = await supabase
-      .from("modules")
-      .select("*")
-      .eq("formacion_id", formacionId)
-      .order("order_index", { ascending: true });
-
-    if (error) throw error;
-    return data ?? [];
-  },
-
-  async getUserEnrollment(userId: string, formacionId: string): Promise<UserEnrollment | null> {
-    const { data, error } = await supabase
-      .from("user_enrollments")
-      .select("*")
-      .eq("user_id", userId)
-      .eq("formacion_id", formacionId)
-      .single();
-
-    if (error) throw error;
-    return data ?? null;
-  },
-
-  async enrollUser(userId: string, formacionId: string): Promise<UserEnrollment> {
-    const { data, error } = await supabase
-      .from("user_enrollments")
-      .insert({ user_id: userId, formacion_id: formacionId })
+      .from("formaciones")
+      .update(payload)
+      .eq("id", id)
       .select()
       .single();
 
@@ -63,8 +44,16 @@ export const formacionService = {
     return data;
   },
 
-  async checkEnrollmentStatus(userId: string, formacionId: string): Promise<boolean> {
-    const enrollment = await this.getUserEnrollment(userId, formacionId);
-    return enrollment?.is_active ?? false;
+  async deleteFormacion(id: string): Promise<void> {
+    const { error } = await supabase.from("formaciones").delete().eq("id", id);
+
+    if (error) throw error;
+  },
+
+  async getFormacionById(id: string): Promise<Formacion | null> {
+    const { data, error } = await supabase.from("formaciones").select("*").eq("id", id).single();
+
+    if (error) throw error;
+    return data ?? null;
   },
 };

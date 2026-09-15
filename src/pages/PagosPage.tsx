@@ -1,11 +1,11 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useRequireAuth } from "@/context/AuthContext";
 import { paymentService } from "@/services/payment.service";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { PageLoading } from "@/components/layout/PageLoading";
 import { toast } from "sonner";
-import { Upload, CheckCircle, Clock, LogIn } from "lucide-react";
+import { Upload, CheckCircle, XCircle, Clock, LogIn } from "lucide-react";
 
 type PaymentStatus = "idle" | "uploading" | "success" | "error";
 
@@ -17,7 +17,16 @@ interface ExistingPayment {
 }
 
 export function PagosPage() {
-  const { user, loading: authLoading } = useRequireAuth("/login");
+  const { user, hasPaidAccess, loading: authLoading } = useRequireAuth("/login");
+  const nav = useNavigate();
+
+  // Cuando el admin aprueba el pago (el flag se actualiza por realtime),
+  // el usuario sale automáticamente de /pagos hacia sus clases.
+  useEffect(() => {
+    if (!authLoading && user && hasPaidAccess === true) {
+      nav({ to: "/usuarios/clases" });
+    }
+  }, [authLoading, user, hasPaidAccess, nav]);
 
   const [referenceNumber, setReferenceNumber] = useState("");
   const [file, setFile] = useState<File | null>(null);
@@ -59,7 +68,7 @@ export function PagosPage() {
   }
 
   if (authLoading || checkingPayment) {
-    return <PageLoading />;
+    return <PageLoading hideChrome />;
   }
 
   if (!user) return null;
@@ -71,10 +80,28 @@ export function PagosPage() {
       created_at: new Date().toISOString(),
     };
     return (
-      <SiteLayout>
+      <SiteLayout hideChrome>
         <div className="container-clinic pt-10 pb-20 max-w-lg">
           <div className="text-center space-y-6">
-            {payment.status === "APPROVED" ? (
+            {payment.status === "REJECTED" ? (
+              <>
+                <XCircle className="w-16 h-16 mx-auto text-gold" />
+                <h1 className="text-3xl text-ink">Pago rechazado</h1>
+                <p className="text-sm text-ink-soft">
+                  Tu comprobante no pudo ser verificado. Revisa que la imagen sea legible y que el
+                  número de referencia coincida, y vuelve a enviarlo.
+                </p>
+                <button
+                  onClick={() => {
+                    setExistingPayment(null);
+                    setStatus("idle");
+                  }}
+                  className="inline-flex items-center gap-2 rounded-full px-8 py-3 text-sm uppercase tracking-widest bg-ink text-cream"
+                >
+                  Enviar nuevo comprobante
+                </button>
+              </>
+            ) : payment.status === "APPROVED" ? (
               <>
                 <CheckCircle className="w-16 h-16 mx-auto text-gold" />
                 <h1 className="text-3xl text-ink">Pago aprobado</h1>
@@ -82,7 +109,7 @@ export function PagosPage() {
                   Tu acceso ha sido habilitado. Puedes acceder a las clases.
                 </p>
                 <Link
-                  to="/clases"
+                  to="/usuarios/clases"
                   className="inline-flex items-center gap-2 rounded-full px-8 py-3 text-sm uppercase tracking-widest bg-ink text-cream"
                 >
                   Ver clases
@@ -120,7 +147,7 @@ export function PagosPage() {
   }
 
   return (
-    <SiteLayout>
+    <SiteLayout hideChrome>
       <div className="container-clinic pt-10 pb-20 max-w-lg">
         <div className="text-[11px] uppercase tracking-[0.35em] mb-4 text-ink-soft">
           Formulario de pago

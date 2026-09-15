@@ -1,21 +1,43 @@
 import { Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { AdminShell } from "@/components/layout/AdminShell";
 import { useRequireAdmin } from "@/context/AuthContext";
 import { formacionService } from "@/services/formacion.service";
 import { toast } from "sonner";
 import { Pencil, Trash2, PlusCircle, RotateCcw } from "lucide-react";
+import { DiplomadoModulosSection } from "@/components/admin/DiplomadoModulosSection";
 
 export function DashboardPage() {
   const { user, isAdmin, loading } = useRequireAdmin();
+  const queryClient = useQueryClient();
   const { data: formaciones = [] } = useQuery({
     queryKey: ["formaciones", "all"],
     queryFn: () => formacionService.getFormaciones(),
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => formacionService.deleteFormacion(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["formaciones"] });
+      toast.success("Formación eliminada", { description: "Se removió de Supabase" });
+    },
+    onError: (err) => {
+      toast.error("No se pudo eliminar", {
+        description: err instanceof Error ? err.message : "Error desconocido",
+      });
+    },
+  });
+
+  function onDelete(id: string, titulo: string) {
+    if (confirm(`¿Eliminar "${titulo}"?`)) {
+      deleteMutation.mutate(id);
+    }
+  }
+
   if (loading || !user || !isAdmin) return null;
 
   const formacionesList = formaciones;
+  const diplomados = formacionesList.filter((f) => f.tipo === "DIPLOMADO");
 
   return (
     <AdminShell>
@@ -139,14 +161,7 @@ export function DashboardPage() {
                         <Pencil className="w-3.5 h-3.5" />
                       </Link>
                       <button
-                        onClick={() => {
-                          if (confirm(`¿Eliminar "${f.titulo}"?`)) {
-                            // Lógica de eliminación - en producción usaríamos formacionService.deleteFormacion
-                            toast.success("Formación eliminada", {
-                              description: "Se removió de Supabase",
-                            });
-                          }
-                        }}
+                        onClick={() => onDelete(f.id, f.titulo)}
                         className="inline-flex items-center justify-center w-8 h-8 rounded-full hover:bg-secondary"
                         aria-label="Eliminar"
                       >
@@ -160,6 +175,32 @@ export function DashboardPage() {
           </tbody>
         </table>
       </div>
+
+      {/* Sección de desbloqueo de contenido para diplomados */}
+      {diplomados.length > 0 && (
+        <section className="mt-12">
+          <header className="mb-6">
+            <div
+              className="text-[10px] uppercase tracking-[0.35em]"
+              style={{ color: "var(--ink-soft)" }}
+            >
+              Desbloqueo de contenido
+            </div>
+            <h2 className="mt-2 text-2xl" style={{ color: "var(--ink)" }}>
+              Diplomados
+            </h2>
+            <p className="text-sm mt-1" style={{ color: "var(--ink-soft)" }}>
+              Activa el interruptor de cada módulo o lección para que los usuarios con pago aprobado
+              lo vean.
+            </p>
+          </header>
+          <div className="space-y-6">
+            {diplomados.map((f) => (
+              <DiplomadoModulosSection key={f.id} formacion={f} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <div
         className="mt-8 p-6 rounded-sm text-xs"

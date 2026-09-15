@@ -47,6 +47,10 @@ export function FormacionesPage() {
   const finished = courses.filter((c) => c.fecha_fin && c.fecha_fin < today);
   const expandedCourse = courses.find((c) => c.id === expandedId) ?? null;
 
+  // El diplomado siempre es protagonista: va arriba y el resto debajo.
+  const diplomados = active.filter((c) => c.tipo === "DIPLOMADO");
+  const otros = active.filter((c) => c.tipo !== "DIPLOMADO");
+
   return (
     <SiteLayout>
       <section className="container-clinic pt-6 pb-16">
@@ -56,24 +60,14 @@ export function FormacionesPage() {
         >
           Formaciones
         </div>
-        <h1 className="mt-8 text-5xl md:text-7xl max-w-4xl leading-[0.98]">
-          Estudiar la Gestalt como un <span style={{ color: "var(--gold)" }}>oficio</span> vivo.
+<h1 className="mt-8 text-3xl md:text-4xl lg:text-5xl leading-[1.1]" style={{ width: "90%" }}>
+          "El momento en que el terapeuta está{" "}
+          <span style={{ color: "var(--gold)" }}>
+            presente en la ausencia, esta ya no está ausente
+          </span>{" "}
+          , el dolor se despliega, toma una nueva vida en la carne de los dos, los dos se vuelven
+          más vivos”.
         </h1>
-        <blockquote
-          className="mt-8 max-w-2xl border-l-2 pl-6"
-          style={{ borderColor: "var(--gold)" }}
-        >
-          <p className="text-lg italic leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-            "Nunca sabemos bien quién es el otro. Cuando pensamos saber, pronto descubrimos que se
-            trata de un saber que nos refleja de alguna manera".
-          </p>
-          <footer
-            className="mt-3 text-[11px] uppercase tracking-[0.3em]"
-            style={{ color: "var(--gold)" }}
-          >
-            — Marcos José Müller
-          </footer>
-        </blockquote>
         <p className="mt-8 max-w-2xl text-lg" style={{ color: "var(--ink-soft)" }}>
           Las formaciones son encuentros que se configuran como espacios de aprendizaje
           experiencial, donde el conocimiento no se transmite únicamente como contenido, sino que se
@@ -84,21 +78,43 @@ export function FormacionesPage() {
         </p>
       </section>
 
-      {/* Activos */}
+      {/* Diplomado: protagonista, siempre arriba */}
+      {diplomados.length > 0 && (
+        <section className="container-clinic pb-24">
+          <div className="mb-10 flex items-baseline justify-between">
+            <h2 className="text-2xl">Diplomado</h2>
+            <span className="text-xs uppercase tracking-widest" style={{ color: "var(--ink-soft)" }}>
+              {diplomados.length} programa{diplomados.length === 1 ? "" : "s"}
+            </span>
+          </div>
+          <div className="grid gap-8 md:grid-cols-2">
+            {diplomados.map((c, i) => (
+              <FeaturedCourseCard
+                key={c.id}
+                course={c}
+                delay={i * 120}
+                onClick={() => handleCardClick(c)}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Resto de formaciones */}
       <section className="container-clinic pb-24">
         <div className="mb-10 flex items-baseline justify-between">
-          <h2 className="text-2xl">En curso y próximas</h2>
+          <h2 className="text-2xl">Formaciones disponibles</h2>
           <span className="text-xs uppercase tracking-widest" style={{ color: "var(--ink-soft)" }}>
-            {active.length} programa{active.length === 1 ? "" : "s"}
+            {otros.length} programa{otros.length === 1 ? "" : "s"}
           </span>
         </div>
-        {active.length === 0 ? (
+        {otros.length === 0 ? (
           <p className="text-sm" style={{ color: "var(--ink-soft)" }}>
-            No hay formaciones activas en este momento.
+            No hay otras formaciones activas en este momento.
           </p>
         ) : (
           <div className="grid gap-8 md:grid-cols-2">
-            {active.map((c, i) => (
+            {otros.map((c, i) => (
               <FeaturedCourseCard
                 key={c.id}
                 course={c}

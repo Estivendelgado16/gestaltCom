@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { AdminShell } from "@/components/layout/AdminShell";
-import { useAuth } from "@/context/AuthContext";
+import { useRequireAdmin } from "@/context/AuthContext";
 import { formacionService } from "@/services/formacion.service";
 import type { Formacion } from "@/types";
 
@@ -18,24 +18,21 @@ export const Route = createFileRoute("/admin/editar/$id")({
 
 function EditarCursoPage() {
   const nav = useNavigate();
-  const { user, loading } = useAuth();
+  const { user, isAdmin, loading } = useRequireAdmin();
   const { id } = Route.useParams();
   const [formacion, setFormacion] = useState<Formacion | null>(null);
 
   useEffect(() => {
-    if (!loading && !user) {
-      nav({ to: "/admin" });
-      return;
-    }
+    if (loading || !user || !isAdmin) return;
 
     // Obtener formación de Supabase
     formacionService.getFormacionById(id).then((data) => {
       if (!data) return;
       setFormacion(data);
     });
-  }, [user, loading, id, nav]);
+  }, [user, isAdmin, loading, id, nav]);
 
-  if (loading || !user) return null;
+  if (loading || !user || !isAdmin) return null;
 
   if (!formacion) {
     return (

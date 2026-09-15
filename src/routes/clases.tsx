@@ -1,16 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { lazy } from "react";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-const ClasesPage = lazy(() =>
-  import("@/pages/ClasesPage").then((m) => ({ default: m.ClasesPage })),
-);
-
+// Ruta legada: el área de clases vive ahora dentro de /usuarios.
 export const Route = createFileRoute("/clases")({
-  head: () => ({
-    meta: [
-      { title: "Clases — Comunidad Gestáltica" },
-      { name: "description", content: "Accede a las clases y materiales de las formaciones." },
-    ],
-  }),
-  component: ClasesPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/usuarios/clases" });
+  },
 });

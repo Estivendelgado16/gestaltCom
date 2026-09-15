@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { VerMasButton } from "@/components/site/VerMasButton";
 
@@ -21,19 +21,13 @@ export function AboutPage() {
   return (
     <SiteLayout>
       <section className="container-clinic pt-6 pb-16">
-        <div
-          className="text-[11px] uppercase tracking-[0.35em]"
-          style={{ color: "var(--ink-soft)" }}
-        >
-          Sobre mí
-        </div>
         <h1 className="mt-8 text-5xl md:text-7xl max-w-4xl leading-[0.98]">
           Dany Rafael <span style={{ color: "var(--gold)" }}>Mora Bracho</span>
         </h1>
         <p className="mt-8 max-w-2xl text-lg" style={{ color: "var(--ink-soft)" }}>
-          Psicólogo, terapeuta gestáltico y formador. Fundador de Comunidad Gestáltica.
+          Psicólogo • Terapeuta gestáltico • Docente • Fundador de Comunidad Gestáltica
         </p>
-      </section>
+      </section> 
 
       <section className="container-clinic pb-28 grid md:grid-cols-12 gap-16">
         <div className="md:col-span-5">
@@ -86,8 +80,8 @@ export function AboutPage() {
               </div>
               <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink-soft)" }}>
                 <li>Consulta privada</li>
-                <li>Supervisión clínica</li>
-                <li>Docencia internacional</li>
+                <li>Supervisión y entrenamiento clínico</li>
+                <li>Formación gestaltica</li>
               </ul>
             </div>
           </div>
@@ -118,34 +112,50 @@ export function AboutPage() {
               style={{ borderColor: "color-mix(in oklab, var(--ink) 15%, transparent)" }}
             >
               {[
-                "Soy Psicólogo egresado de la Universidad Rafael Urdaneta (Venezuela, 2009). Magíster en Orientación mención Educación por la Universidad del Zulia (Venezuela, 2021).",
-                "Inicié mi formación en Terapia Gestalt en el Centro Gestáltico San Isidro (Argentina, 2011). Desde entonces he venido profundizando en la perspectiva de campo, inicialmente junto a José Miguel Echarte (Argentina, 2021–2026).",
-                "Realicé el Posgrado en Terapia Gestalt Relacional y de Campo (2022–2023) y la Formación en Psicopatología desde la Perspectiva Gestalt de Campo (2024–2025) en Terapiados Formación (España).",
-                "Me formé en Psicopatología desde la Gestalt de Campo en el Centro Gestáltico San Isidro (2022–2023) y cursé el Diplomado en Psicoterapia Gestalt desde la Perspectiva de Campo en CEFEX (Chile) y el Centre Gestalt de Valencia (España) (2025–2026).",
-                "Cuento con formación complementaria en prevención y atención del comportamiento suicida, intervención en salud mental, docencia universitaria, consejería en adicciones y prevención del consumo de drogas, así como estudios en psicodrama y terapias corporales.",
-                "He trabajado en programas de restablecimiento de derechos de niños, niñas y adolescentes; en unidades de rehabilitación por consumo de sustancias; en el área de neurodesarrollo y rehabilitación integral; y como psicólogo del programa de telepsicología para emergencias en salud mental «Línea Amiga».",
-                "Me desempeñé como docente del Centro Gestáltico de Medellín (2017–2025).",
-                "Soy cofundador de Catarsis: Psicoterapia & Formación desde 2021.",
+                "Psicólogo egresado de la Universidad Rafael Urdaneta (Venezuela, 2009) y magíster en Orientación, mención Educación, por la Universidad del Zulia (Venezuela, 2021).",
+                "Inició su formación en Terapia Gestalt en el Centro Gestáltico San Isidro (Argentina, 2011). Posteriormente, empezó a profundizar en la perspectiva de campo, inicialmente junto a José Miguel Echarte (Argentina, 2021–2026).",
+                "Realizó el Posgrado en Terapia Gestalt Relacional y de Campo (2022–2023) y la Formación en Psicopatología desde la Perspectiva Gestalt de Campo (2024–2025) en Terapiados Formación (España).",
+                "Se ha formado en Psicopatología desde la Gestalt de Campo en el Centro Gestáltico San Isidro (2022–2023) y cursó el Diplomado en Psicoterapia Gestalt desde la Perspectiva de Campo en CEFEX (Chile) y el Centre Gestalt de Valencia (España) (2025–2026).",
+                "Cuenta con formación complementaria en prevención y atención del comportamiento suicida, intervención en salud mental, docencia universitaria, consejería en adicciones y prevención del consumo de drogas, así como con estudios en psicodrama y otras terapias corporales.",
+                "Ha trabajado en programas de restablecimiento de derechos de niños, niñas y adolescentes; en unidades de rehabilitación por consumo de sustancias; en el área de neurodesarrollo y rehabilitación integral; y como psicólogo del programa de telepsicología para emergencias en salud mental «Línea Amiga».",
+                "Se desempeñó como docente del Centro Gestáltico de Medellín (2017–2025).",
+                "Es cofundador de Catarsis: Psicoterapia & Formación desde 2021.",
               ].map((item, i) => (
-                <li key={i} className="relative">
-                  <span
-                    className="inline-block mr-3 w-2 h-2 rounded-full align-middle"
-                    style={{ background: "var(--gold)" }}
-                  />
-                  <span className="align-middle" style={{ color: "var(--ink-soft)" }}>
-                    {item}
-                  </span>
-                </li>
+                <Fragment key={i}>
+                  <li className="relative">
+                    <span
+                      className="inline-block mr-3 w-2 h-2 rounded-full align-middle"
+                      style={{ background: "var(--gold)" }}
+                    />
+                    <span className="align-middle" style={{ color: "var(--ink-soft)" }}>
+                      {item}
+                    </span>
+                    {i === 0 && (
+                      <img
+                        src="/img/lineaFotos1.png"
+                        alt="Momentos de formación de Dany Mora"
+                        className="mt-4 w-full block"
+                      />
+                    )}
+                    {i === 3 && (
+                      <img
+                        src="/img/lineaFotos2.png"
+                        alt="Momentos de formación de Dany Mora"
+                        className="mt-4 w-full block"
+                      />
+                    )}
+                  </li>
+                </Fragment>
               ))}
             </ol>
 
             <p className="mt-10  text-base" style={{ color: "var(--ink-soft)" }}>
-              Actualmente lidero
+              Actualmente lidera{" "}
               <strong style={{ color: "var(--ink)" }}>
                 Comunidad Gestáltica: Estudios de Terapia Gestalt de Campo
               </strong>
               , un espacio orientado a la reflexión académica, la supervisión y entrenamiento
-              clínico y el diálogo internacional en torno a la Terapia Gestalt. Nació como un
+              clínico y el diálogo internacional en torno a la Terapia Gestalt que inició como un
               proyecto de entrevistas y divulgación que busca ampliar la circulación de saberes y
               experiencias en el campo gestáltico.
             </p>

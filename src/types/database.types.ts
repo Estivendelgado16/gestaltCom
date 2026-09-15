@@ -128,6 +128,60 @@ export interface Database {
         };
         Relationships: [];
       };
+      actividades: {
+        Row: {
+          id: string;
+          title: string;
+          category: string;
+          subtitle: string | null;
+          description: string;
+          featured_notice: string | null;
+          status_badges: string[];
+          cta_text: string;
+          cta_link: string | null;
+          image_url: string | null;
+          image_alt: string | null;
+          is_featured: boolean;
+          is_published: boolean;
+          sort_order: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          category: string;
+          subtitle?: string | null;
+          description: string;
+          featured_notice?: string | null;
+          status_badges?: string[];
+          cta_text?: string;
+          cta_link?: string | null;
+          image_url?: string | null;
+          image_alt?: string | null;
+          is_featured?: boolean;
+          is_published?: boolean;
+          sort_order?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          category?: string;
+          subtitle?: string | null;
+          description?: string;
+          featured_notice?: string | null;
+          status_badges?: string[];
+          cta_text?: string;
+          cta_link?: string | null;
+          image_url?: string | null;
+          image_alt?: string | null;
+          is_featured?: boolean;
+          is_published?: boolean;
+          sort_order?: number;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
       user_enrollments: {
         Row: {
           id: string;

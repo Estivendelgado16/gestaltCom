@@ -52,13 +52,14 @@ CREATE POLICY "Usuarios ven sus propias inscripciones"
 ON public.user_enrollments FOR SELECT TO authenticated
 USING (auth.uid() = user_id);
 
--- 7. Políticas para manual_payments (agregando filtro por formacion_id si existe)
--- Los usuarios autenticados pueden ver sus propios pagos
+-- 7. Políticas para manual_payments (DROP + CREATE: estos nombres ya fueron
+-- creados en 20260830000004; sin el DROP esta migración falla en una base nueva)
+DROP POLICY IF EXISTS "Usuarios ven sus propios pagos" ON public.manual_payments;
 CREATE POLICY "Usuarios ven sus propios pagos"
 ON public.manual_payments FOR SELECT TO authenticated
 USING (auth.uid() = user_id);
 
--- Los usuarios autenticados pueden registrar sus propios comprobantes
+DROP POLICY IF EXISTS "Usuarios suben sus propios pagos" ON public.manual_payments;
 CREATE POLICY "Usuarios suben sus propios pagos"
 ON public.manual_payments FOR INSERT TO authenticated
 WITH CHECK (auth.uid() = user_id);
@@ -83,8 +84,8 @@ WITH seed_data AS (
   ) AS x(
     id text,
     title text,
-    startDate text,
-    shortDescription text,
+    "startDate" text,
+    "shortDescription" text,
     status text,
     location text,
     duration text
@@ -94,13 +95,13 @@ INSERT INTO public.formaciones (id, titulo, descripcion, tipo, fecha_inicio, fec
 SELECT
   gen_random_uuid(),
   title,
-  shortDescription,
+  "shortDescription",
   CASE
     WHEN title LIKE 'Diplomado%' THEN 'DIPLOMADO'
     WHEN title LIKE 'Taller%' THEN 'TALLER'
     ELSE 'CURSO'
   END,
-  startDate::date,
+  "startDate"::date,
   NULL::date,
   NULL, -- horarios no tenía datos originales en JSON, se dejara NULL
   CASE

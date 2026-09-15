@@ -17,14 +17,6 @@ export interface Formacion {
   created_at: string;
 }
 
-export interface UserEnrollment {
-  id: string;
-  user_id: string;
-  formacion_id: string;
-  is_active: boolean;
-  created_at: string;
-}
-
 export interface Lesson {
   id: string;
   title: string;
@@ -42,6 +34,39 @@ export interface Module {
   description: string | null;
   order_index: number;
   formacion_id?: string;
+}
+
+/**
+ * Vista previa de lección (todas, sin URLs sensibles) para mostrar la
+ * estructura al usuario pagado antes de que el admin publique el contenido.
+ */
+export interface Actividad {
+  id: string;
+  title: string;
+  category: string;
+  subtitle: string | null;
+  description: string;
+  featured_notice: string | null;
+  status_badges: string[];
+  cta_text: string;
+  cta_link: string | null;
+  image_url: string | null;
+  image_alt: string | null;
+  is_featured: boolean;
+  is_published: boolean;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface LessonPreview {
+  id: string;
+  module_id: string | null;
+  title: string;
+  description: string | null;
+  is_published: boolean;
+  created_at: string;
+  has_video: boolean;
+  has_pdf: boolean;
 }
 
 export interface PaymentRow {

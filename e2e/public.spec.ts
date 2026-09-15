@@ -59,8 +59,20 @@ test.describe("Páginas públicas", () => {
     await expect(page.getByRole("heading", { name: /dany rafael/i })).toBeVisible();
   });
 
-  test("Clases redirige al login sin sesión", async ({ page }) => {
+  test("Clases (ruta legada) redirige al login sin sesión", async ({ page }) => {
     await page.goto("/clases");
+    await page.waitForURL(/\/login/, { timeout: 15000 });
+    await expect(page).toHaveURL(/\/login/);
+  });
+
+  test("/usuarios redirige al login sin sesión", async ({ page }) => {
+    await page.goto("/usuarios");
+    await page.waitForURL(/\/login/, { timeout: 15000 });
+    await expect(page).toHaveURL(/\/login/);
+  });
+
+  test("/usuarios/clases redirige al login sin sesión", async ({ page }) => {
+    await page.goto("/usuarios/clases");
     await page.waitForURL(/\/login/, { timeout: 15000 });
     await expect(page).toHaveURL(/\/login/);
   });

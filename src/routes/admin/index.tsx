@@ -13,7 +13,7 @@ function AdminIndexRedirect() {
     } else if (isAdmin) {
       nav({ to: "/admin/dashboard" });
     } else {
-      nav({ to: "/clases" });
+      nav({ to: "/usuarios/clases" });
     }
   }, [user, isAdmin, loading, nav]);
 
