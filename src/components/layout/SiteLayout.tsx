@@ -116,9 +116,10 @@ export function SiteLayout({
             <div>
               <div className="text-[10px] uppercase tracking-[0.3em] opacity-60 mb-4">Contacto</div>
               <ul className="space-y-2 text-sm opacity-80">
-                <li>Maracaibo, Venezuela</li>
-                <li>hola@comunidadgestaltica.com</li>
-                <li>+58 424 000 0000</li>
+                <li><span className="font-semibold">Lugar del consultorio:</span> Barrio Simón Bolívar, Medellín, Antioquia, Colombia</li>
+                <li><span className="font-semibold">Horarios de atención terapéutica:</span></li>
+                <li><span className="font-semibold">Lunes a viernes:</span> 9 am a 12 m / 3 pm a 8 pm</li>
+                <li><span className="font-semibold">Sábados:</span> 9 am a 12 m (hora Colombia)</li>
               </ul>
             </div>
           </div>
