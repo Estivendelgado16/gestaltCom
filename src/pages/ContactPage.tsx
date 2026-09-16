@@ -53,9 +53,9 @@ export function ContactPage() {
             Contacto
           </div>
           <h1 className="mt-8 text-3xl md:text-6xl max-w-2xl leading-[0.98] space-y-3">
-            <span className="block">Información</span>
+            <span className="block">Información,</span>
             <span className="block" style={{ color: "var(--gold)" }}>
-              Solicitudes
+              Solicitudes,
             </span>
             <span className="block">Inscripciones.</span>
           </h1>
