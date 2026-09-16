@@ -31,6 +31,7 @@ import { Route as AdminActividadesRouteImport } from './routes/admin/actividades
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminNuevoRouteImport } from './routes/admin/nuevo'
 import { Route as AdminPagosRouteImport } from './routes/admin/pagos'
+import { Route as AdminYoutubeRouteImport } from './routes/admin/youtube'
 import { Route as FormacionesIndexRouteImport } from './routes/formaciones/index'
 import { Route as FormacionesFormacionIdRouteImport } from './routes/formaciones/$formacionId'
 import { Route as UsuariosIndexRouteImport } from './routes/usuarios/index'
@@ -150,6 +151,11 @@ const AdminPagosRoute = AdminPagosRouteImport.update({
   path: '/admin/pagos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminYoutubeRoute = AdminYoutubeRouteImport.update({
+  id: '/admin/youtube',
+  path: '/admin/youtube',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FormacionesIndexRoute = FormacionesIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -204,6 +210,7 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
   '/admin/pagos': typeof AdminPagosRoute
+  '/admin/youtube': typeof AdminYoutubeRoute
   '/formaciones/$formacionId': typeof FormacionesFormacionIdRoute
   '/usuarios/clases': typeof UsuariosClasesRoute
   '/admin/': typeof AdminIndexRoute
@@ -232,6 +239,7 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
   '/admin/pagos': typeof AdminPagosRoute
+  '/admin/youtube': typeof AdminYoutubeRoute
   '/formaciones/$formacionId': typeof FormacionesFormacionIdRoute
   '/usuarios/clases': typeof UsuariosClasesRoute
   '/admin': typeof AdminIndexRoute
@@ -263,6 +271,7 @@ export interface FileRoutesById {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/nuevo': typeof AdminNuevoRoute
   '/admin/pagos': typeof AdminPagosRoute
+  '/admin/youtube': typeof AdminYoutubeRoute
   '/formaciones/$formacionId': typeof FormacionesFormacionIdRoute
   '/usuarios/clases': typeof UsuariosClasesRoute
   '/admin/': typeof AdminIndexRoute
@@ -295,6 +304,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/nuevo'
     | '/admin/pagos'
+    | '/admin/youtube'
     | '/formaciones/$formacionId'
     | '/usuarios/clases'
     | '/admin/'
@@ -323,6 +333,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/nuevo'
     | '/admin/pagos'
+    | '/admin/youtube'
     | '/formaciones/$formacionId'
     | '/usuarios/clases'
     | '/admin'
@@ -353,6 +364,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/nuevo'
     | '/admin/pagos'
+    | '/admin/youtube'
     | '/formaciones/$formacionId'
     | '/usuarios/clases'
     | '/admin/'
@@ -384,6 +396,7 @@ export interface RootRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminNuevoRoute: typeof AdminNuevoRoute
   AdminPagosRoute: typeof AdminPagosRoute
+  AdminYoutubeRoute: typeof AdminYoutubeRoute
   AdminIndexRoute: typeof AdminIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   AdminEditarIdRoute: typeof AdminEditarIdRoute
@@ -545,6 +558,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPagosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/youtube': {
+      id: '/admin/youtube'
+      path: '/admin/youtube'
+      fullPath: '/admin/youtube'
+      preLoaderRoute: typeof AdminYoutubeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/formaciones/': {
       id: '/formaciones/'
       path: '/'
@@ -641,6 +661,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminNuevoRoute: AdminNuevoRoute,
   AdminPagosRoute: AdminPagosRoute,
+  AdminYoutubeRoute: AdminYoutubeRoute,
   AdminIndexRoute: AdminIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   AdminEditarIdRoute: AdminEditarIdRoute,

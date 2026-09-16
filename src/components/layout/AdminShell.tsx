@@ -9,6 +9,7 @@ import {
   ExternalLink,
   CreditCard,
   CalendarDays,
+  Youtube,
 } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
 
@@ -22,6 +23,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     { to: "/admin/nuevo", label: "Nuevo curso", icon: PlusCircle },
     { to: "/admin/pagos", label: "Pagos", icon: CreditCard },
     { to: "/admin/actividades", label: "Actividades", icon: CalendarDays },
+    { to: "/admin/youtube", label: "YouTube", icon: Youtube },
   ];
 
   async function handleLogout() {
