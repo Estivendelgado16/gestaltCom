@@ -1,4 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { authService } from "@/services/auth.service";
@@ -120,23 +120,32 @@ export function LoginPage() {
 
       <div className="flex items-center justify-center p-10">
         <div className="w-full max-w-sm">
+          <div className="mb-8 text-left">
+            <Link
+              to="/formaciones"
+              className="text-[10px] uppercase tracking-[0.3em] transition-colors hover:opacity-70"
+              style={{ color: "var(--ink-soft)" }}
+            >
+              ← Volver a Formación
+            </Link>
+          </div>
           {/* Selector de modo */}
           <div className="flex gap-6 mb-8">
             {(["login", "registro"] as const).map((m) => (
-              <button
-                key={m}
-                type="button"
-                onClick={() => setMode(m)}
-                className="text-[10px] uppercase tracking-[0.3em] pb-1 border-b-2 transition-colors"
-                style={{
-                  color: mode === m ? "var(--ink)" : "var(--ink-soft)",
-                  borderColor: mode === m ? "var(--gold)" : "transparent",
-                }}
-              >
-                {m === "login" ? "Ingresar" : "Registrarse"}
-              </button>
-            ))}
-          </div>
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setMode(m)}
+                  className="text-[10px] uppercase tracking-[0.3em] pb-1 border-b-2 transition-colors"
+                  style={{
+                    color: mode === m ? "var(--ink)" : "var(--ink-soft)",
+                    borderColor: mode === m ? "var(--gold)" : "transparent",
+                  }}
+                >
+                  {m === "login" ? "Ingresar" : "Registrarse"}
+                </button>
+              ))}
+            </div>
 
           <form onSubmit={onSubmit} className="space-y-8">
             <h2 className="text-3xl" style={{ color: "var(--ink)" }}>
