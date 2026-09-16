@@ -82,7 +82,7 @@ export function SiteLayout({
         <footer style={{ background: "var(--ink)", color: "var(--cream)" }}>
           <div className="container-clinic py-16 grid gap-10 md:grid-cols-3">
             <div>
-              <Logo tone="cream" />
+              <Logo tone="cream" img="/img/logo2.png" size={56} />
               <p className="mt-6 text-sm opacity-70 leading-relaxed max-w-xs">
                 Espacio de estudio, práctica y comunidad en Gestalt de Campo. Fundado por Dany Mora
                 Bracho.
