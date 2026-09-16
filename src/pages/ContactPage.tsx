@@ -10,7 +10,7 @@ const schema = z.object({
   message: z.string().trim().min(10, "Cuenta un poco más").max(1000),
 });
 
-const WHATSAPP = "584240000000";
+const WHATSAPP = "573127897914";
 
 export function ContactPage() {
   const [values, setValues] = useState({
@@ -44,72 +44,81 @@ export function ContactPage() {
 
   return (
     <SiteLayout>
-      <section className="container-clinic pt-6 pb-16">
-        <div
-          className="text-[11px] uppercase tracking-[0.35em]"
-          style={{ color: "var(--ink-soft)" }}
-        >
-          Contacto
-        </div>
-        <h1 className="mt-8 text-5xl md:text-7xl max-w-4xl leading-[0.98]">
-          Escribe, con <span style={{ color: "var(--gold)" }}>tiempo</span>.
-        </h1>
-        <p className="mt-8 max-w-xl text-lg" style={{ color: "var(--ink-soft)" }}>
-          Responderé personalmente en 24-48 horas hábiles.
-        </p>
-      </section>
-
-      <section className="container-clinic pb-28 grid md:grid-cols-12 gap-16">
-        <form onSubmit={onSubmit} className="md:col-span-7 space-y-6" noValidate>
-          <Field label="Nombre" error={errors.name}>
-            <input
-              value={values.name}
-              onChange={(e) => setValues({ ...values, name: e.target.value })}
-              className="input"
-              autoComplete="name"
-            />
-          </Field>
-          <Field label="Correo" error={errors.email}>
-            <input
-              type="email"
-              value={values.email}
-              onChange={(e) => setValues({ ...values, email: e.target.value })}
-              className="input"
-              autoComplete="email"
-            />
-          </Field>
-          <Field label="Motivo" error={errors.topic}>
-            <select
-              value={values.topic}
-              onChange={(e) => setValues({ ...values, topic: e.target.value })}
-              className="input"
-            >
-              <option>Consulta terapéutica</option>
-              <option>Supervisión clínica</option>
-              <option>Formación / Diplomado</option>
-              <option>Conferencias / Instituciones</option>
-              <option>Otro</option>
-            </select>
-          </Field>
-          <Field label="Mensaje" error={errors.message}>
-            <textarea
-              rows={6}
-              value={values.message}
-              onChange={(e) => setValues({ ...values, message: e.target.value })}
-              className="input resize-none"
-            />
-          </Field>
-          <button
-            type="submit"
-            disabled={sending}
-            className="inline-flex items-center rounded-full px-8 py-4 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5 disabled:opacity-60"
-            style={{ background: "var(--ink)", color: "var(--cream)" }}
+      <section className="container-clinic pt-6 pb-16 grid md:grid-cols-12 gap-16 items-start">
+        <div className="md:col-span-7">
+          <div
+            className="text-[11px] uppercase tracking-[0.35em]"
+            style={{ color: "var(--ink-soft)" }}
           >
-            {sending ? "Enviando…" : "Enviar y abrir WhatsApp"}
-          </button>
-        </form>
+            Contacto
+          </div>
+          <h1 className="mt-8 text-3xl md:text-6xl max-w-2xl leading-[0.98] space-y-3">
+            <span className="block">Información</span>
+            <span className="block" style={{ color: "var(--gold)" }}>
+              Solicitudes
+            </span>
+            <span className="block">Inscripciones.</span>
+          </h1>
+
+          <form onSubmit={onSubmit} className="mt-14 md:max-w-xl space-y-6" noValidate>
+            <Field label="Nombre" error={errors.name}>
+              <input
+                value={values.name}
+                onChange={(e) => setValues({ ...values, name: e.target.value })}
+                className="input"
+                autoComplete="name"
+              />
+            </Field>
+            <Field label="Correo" error={errors.email}>
+              <input
+                type="email"
+                value={values.email}
+                onChange={(e) => setValues({ ...values, email: e.target.value })}
+                className="input"
+                autoComplete="email"
+              />
+            </Field>
+            <Field label="Motivo" error={errors.topic}>
+              <select
+                value={values.topic}
+                onChange={(e) => setValues({ ...values, topic: e.target.value })}
+                className="input"
+              >
+                <option>Consulta terapéutica</option>
+                <option>Supervisión clínica</option>
+                <option>Formación / Diplomado</option>
+                <option>Conferencias / Instituciones</option>
+                <option>Otro</option>
+              </select>
+            </Field>
+            <Field label="Mensaje" error={errors.message}>
+              <textarea
+                rows={6}
+                value={values.message}
+                onChange={(e) => setValues({ ...values, message: e.target.value })}
+                className="input resize-none"
+              />
+            </Field>
+            <button
+              type="submit"
+              disabled={sending}
+              className="inline-flex items-center rounded-full px-8 py-4 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+              style={{ background: "var(--ink)", color: "var(--cream)" }}
+            >
+              {sending ? "Enviando…" : "Enviar"}
+            </button>
+          </form>
+        </div>
 
         <aside className="md:col-span-5 space-y-8">
+          <video
+            src="/img/videosContact.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full rounded-xl shadow-lg"
+          />
           <div className="p-8 rounded-sm" style={{ background: "var(--sand-light)" }}>
             <div
               className="text-[10px] uppercase tracking-[0.3em]"
@@ -118,7 +127,7 @@ export function ContactPage() {
               Consulta
             </div>
             <p className="mt-4 text-lg" style={{ color: "var(--ink)" }}>
-              Presencial en Maracaibo y online para el resto del mundo hispanoparlante.
+              Presencial en Medellín y online para el resto del mundo hispanoparlante.
             </p>
           </div>
           <div className="space-y-3 text-sm" style={{ color: "var(--ink-soft)" }}>
@@ -129,7 +138,7 @@ export function ContactPage() {
               >
                 Email
               </span>{" "}
-              hola@comunidadgestaltica.com
+              comunidadgestaltica.co@gmail.com
             </div>
             <div>
               <span
@@ -138,7 +147,7 @@ export function ContactPage() {
               >
                 WhatsApp
               </span>{" "}
-              +58 424 000 0000
+              +57 3127897914
             </div>
             <div>
               <span

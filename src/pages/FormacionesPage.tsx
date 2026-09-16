@@ -60,7 +60,10 @@ export function FormacionesPage() {
         >
           Formaciones
         </div>
-<h1 className="mt-8 text-3xl md:text-4xl lg:text-5xl leading-[1.1]" style={{ width: "90%" }}>
+        <h1
+          className="mt-8 text-3xl md:text-4xl lg:text-5xl leading-[1.1]"
+          style={{ width: "90%" }}
+        >
           "El momento en que el terapeuta está{" "}
           <span style={{ color: "var(--gold)" }}>
             presente en la ausencia, esta ya no está ausente
@@ -83,7 +86,10 @@ export function FormacionesPage() {
         <section className="container-clinic pb-24">
           <div className="mb-10 flex items-baseline justify-between">
             <h2 className="text-2xl">Diplomado</h2>
-            <span className="text-xs uppercase tracking-widest" style={{ color: "var(--ink-soft)" }}>
+            <span
+              className="text-xs uppercase tracking-widest"
+              style={{ color: "var(--ink-soft)" }}
+            >
               {diplomados.length} programa{diplomados.length === 1 ? "" : "s"}
             </span>
           </div>
