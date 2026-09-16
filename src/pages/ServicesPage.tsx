@@ -46,11 +46,14 @@ export function ServicesPage() {
         >
           Servicios
         </div>
-<h1 className="mt-8 text-3xl md:text-4xl lg:text-5xl leading-[1.1]" style={{ width: "90%" }}>
+        <h1
+          className="mt-8 text-2xl md:text-3xl lg:text-4xl leading-[1.1]"
+          style={{ width: "90%" }}
+        >
           “El dolor no es otra cosa que
-          <span style={{ color: "var(--gold)" }}>la sorpresa de no encontrarnos</span> De todos los
-          pecados de la psicología, el más mortal es su indiferencia ante la belleza.”
-</h1>
+          <span style={{ color: "var(--gold)" }}> la sorpresa de no encontrarnos</span>. De todos
+          los pecados de la psicología, el más mortal es su indiferencia ante la belleza.”
+        </h1>
         <p>J. Hillman</p>
       </section>
 
@@ -62,7 +65,7 @@ export function ServicesPage() {
           {services.map((s, i) => (
             <article
               key={s.n}
-              className="bg-background transition-colors group cursor-pointer hover:bg-[var(--cream)]"
+              className="bg-background transition-colors group cursor-pointer hover:bg-cream"
               onClick={() => setOpen((v) => (v === i ? null : i))}
             >
               <div className="container-clinic p-10 md:p-16 md:py-16 py-10 grid md:grid-cols-12 gap-8">

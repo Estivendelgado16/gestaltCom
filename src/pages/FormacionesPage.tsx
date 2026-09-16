@@ -54,57 +54,58 @@ export function FormacionesPage() {
   return (
     <SiteLayout>
       <section className="container-clinic pt-6 pb-16">
-        <div
-          className="text-[11px] uppercase tracking-[0.35em]"
-          style={{ color: "var(--ink-soft)" }}
-        >
-          Formaciones
-        </div>
-        <h1
-          className="mt-8 text-3xl md:text-4xl lg:text-5xl leading-[1.1]"
-          style={{ width: "90%" }}
-        >
-          "El momento en que el terapeuta está{" "}
-          <span style={{ color: "var(--gold)" }}>
-            presente en la ausencia, esta ya no está ausente
-          </span>{" "}
-          , el dolor se despliega, toma una nueva vida en la carne de los dos, los dos se vuelven
-          más vivos”.
-        </h1>
-        <p className="mt-8 max-w-2xl text-lg" style={{ color: "var(--ink-soft)" }}>
-          Las formaciones son encuentros que se configuran como espacios de aprendizaje
-          experiencial, donde el conocimiento no se transmite únicamente como contenido, sino que se
-          construye en el encuentro, en diálogo con la experiencia y el contexto. Estos espacios
-          están orientados a acompañar procesos de formación que articulen el desarrollo profesional
-          con la experiencia personal, promoviendo una mirada crítica, sensible y comprometida con
-          el quehacer terapéutico.
-        </p>
-      </section>
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
+          {/* Diplomado: protagonista, arriba a la izquierda */}
+          <div className="lg:order-1">
+            {diplomados.length > 0 && (
+              <>
+                <div className="mb-6 flex items-baseline justify-between">
+                  <h2 className="text-2xl">Diplomado</h2>
+                  <span
+                    className="text-xs uppercase tracking-widest"
+                    style={{ color: "var(--ink-soft)" }}
+                  >
+                    {diplomados.length} programa{diplomados.length === 1 ? "" : "s"}
+                  </span>
+                </div>
+                <div className="grid gap-8 md:grid-cols-1">
+                  {diplomados.map((c, i) => (
+                    <FeaturedCourseCard
+                      key={c.id}
+                      course={c}
+                      delay={i * 120}
+                      onClick={() => handleCardClick(c)}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
 
-      {/* Diplomado: protagonista, siempre arriba */}
-      {diplomados.length > 0 && (
-        <section className="container-clinic pb-24">
-          <div className="mb-10 flex items-baseline justify-between">
-            <h2 className="text-2xl">Diplomado</h2>
-            <span
-              className="text-xs uppercase tracking-widest"
-              style={{ color: "var(--ink-soft)" }}
+          {/* Texto introductorio: desplazado a la derecha */}
+          <div className="lg:order-2">
+            <h1
+              className="mt-8 text-2xl md:text-3xl lg:text-4xl leading-[1.1]"
+              style={{ width: "90%" }}
             >
-              {diplomados.length} programa{diplomados.length === 1 ? "" : "s"}
-            </span>
+              "El momento en que el terapeuta está{" "}
+              <span style={{ color: "var(--gold)" }}>
+                presente en la ausencia, esta ya no está ausente
+              </span>{" "}
+              , el dolor se despliega, toma una nueva vida en la carne de los dos, los dos se
+              vuelven más vivos”.
+            </h1>
+            <p className="mt-8 max-w-2xl text-base" style={{ color: "var(--ink-soft)" }}>
+              Las formaciones son encuentros que se configuran como espacios de aprendizaje
+              experiencial, donde el conocimiento no se transmite únicamente como contenido, sino
+              que se construye en el encuentro, en diálogo con la experiencia y el contexto. Estos
+              espacios están orientados a acompañar procesos de formación que articulen el
+              desarrollo profesional con la experiencia personal, promoviendo una mirada crítica,
+              sensible y comprometida con el quehacer terapéutico.
+            </p>
           </div>
-          <div className="grid gap-8 md:grid-cols-2">
-            {diplomados.map((c, i) => (
-              <FeaturedCourseCard
-                key={c.id}
-                course={c}
-                delay={i * 120}
-                onClick={() => handleCardClick(c)}
-              />
-            ))}
-          </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Resto de formaciones */}
       <section className="container-clinic pb-24">
