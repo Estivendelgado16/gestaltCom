@@ -108,7 +108,7 @@ export function AboutPage() {
 
             {/* Timeline */}
             <ol
-              className="mt-8 grid md:grid-cols-2 gap-x-16 gap-y-8 text-base"
+              className="mt-8 grid md:grid-cols-2 gap-x-16 gap-y-4 text-base"
               style={{ borderColor: "color-mix(in oklab, var(--ink) 15%, transparent)" }}
             >
               {[
@@ -137,7 +137,7 @@ export function AboutPage() {
                         className="mt-4 w-full block"
                       />
                     )}
-                    {i === 3 && (
+                    {i === 1 && (
                       <img
                         src="/img/lineaFotos2.png"
                         alt="Momentos de formación de Dany Mora"

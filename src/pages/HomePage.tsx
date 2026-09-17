@@ -16,16 +16,13 @@ export function HomePage() {
               Estudios de Gestalt de Campo
             </div>
             <h1
-              className="text-2xl md:text-4xl lg:text-5xl leading-[1.1]"
+              className="text-xl md:text-3xl lg:text-4xl leading-[1.1]"
               style={{ color: "var(--ink)" }}
             >
-              “Necesitamos estar preparados para ser «sorprendidos»
-              <br />
-              ante el{" "}
+              “Necesitamos estar preparados para ser «sorprendidos» ante el{" "}
               <em className="not-italic" style={{ color: "var(--gold)" }}>
                 poder aterrador, la delicada fragilidad y la belleza efímera del mundo
               </em>
-              <br />
               que emana hacia adelante en cada «ahora»”.
             </h1>
             <p>Merleau-Ponty</p>
@@ -93,7 +90,7 @@ export function HomePage() {
 
       {/* Manifiesto */}
       <section style={{ background: "var(--sand-light)" }}>
-        <div className="container-clinic py-24 grid md:grid-cols-3 gap-10 items-center">
+        <div className="container-clinic py-14 grid md:grid-cols-3 gap-10 items-center">
           <div className="flex flex-col items-center text-center">
             <video
               src="/img/videoHome2.mp4"
@@ -110,7 +107,6 @@ export function HomePage() {
           >
             "
             <em className="not-italic" style={{ color: "var(--gold)" }}>
-              {" "}
               Otro debe prestar su propia carne{" "}
             </em>
             para permitir que lo no formado llegue a la presencia, es necesario
@@ -119,7 +115,7 @@ export function HomePage() {
               que alguien esté presente y disponible{" "}
             </em>
             para sentir lo no sentido porque no es sentible”.
-            <span className="flex">Gianni Francesetti</span>
+            <span className="flex text-sm">Gianni Francesetti</span>
           </p>
         </div>
       </section>
@@ -153,7 +149,11 @@ export function HomePage() {
               alt: "Manos pintadas juntas",
             },
           ].map((s) => (
-            <div key={s.n} className="p-10 bg-background hover:bg-secondary/40 transition-colors">
+            <Link
+              key={s.n}
+              to="/servicios"
+              className="p-10 bg-background hover:bg-secondary/40 transition-colors block"
+            >
               <div className="text-[11px] tracking-[0.3em]" style={{ color: "var(--gold)" }}>
                 {s.n}
               </div>
@@ -162,7 +162,7 @@ export function HomePage() {
                 {s.d}
               </p>
               <img src={s.img} alt={s.alt} className="mt-6 w-full h-48 object-cover rounded-sm" />
-            </div>
+            </Link>
           ))}
         </div>
       </section>
