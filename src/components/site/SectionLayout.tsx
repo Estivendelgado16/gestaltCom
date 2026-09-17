@@ -26,15 +26,17 @@ export function SectionLayout({
   variant = "light",
   id,
   className = "",
+  style,
   children,
 }: {
   variant?: SectionVariant;
   id?: string;
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
 }) {
   return (
-    <section id={id} style={VARIANT_STYLES[variant]}>
+    <section id={id} style={{ ...VARIANT_STYLES[variant], ...style }}>
       <div className={`container-clinic py-16 md:py-24 ${className}`.trim()}>{children}</div>
     </section>
   );

@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { SectionLayout } from "@/components/site/SectionLayout";
 import { Typography } from "@/components/site/Typography";
 import { MediaFlexLayout } from "@/components/site/MediaFlexLayout";
+import { DiplomadoPrograma } from "@/components/site/DiplomadoPrograma";
 import { diplomadoData } from "@/data/diplomado";
 import { ArrowLeft, User } from "lucide-react";
 
@@ -90,7 +91,7 @@ export function DiplomadoPage() {
       </section>
 
       {/* INTRODUCCIÓN — FORMACIÓN ONLINE */}
-      <SectionLayout variant="light">
+      <SectionLayout variant="light" style={{ background: "#f7dfea" }}>
         <MediaFlexLayout
           imageSrc={D.introduccion.imagen}
           imageAlt={D.introduccion.imagenAlt}
@@ -104,7 +105,7 @@ export function DiplomadoPage() {
 
       {/* PRESENTACIÓN */}
       <SectionLayout variant="white">
-        <div className="max-w-3xl">
+        <div className="max-w-5xl">
           <Typography.Title withHighlight>{D.presentacion.titulo}</Typography.Title>
           <div className="mt-8 space-y-6">
             {D.presentacion.parrafos.map((p, i) => (
@@ -132,7 +133,7 @@ export function DiplomadoPage() {
       </SectionLayout>
 
       {/* DIFERENCIADORES */}
-      <SectionLayout variant="light">
+      <SectionLayout variant="light" style={{ background: "#f7dfea" }}>
         <MediaFlexLayout
           imageSrc={D.diferenciadores.imagen}
           imageAlt={D.diferenciadores.imagenAlt}
@@ -161,7 +162,7 @@ export function DiplomadoPage() {
       </SectionLayout>
 
       {/* GENERALIDADES */}
-      <SectionLayout variant="light">
+      <SectionLayout variant="light" style={{ background: "#f7dfea" }}>
         <div className="max-w-3xl">
           <Typography.Title withHighlight>{D.generalidades.titulo}</Typography.Title>
           <div className="mt-8 space-y-6">
@@ -174,15 +175,9 @@ export function DiplomadoPage() {
         </div>
       </SectionLayout>
 
-      {/* EVALUACIÓN Y CERTIFICACIÓN */}
+      {/* PROGRAMA / DOCUMENTO EDITORIAL */}
       <SectionLayout variant="white">
-        <div className="max-w-3xl">
-          <Typography.Title withHighlight>{D.evaluacion.titulo}</Typography.Title>
-          <Typography.Body className="mt-8">{D.evaluacion.texto}</Typography.Body>
-          <Typography.Quote size="lg" className="mt-8">
-            {D.evaluacion.cita}
-          </Typography.Quote>
-        </div>
+        <DiplomadoPrograma />
       </SectionLayout>
     </SiteLayout>
   );
