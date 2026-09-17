@@ -21,7 +21,7 @@ export function HomePage() {
             >
               “Necesitamos estar preparados para ser «sorprendidos» ante el{" "}
               <em className="not-italic" style={{ color: "var(--gold)" }}>
-                poder aterrador, la delicada fragilidad y la belleza efímera del mundo
+                poder aterrador, la delicada fragilidad y la belleza efímera del mundo{" "}
               </em>
               que emana hacia adelante en cada «ahora»”.
             </h1>
