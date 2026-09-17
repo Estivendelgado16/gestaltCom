@@ -107,11 +107,10 @@ export function LoginPage() {
             Acceso para estudiantes
           </div>
           <h1 className="text-5xl leading-tight max-w-sm">
-            Un espacio para{" "}
+            Espacio para la{" "}
             <em className="not-italic" style={{ color: "var(--gold)" }}>
-              la Comunidad
-            </em>{" "}
-            Académica.
+              Comunidad Académica.
+            </em>
           </h1>
           <p className="mt-6 text-sm opacity-70 max-w-sm">
             Ingresa a tu cuenta para acceder a las clases.
