@@ -134,6 +134,15 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
           />
         </Field>
 
+        <Field label="Fecha de fin">
+          <input
+            type="date"
+            value={values.fecha_fin ?? ""}
+            onChange={(e) => set("fecha_fin", e.target.value)}
+            className="input"
+          />
+        </Field>
+
         <Field label="Modalidad" error={errors.modalidad}>
           <div className="mt-1 flex gap-2 flex-wrap">
             {["Presencial", "Virtual", "Híbrido"].map((m) => (
