@@ -61,7 +61,7 @@ export function ContactPage() {
           </h1>
 
           <form onSubmit={onSubmit} className="mt-14 md:max-w-xl space-y-6" noValidate>
-            <Field label="Nombre" error={errors.name}>
+            <Field label="Nombre y apellido" error={errors.name}>
               <input
                 value={values.name}
                 onChange={(e) => setValues({ ...values, name: e.target.value })}

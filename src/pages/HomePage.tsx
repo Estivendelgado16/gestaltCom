@@ -25,7 +25,7 @@ export function HomePage() {
               </em>
               que emana hacia adelante en cada ahora”.
             </h1>
-            <p>Merleau-Ponty</p>
+            <p>Maurice Merleau-Ponty</p>
             <div
               className="mt-10 max-w-3xl text-lg leading-relaxed space-y-5"
               style={{ color: "var(--ink-soft)" }}
@@ -64,7 +64,7 @@ export function HomePage() {
                 className="text-sm uppercase tracking-widest border-b pb-1"
                 style={{ color: "var(--ink)", borderColor: "var(--gold)" }}
               >
-                Conocer a su fundador
+                Conoce a su fundador
               </Link>
             </div>
           </div>
@@ -129,22 +129,22 @@ export function HomePage() {
           {[
             {
               n: "01",
-              t: "Terapia individual",
-              d: "Proceso terapéutico desde una escucha fenomenológica y corporal.",
+              t: "Procesos Teapéuticos",
+              d: "Desde una perspectiva fenomenológica-gestáltica.",
               img: "/img/terapia.jpg",
               alt: "Pies descalzos caminando sobre un árbol",
             },
             {
               n: "02",
               t: "Supervisión clínica",
-              d: "Espacio para pensar la práctica desde la perspectiva de campo.",
+              d: "Espacio para co-visionar la práctica terapéutica desde la perspectiva de campo.",
               img: "/img/supervision.jpg",
               alt: "Gotas de agua creando ondas",
             },
             {
               n: "03",
               t: "Formación profesional",
-              d: "Diplomados, seminarios y encuentros para terapeutas en ejercicio.",
+              d: "Diplomados, cursos, seminarios y encuentros pde la comunidad de aprendizaje.",
               img: "/img/formacion.jpg",
               alt: "Manos pintadas juntas",
             },

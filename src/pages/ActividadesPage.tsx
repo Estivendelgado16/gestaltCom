@@ -39,7 +39,7 @@ export function ActividadesPage() {
             className="text-[10px] uppercase tracking-[0.3em]"
             style={{ color: "var(--ink-soft)" }}
           >
-            Comunidad · Encuentros y talleres · Ciclo académico y vivencial 2026
+            Comunidad · Actividades · Espacios de Encuentro
           </div>
         </div>
       </section>
@@ -47,18 +47,6 @@ export function ActividadesPage() {
       {/* Encabezado */}
       <section className="container-clinic pt-12 pb-8">
         <div className="flex flex-wrap items-start justify-between gap-6">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl leading-[1.02]" style={{ color: "var(--ink)" }}>
-              Actividades & Espacios de Encuentro
-            </h1>
-            <p
-              className="mt-5 text-lg leading-relaxed max-w-2xl"
-              style={{ color: "var(--ink-soft)" }}
-            >
-              Te ofrecemos grupos, talleres, seminarios y espacios de reflexión clínica y personal
-              en Gestalt de Campo y psicoterapia relacional.
-            </p>
-          </div>
           <div
             className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.25em]"
             style={{

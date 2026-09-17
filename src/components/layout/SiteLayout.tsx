@@ -134,8 +134,8 @@ export function SiteLayout({
             <div>
               <Logo tone="cream" img="/img/logo2.png" size={56} />
               <p className="mt-6 text-sm opacity-70 leading-relaxed max-w-xs">
-                Espacio de estudio, práctica y comunidad en Gestalt de Campo. Fundado por Dany Mora
-                Bracho.
+                Espacio de encuentro, formación y difusión de la terapia Gestalt de campo. Fundado
+                por Dany R. Mora B.
               </p>
             </div>
             <div>
@@ -164,14 +164,16 @@ export function SiteLayout({
               </ul>
             </div>
             <div>
-              <div className="text-[10px] uppercase tracking-[0.3em] opacity-60 mb-4">Contacto</div>
+              <div className="text-[10px] uppercase tracking-[0.3em] opacity-60 mb-4">
+                Atención terapéutica
+              </div>
               <ul className="space-y-2 text-sm opacity-80">
                 <li>
                   <span className="font-semibold">Lugar del consultorio:</span> Barrio Simón
                   Bolívar, Medellín, Antioquia, Colombia
                 </li>
                 <li>
-                  <span className="font-semibold">Horarios de atención terapéutica:</span>
+                  <span className="font-semibold">Horarios:</span>
                 </li>
                 <li>
                   <span className="font-semibold">Lunes a viernes:</span> 9 am a 12 m / 3 pm a 8 pm

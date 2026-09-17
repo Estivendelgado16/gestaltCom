@@ -29,9 +29,9 @@ export function ServicesPage() {
       n: "03",
       t: "Supervisión de casos clínicos (espacio para terapeutas)",
       d: '"Los apasionados son libertinos porque se arriesgan a ver la vida con los ojos del otro".',
-      author: "Marcos Müller",
+      author: "Marcos José Müller",
       d_ext:
-        "El grupo de co-vigil clínica es un espacio de confianza, cuidado y aprendizaje compartido, en el que los terapeutas pueden presentar y explorar sus experiencias clínicas. Mediante el diálogo entre colegas y la orientación del supervisor, se promueve una reflexión rigurosa sobre los casos, se amplía la comprensión de los procesos terapéuticos y se fortalecen los recursos personales y profesionales para la práctica clínica. Es, al mismo tiempo, un encuentro de aprendizaje colectivo, donde la experiencia se transforma en conocimiento y el intercambio sostiene el crecimiento profesional y personal. Dirigido a psicólogos con orientación clínica gestáltica interesados en profundizar en su práctica, ampliar su comprensión del campo terapéutico y fortalecer la calidad del acompañamiento a sus pacientes.",
+        "El grupo de co-visión clínica es un espacio de confianza, cuidado y aprendizaje compartido, en el que los terapeutas pueden presentar y explorar sus experiencias clínicas. Mediante el diálogo entre colegas y la orientación del supervisor, se promueve una reflexión rigurosa sobre los casos, se amplía la comprensión de los procesos terapéuticos y se fortalecen los recursos personales y profesionales para la práctica clínica. Es, al mismo tiempo, un encuentro de aprendizaje colectivo, donde la experiencia se transforma en conocimiento y el intercambio sostiene el crecimiento profesional y personal. Dirigido a psicólogos con orientación clínica gestáltica interesados en profundizar en su práctica, ampliar su comprensión del campo terapéutico y fortalecer la calidad del acompañamiento a sus pacientes.",
       tag: "Profesionales",
       whatsapp: "584240000002",
     },

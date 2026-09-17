@@ -25,9 +25,9 @@ export function AboutPage() {
           Dany Rafael <span style={{ color: "var(--gold)" }}>Mora Bracho</span>
         </h1>
         <p className="mt-8 max-w-2xl text-lg" style={{ color: "var(--ink-soft)" }}>
-          Psicólogo • Terapeuta gestáltico • Docente • Fundador de Comunidad Gestáltica
+          Psicólogo • Terapeuta Gestáltico • Supervisor • Docente • Fundador de Comunidad Gestáltica
         </p>
-      </section> 
+      </section>
 
       <section className="container-clinic pb-28 grid md:grid-cols-12 gap-16">
         <div className="md:col-span-5">
@@ -81,7 +81,7 @@ export function AboutPage() {
               <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink-soft)" }}>
                 <li>Consulta privada</li>
                 <li>Supervisión y entrenamiento clínico</li>
-                <li>Formación gestaltica</li>
+                <li>Formación gestáltica</li>
               </ul>
             </div>
           </div>

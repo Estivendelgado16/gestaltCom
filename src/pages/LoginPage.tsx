@@ -103,19 +103,21 @@ export function LoginPage() {
       >
         <Logo tone="cream" img="/img/logo2.png" size={56} />
         <div>
-          <div className="text-[10px] uppercase tracking-[0.35em] opacity-60 mb-4">Acceso</div>
+          <div className="text-[10px] uppercase tracking-[0.35em] opacity-60 mb-4">
+            Acceso para estudiantes
+          </div>
           <h1 className="text-5xl leading-tight max-w-sm">
             Un espacio para{" "}
             <em className="not-italic" style={{ color: "var(--gold)" }}>
-              cuidar
+              la Comunidad
             </em>{" "}
-            lo que publicas.
+            Académica.
           </h1>
           <p className="mt-6 text-sm opacity-70 max-w-sm">
-            Ingresa a tu cuenta para acceder a las clases y al panel de administración.
+            Ingresa a tu cuenta para acceder a las clases.
           </p>
         </div>
-        <div className="text-xs opacity-50">© Comunidad Gestáltica</div>
+        <div className="text-xs opacity-50">© Comunidad Gestáltica - Dany R. Mora B.</div>
       </div>
 
       <div className="flex items-center justify-center p-10">
@@ -132,20 +134,20 @@ export function LoginPage() {
           {/* Selector de modo */}
           <div className="flex gap-6 mb-8">
             {(["login", "registro"] as const).map((m) => (
-                <button
-                  key={m}
-                  type="button"
-                  onClick={() => setMode(m)}
-                  className="text-[10px] uppercase tracking-[0.3em] pb-1 border-b-2 transition-colors"
-                  style={{
-                    color: mode === m ? "var(--ink)" : "var(--ink-soft)",
-                    borderColor: mode === m ? "var(--gold)" : "transparent",
-                  }}
-                >
-                  {m === "login" ? "Ingresar" : "Registrarse"}
-                </button>
-              ))}
-            </div>
+              <button
+                key={m}
+                type="button"
+                onClick={() => setMode(m)}
+                className="text-[10px] uppercase tracking-[0.3em] pb-1 border-b-2 transition-colors"
+                style={{
+                  color: mode === m ? "var(--ink)" : "var(--ink-soft)",
+                  borderColor: mode === m ? "var(--gold)" : "transparent",
+                }}
+              >
+                {m === "login" ? "Ingresar" : "Registrarse"}
+              </button>
+            ))}
+          </div>
 
           <form onSubmit={onSubmit} className="space-y-8">
             <h2 className="text-3xl" style={{ color: "var(--ink)" }}>
@@ -167,7 +169,7 @@ export function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full bg-transparent border-b py-3 outline-none focus:border-[var(--gold)]"
+                className="mt-1 w-full bg-transparent border-b py-3 outline-none focus:border-gold"
                 style={inputStyle}
                 autoComplete="email"
                 required
@@ -186,7 +188,7 @@ export function LoginPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 w-full bg-transparent border-b py-3 outline-none focus:border-[var(--gold)]"
+                  className="mt-1 w-full bg-transparent border-b py-3 outline-none focus:border-gold"
                   style={inputStyle}
                   autoComplete={mode === "login" ? "current-password" : "new-password"}
                   minLength={6}
