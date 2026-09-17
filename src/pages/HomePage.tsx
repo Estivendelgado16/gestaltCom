@@ -19,11 +19,11 @@ export function HomePage() {
               className="text-xl md:text-3xl lg:text-4xl leading-[1.1]"
               style={{ color: "var(--ink)" }}
             >
-              “Necesitamos estar preparados para ser «sorprendidos» ante el{" "}
+              “Necesitamos estar preparados para ser sorprendidos ante el{" "}
               <em className="not-italic" style={{ color: "var(--gold)" }}>
                 poder aterrador, la delicada fragilidad y la belleza efímera del mundo{" "}
               </em>
-              que emana hacia adelante en cada «ahora»”.
+              que emana hacia adelante en cada ahora”.
             </h1>
             <p>Merleau-Ponty</p>
             <div
