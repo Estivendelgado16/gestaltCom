@@ -18,7 +18,7 @@ export function Logo({
           Comunidad Gestáltica
         </div>
         <div
-          className="text-[9px] uppercase tracking-[0.28em] mt-1"
+          className="text-[9px] uppercase mt-1"
           style={{ color: tone === "cream" ? "var(--sand-light)" : "var(--ink-soft)" }}
         >
           Estudios de Gestalt de Campo
