@@ -134,9 +134,9 @@ export function SiteLayout({
             <div>
               <Logo tone="cream" img="/img/logo2.png" size={56} />
               <p className="mt-6 text-sm opacity-70 leading-relaxed max-w-xs">
-                Espacio de encuentro, formación y difusión de la terapia Gestalt de campo. Fundado
-                por Dany R. Mora B.
+                Espacio de encuentro, formación y difusión de la terapia Gestalt de campo.
               </p>
+              <p>Fundado por Dany R. Mora B.</p>
             </div>
             <div>
               <div className="text-[10px] uppercase tracking-[0.3em] opacity-60 mb-4">
@@ -182,6 +182,24 @@ export function SiteLayout({
                   <span className="font-semibold">Sábados:</span> 9 am a 12 m (hora Colombia)
                 </li>
               </ul>
+              <div className="flex gap-4 mt-6">
+                <a
+                  href="https://www.youtube.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                >
+                  <img src="/img/youtube.png" alt="YouTube" className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                >
+                  <img src="/img/instagram.png" alt="Instagram" className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </div>
           <div className="border-t border-white/10">
