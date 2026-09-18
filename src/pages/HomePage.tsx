@@ -25,7 +25,12 @@ export function HomePage() {
               </em>
               que emana hacia adelante en cada ahora”.
             </h1>
-            <p>Maurice Merleau-Ponty</p>
+            <div
+              className="mt-3 text-[11px] uppercase tracking-[0.3em]"
+              style={{ color: "var(--gold)" }}
+            >
+              - Maurice Merleau-Ponty
+            </div>
             <div
               className="mt-10 max-w-3xl text-lg leading-relaxed space-y-5"
               style={{ color: "var(--ink-soft)" }}
@@ -115,7 +120,12 @@ export function HomePage() {
               que alguien esté presente y disponible{" "}
             </em>
             para sentir lo no sentido porque no es sentible”.
-            <span className="flex text-sm">Gianni Francesetti</span>
+            <div
+              className="mt-3 text-[11px] uppercase tracking-[0.3em]"
+              style={{ color: "var(--gold)" }}
+            >
+              — Gianni Francesetti
+            </div>
           </p>
         </div>
       </section>

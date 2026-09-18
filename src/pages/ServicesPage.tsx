@@ -54,7 +54,12 @@ export function ServicesPage() {
           <span style={{ color: "var(--gold)" }}> la sorpresa de no encontrarnos</span>. De todos
           los pecados de la psicología, el más mortal es su indiferencia ante la belleza.”
         </h1>
-        <p>J. Hillman</p>
+        <div
+          className="mt-3 text-[11px] uppercase tracking-[0.3em]"
+          style={{ color: "var(--gold)" }}
+        >
+          — J. Hillman
+        </div>
       </section>
 
       <section className="pb-28">
