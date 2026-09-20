@@ -4,7 +4,8 @@ import { formacionService } from "@/services/formacion.service";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { FeaturedCourseCard } from "@/components/site/CourseCard";
 import { FormacionDetails } from "@/components/site/FormacionDetails";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { User } from "lucide-react";
 import type { Formacion } from "@/types";
 import {
   Accordion,
@@ -53,7 +54,18 @@ export function FormacionesPage() {
 
   return (
     <SiteLayout>
-      <section className="container-clinic pt-6 pb-16">
+      <nav className="container-clinic pt-6 flex items-center justify-between">
+        <span />
+        <Link
+          to="/admin"
+          aria-label="Ingresar"
+          className="inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-2 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5"
+          style={{ background: "var(--ink)", color: "var(--cream)" }}
+        >
+          <User className="w-4 h-4" /> Sign in
+        </Link>
+      </nav>
+      <section className="container-clinic pb-16">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
           {/* Diplomado: protagonista, arriba a la izquierda */}
           <div className="lg:order-1">
