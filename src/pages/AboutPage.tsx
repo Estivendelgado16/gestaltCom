@@ -144,6 +144,17 @@ export function AboutPage() {
                         className="mt-4 w-full block"
                       />
                     )}
+                    {i === 7 && (
+                      <a
+                        href="https://www.instagram.com/catarsis.mde"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm uppercase tracking-widest border-b pb-1 transition-colors"
+                        style={{ color: "var(--ink)", borderColor: "var(--gold)" }}
+                      >
+                        INSTAGRAM · @catarsis.mde
+                      </a>
+                    )}
                   </li>
                 </Fragment>
               ))}
