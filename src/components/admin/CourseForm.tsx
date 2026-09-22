@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { z } from "zod";
+import { Upload } from "lucide-react";
 import { type Formacion, type FormacionTipo } from "@/types";
 import { formacionService } from "@/services/formacion.service";
+import { uploadService } from "@/services/upload.service";
+import { supabase } from "@/lib/supabaseClient";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -14,7 +17,10 @@ const schema = z.object({
   modalidad: z.enum(["Presencial", "Virtual", "Híbrido"]).default("Presencial"),
   duracion: z.string().max(40).optional(),
   flyer_url: z.string().url("URL inválida").or(z.literal("")).optional(),
-  galeria_fotos: z.array(z.string().url()).default([]),
+  galeria_fotos: z.array(z.string().url()).default([]).refine(
+    (val) => val.length <= 9,
+    "Máximo 9 fotos en la galería"
+  ),
   precio: z.number().optional(),
 });
 
@@ -41,6 +47,8 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
     },
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [flyerUploading, setFlyerUploading] = useState(false);
+  const [galeriaUploading, setGaleriaUploading] = useState(false);
   const isEdit = Boolean(initial);
 
   function set<K extends keyof Formacion>(k: K, v: Formacion[K]) {
@@ -48,6 +56,72 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
   }
 
   const [submitting, setSubmitting] = useState(false);
+
+  async function uploadFlyer(file: File) {
+    setFlyerUploading(true);
+    try {
+      const path = `flyer-${new Date().toISOString().slice(0, 10)}-${Date.now()}-${file.name.replace(/[^\w.\-]/g, "_")}`;
+      const publicUrl = await uploadService.uploadToSupabaseStorage(file, path, "flyers");
+
+      // Registra la subida en la tabla `flyers` con expiración a 3 meses
+      // (el job de pg_cron la eliminará junto con el archivo).
+      const { error } = await supabase.from("flyers").insert({
+        storage_path: path,
+        public_url: publicUrl,
+        expires_at: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+      });
+      if (error) throw error;
+
+      set("flyer_url", publicUrl);
+      toast.success("Afiche subido correctamente");
+    } catch (err) {
+      toast.error("No se pudo subir el afiche", {
+        description: err instanceof Error ? err.message : "Error desconocido",
+      });
+    } finally {
+      setFlyerUploading(false);
+    }
+  }
+
+  async function uploadGalleryFiles(files: FileList) {
+    setGaleriaUploading(true);
+    try {
+      const maxTotal = 9;
+      const actualTotal = values.galeria_fotos.length + files.length;
+      if (actualTotal > maxTotal) {
+        toast.error("Máximo 9 fotos en la galería", {
+          description: `Ya tienes ${values.galeria_fotos.length} foto(s). Sube como máximo ${maxTotal - values.galeria_fotos.length} más.`,
+        });
+        setGaleriaUploading(false);
+        return;
+      }
+
+      const newUrls: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const path = `galeria-${new Date().toISOString().slice(0, 10)}-${Date.now()}-${i}-${file.name.replace(/[^\w.\-]/g, "_")}`;
+        const publicUrl = await uploadService.uploadToSupabaseStorage(file, path, "galeria");
+        newUrls.push(publicUrl);
+
+        // Registra en la tabla `flyers` con expiración a 3 meses
+        const { error } = await supabase.from("flyers").insert({
+          storage_path: path,
+          public_url: publicUrl,
+          expires_at: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+        });
+        if (error) throw error;
+      }
+      // Agrega las nuevas URLs al estado existente
+      set("galeria_fotos", [...values.galeria_fotos, ...newUrls]);
+      toast.success(`${newUrls.length} foto(s) subida(s) correctamente`);
+    } catch (err) {
+      toast.error("No se pudieron subir las fotos", {
+        description: err instanceof Error ? err.message : "Error desconocido",
+      });
+    } finally {
+      setGaleriaUploading(false);
+    }
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -194,37 +268,101 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        <Field label="Flyer / Afiche (URL, opcional)" error={errors.flyer_url}>
-          <input
-            value={values.flyer_url ?? ""}
-            onChange={(e) => set("flyer_url", e.target.value)}
-            type="url"
-            className="input"
-            placeholder="https://..."
-          />
+        <Field label="Flyer / Afiche (opcional)" error={errors.flyer_url}>
+          <div className="mt-2">
+            <label className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer transition-colors hover:opacity-80"
+              style={{ borderColor: "color-mix(in oklab, var(--ink) 25%, transparent)" }}>
+              <Upload className="w-4 h-4" />
+              {flyerUploading ? "Subiendo..." : "Subir imagen desde el PC"}
+              <input
+                type="file"
+                accept="image/*"
+                className="sr-only"
+                disabled={flyerUploading}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) uploadFlyer(file);
+                }}
+              />
+            </label>
+            {values.flyer_url ? (
+              <div className="mt-3 flex items-center gap-3">
+                <img
+                  src={values.flyer_url}
+                  alt="Vista previa del flyer"
+                  className="w-20 h-28 object-cover rounded-sm border"
+                  style={{ borderColor: "color-mix(in oklab, var(--ink) 25%, transparent)" }}
+                />
+                <button
+                  type="button"
+                  onClick={() => set("flyer_url", "")}
+                  className="text-xs uppercase tracking-widest opacity-70 hover:opacity-100"
+                >
+                  Quitar
+                </button>
+              </div>
+            ) : (
+              !flyerUploading && (
+                <p className="text-xs mt-2" style={{ color: "var(--ink-soft)" }}>
+                  Sube una imagen del afiche. También puedes pegarla de internet como URL.
+                </p>
+              )
+            )}
+          </div>
         </Field>
 
-        <Field label="Galeria de fotos (URLs)" error={errors.galeria_fotos}>
-          <p
-            className="text-[10px] uppercase tracking-[0.3em] mb-2"
-            style={{ color: "var(--ink-soft)" }}
-          >
-            Agrega URLs de las fotos de la clase (una por línea)
-          </p>
-          <textarea
-            rows={3}
-            value={values.galeria_fotos.join("\n")}
-            onChange={(e) => {
-              const urls = e.target.value
-                .split("\n")
-                .filter((u) => u.trim())
-                .map((u) => u.trim());
-              set("galeria_fotos", urls);
-            }}
-            className="input resize-none w-full"
-            placeholder="https://ejemplo.com/foto1.jpg
-https://ejemplo.com/foto2.jpg"
-          />
+        <Field label="Galeria de fotos (opcional)" error={errors.galeria_fotos}>
+          <div className="mt-2">
+            {galeriaUploading ? (
+              <p className="text-xs mt-2" style={{ color: "var(--ink-soft)" }}>
+                Subiendo fotos...
+              </p>
+            ) : values.galeria_fotos.length === 0 && (
+              <p className="text-xs mt-2" style={{ color: "var(--ink-soft)" }}>
+                Sube fotos desde el PC. También puedes pegarlas como URLs.
+              </p>
+            )}
+            {values.galeria_fotos.map((url, idx) => (
+              <div
+                key={url}
+                className="mt-2 flex items-center gap-2"
+                style={{ borderColor: "color-mix(in oklab, var(--ink) 25%, transparent)" }}
+              >
+                <img
+                  src={url}
+                  alt="Foto de la clase"
+                  className="w-20 h-14 object-cover rounded-sm border"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    const newGaleria = values.galeria_fotos.filter((u, i) => i !== idx);
+                    set("galeria_fotos", newGaleria);
+                  }}
+                  className="text-xs uppercase tracking-widest opacity-70 hover:opacity-100"
+                >
+                  Quitar
+                </button>
+              </div>
+            ))}
+            <label className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer transition-colors hover:opacity-80"
+              style={{ borderColor: "color-mix(in oklab, var(--ink) 25%, transparent)" }}
+            >
+              <Upload className="w-4 h-4" />
+              {galeriaUploading ? "Subiendo..." : "Subir fotos desde el PC"}
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                className="sr-only"
+                disabled={galeriaUploading}
+                onChange={(e) => {
+                  const files = e.target.files as FileList;
+                  if (files.length > 0) uploadGalleryFiles(files);
+                }}
+              />
+            </label>
+          </div>
         </Field>
 
         <Field label="Precio (opcional)">
