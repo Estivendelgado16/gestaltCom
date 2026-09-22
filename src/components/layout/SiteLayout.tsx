@@ -184,7 +184,7 @@ export function SiteLayout({
               </ul>
               <div className="flex gap-4 mt-6">
                 <a
-                  href="https://www.youtube.com"
+                  href="https://www.youtube.com/@danymora.gestalt"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -192,7 +192,7 @@ export function SiteLayout({
                   <img src="/img/youtube.png" alt="YouTube" className="w-5 h-5" />
                 </a>
                 <a
-                  href="https://www.instagram.com"
+                  href="https://www.instagram.com/comunidad.gestaltica"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
