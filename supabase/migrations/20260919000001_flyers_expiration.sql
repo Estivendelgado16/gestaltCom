@@ -46,6 +46,37 @@ CREATE POLICY "Flyers borrado autenticado"
 ON public.flyers FOR DELETE TO authenticated
 USING (true);
 
+-- 3.1 Función RPC (SECURITY DEFINER) para registrar un flyer.
+--    Se usa desde el frontend con la anon key y BYPASEA el RLS,
+--    así no depende de que las políticas estén correctamente aplicadas.
+CREATE OR REPLACE FUNCTION public.register_flyer(
+  p_storage_path text,
+  p_public_url text,
+  p_expires_at timestamptz
+)
+RETURNS public.flyers
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+  v_flyer public.flyers;
+BEGIN
+  INSERT INTO public.flyers (storage_path, public_url, expires_at)
+  VALUES (p_storage_path, p_public_url, p_expires_at)
+  ON CONFLICT (storage_path) DO UPDATE SET
+    public_url = EXCLUDED.public_url,
+    expires_at = EXCLUDED.expires_at
+  RETURNING * INTO v_flyer;
+
+  RETURN v_flyer;
+END;
+$$;
+
+-- Permite que el anon/authenticated ejecute la función
+GRANT EXECUTE ON FUNCTION public.register_flyer(text, text, timestamptz) TO public;
+GRANT EXECUTE ON FUNCTION public.register_flyer(text, text, timestamptz) TO authenticated;
+
 -- 4. Función de limpieza: borra expirados de la tabla Y del storage
 CREATE OR REPLACE FUNCTION public.delete_expired_flyers()
 RETURNS integer
