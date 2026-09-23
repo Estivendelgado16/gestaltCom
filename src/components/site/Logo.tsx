@@ -1,29 +1,21 @@
 export function Logo({
   className = "",
   tone = "ink",
-  img = "/img/logo1.png",
-  size = 50,
+  img,
+  size = 44,
 }: {
   className?: string;
   tone?: "ink" | "cream";
   img?: string;
   size?: number;
 }) {
-  const color = tone === "cream" ? "var(--cream)" : "var(--ink)";
+  const src = img ?? (tone === "cream" ? "/img/logo2.png" : "/img/logo1.png");
   return (
-    <div className={`flex items-center gap-3 ${className}`}>
-      <img src={img} alt="Comunidad Gestáltica" width={size} height={size} />
-      <div className="leading-none">
-        <div className="text-[15px] font-bold tracking-tight" style={{ color }}>
-          Comunidad Gestáltica
-        </div>
-        <div
-          className="text-[9px] uppercase mt-1"
-          style={{ color: tone === "cream" ? "var(--sand-light)" : "var(--ink-soft)" }}
-        >
-          Estudios de Gestalt de Campo
-        </div>
-      </div>
-    </div>
+    <img
+      src={src}
+      alt="Comunidad Gestáltica — Estudios de Gestalt de Campo"
+      style={{ height: size, width: "auto", alignSelf: "flex-start" }}
+      className={className}
+    />
   );
 }

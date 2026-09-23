@@ -101,7 +101,7 @@ export function LoginPage() {
         className="hidden md:flex flex-col justify-between p-14"
         style={{ background: "var(--ink)", color: "var(--cream)" }}
       >
-        <Logo tone="cream" img="/img/logo2.png" size={56} />
+        <Logo tone="cream" img="/img/logo2.png" size={44} />
         <div>
           <div className="text-[10px] uppercase tracking-[0.35em] opacity-60 mb-4">
             Acceso para estudiantes
