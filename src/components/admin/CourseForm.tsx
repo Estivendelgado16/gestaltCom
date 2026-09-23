@@ -11,17 +11,17 @@ import { useNavigate } from "@tanstack/react-router";
 const schema = z.object({
   titulo: z.string().trim().min(3, "Título requerido").max(120),
   tipo: z.enum(["DIPLOMADO", "CURSO", "TALLER", "OTRO"]),
-  fecha_inicio: z.string().min(1, "Fecha requerida"),
+  fecha_inicio: z.string().min(1, "Fecha requerida").nullable(),
   descripcion: z.string().trim().min(10, "Descripción muy corta").max(400),
-  horarios: z.string().optional(),
+  horarios: z.string().nullable().optional(),
   modalidad: z.enum(["Presencial", "Virtual", "Híbrido"]).default("Presencial"),
-  duracion: z.string().max(40).optional(),
-  flyer_url: z.string().url("URL inválida").or(z.literal("")).optional(),
+  duracion: z.string().max(40).nullable().optional(),
+  flyer_url: z.string().url("URL inválida").or(z.literal("")).nullable().optional(),
   galeria_fotos: z.array(z.string().url()).default([]).refine(
     (val) => val.length <= 9,
     "Máximo 9 fotos en la galería"
   ),
-  precio: z.number().optional(),
+  precio: z.number().nullable().optional(),
 });
 
 const STATUSES: FormacionTipo[] = ["DIPLOMADO", "CURSO", "TALLER", "OTRO"];
@@ -64,11 +64,11 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
       const publicUrl = await uploadService.uploadToSupabaseStorage(file, path, "flyers");
 
       // Registra la subida en la tabla `flyers` con expiración a 3 meses
-      // (el job de pg_cron la eliminará junto con el archivo).
-      const { error } = await supabase.from("flyers").insert({
-        storage_path: path,
-        public_url: publicUrl,
-        expires_at: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+      // vía RPC SECURITY DEFINER (bypasea el RLS).
+      const { error } = await supabase.rpc("register_flyer", {
+        p_storage_path: path,
+        p_public_url: publicUrl,
+        p_expires_at: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
       });
       if (error) throw error;
 
@@ -104,10 +104,11 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
         newUrls.push(publicUrl);
 
         // Registra en la tabla `flyers` con expiración a 3 meses
-        const { error } = await supabase.from("flyers").insert({
-          storage_path: path,
-          public_url: publicUrl,
-          expires_at: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+        // vía RPC SECURITY DEFINER (bypasea el RLS).
+        const { error } = await supabase.rpc("register_flyer", {
+          p_storage_path: path,
+          p_public_url: publicUrl,
+          p_expires_at: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
         });
         if (error) throw error;
       }
@@ -130,6 +131,9 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
       const errs: Record<string, string> = {};
       for (const i of parsed.error.issues) errs[String(i.path[0])] = i.message;
       setErrors(errs);
+      toast.error("Revisa los campos marcados", {
+        description: Object.values(errs)[0] ?? "Hay errores en el formulario",
+      });
       return;
     }
 
