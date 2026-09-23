@@ -1,10 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { lazy } from "react";
-
-const UsuariosPage = lazy(() =>
-  import("@/pages/UsuariosPage").then((m) => ({ default: m.UsuariosPage })),
-);
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/usuarios/")({
-  component: UsuariosPage,
+  beforeLoad: () => {
+    throw redirect({ to: "/usuarios/clases" });
+  },
 });

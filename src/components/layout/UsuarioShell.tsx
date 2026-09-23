@@ -2,11 +2,10 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { authService } from "@/services/auth.service";
-import { GraduationCap, BookOpen, LogOut, ExternalLink } from "lucide-react";
+import { BookOpen, LogOut, ExternalLink } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
 
 const items = [
-  { to: "/usuarios", label: "Mi diplomado", icon: GraduationCap },
   { to: "/usuarios/clases", label: "Clases", icon: BookOpen },
 ];
 
