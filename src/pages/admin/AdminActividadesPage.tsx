@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/layout/AdminShell";
 import { useRequireAdmin } from "@/context/AuthContext";
 import { actividadService } from "@/services/actividad.service";
+import { uploadService } from "@/services/upload.service";
 import type { Actividad } from "@/types";
 import { toast } from "sonner";
-import { PlusCircle, Pencil, Trash2, X, RefreshCw } from "lucide-react";
+import { PlusCircle, Pencil, Trash2, X, RefreshCw, Upload } from "lucide-react";
+
+const BADGE_OPTIONS = ["Próximo inicio", "En curso", "Finalizado"];
 
 export function AdminActividadesPage() {
   const { user, isAdmin, loading } = useRequireAdmin();
@@ -239,7 +242,7 @@ function ActividadForm({
     subtitle: initial?.subtitle ?? "",
     description: initial?.description ?? "",
     featured_notice: initial?.featured_notice ?? "",
-    status_badges: (initial?.status_badges ?? []).join("\n"),
+    status_badges: initial?.status_badges ?? [],
     cta_text: initial?.cta_text ?? "ZOOM →",
     cta_link: initial?.cta_link ?? "",
     image_url: initial?.image_url ?? "",
@@ -251,6 +254,25 @@ function ActividadForm({
 
   function set<K extends keyof typeof values>(k: K, v: (typeof values)[K]) {
     setValues((prev) => ({ ...prev, [k]: v }));
+  }
+
+  const [imageUploading, setImageUploading] = useState(false);
+
+  async function uploadImage(file: File) {
+    setImageUploading(true);
+    try {
+      const safeName = file.name.replace(/[^\w.-]/g, "_");
+      const path = `actividad-${Date.now()}-${safeName}`;
+      const publicUrl = await uploadService.uploadToSupabaseStorage(file, path, "galeria");
+      set("image_url", publicUrl);
+      toast.success("Imagen subida correctamente");
+    } catch (err) {
+      toast.error("No se pudo subir la imagen", {
+        description: err instanceof Error ? err.message : "Error desconocido",
+      });
+    } finally {
+      setImageUploading(false);
+    }
   }
 
   async function onSubmit(e: React.FormEvent) {
@@ -266,10 +288,7 @@ function ActividadForm({
       subtitle: values.subtitle.trim() || null,
       description: values.description.trim(),
       featured_notice: values.featured_notice.trim() || null,
-      status_badges: values.status_badges
-        .split("\n")
-        .map((s) => s.trim())
-        .filter(Boolean),
+      status_badges: values.status_badges,
       cta_text: values.cta_text.trim() || "Más info",
       cta_link: values.cta_link.trim() || null,
       image_url: values.image_url.trim() || null,
@@ -370,14 +389,20 @@ function ActividadForm({
             />
           </Field>
 
-          <Field label="Etiquetas / badges (una por línea)">
-            <textarea
-              rows={2}
-              value={values.status_badges}
-              onChange={(e) => set("status_badges", e.target.value)}
-              className="input resize-none"
-              placeholder="En curso&#10;Próximo inicio"
-            />
+          <Field label="Etiquetas / badges">
+            <div className="flex flex-wrap gap-6">
+              {BADGE_OPTIONS.map((badge) => (
+                <label key={badge} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="radio"
+                    name="status_badge"
+                    checked={values.status_badges.includes(badge)}
+                    onChange={() => set("status_badges", [badge])}
+                  />
+                  {badge}
+                </label>
+              ))}
+            </div>
           </Field>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -399,13 +424,43 @@ function ActividadForm({
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
-            <Field label="URL de imagen (opcional)">
-              <input
-                value={values.image_url}
-                onChange={(e) => set("image_url", e.target.value)}
-                className="input"
-                placeholder="https://... o /img/..."
-              />
+            <Field label="Imagen (opcional)">
+              <div className="mt-2">
+                <label
+                  className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer transition-colors hover:opacity-80"
+                  style={{ borderColor: "color-mix(in oklab, var(--ink) 25%, transparent)" }}
+                >
+                  <Upload className="w-4 h-4" />
+                  {imageUploading ? "Subiendo..." : "Subir imagen desde el PC"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="sr-only"
+                    disabled={imageUploading}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) uploadImage(file);
+                    }}
+                  />
+                </label>
+                {values.image_url && (
+                  <div className="mt-3 flex items-center gap-3">
+                    <img
+                      src={values.image_url}
+                      alt={values.image_alt ?? "Vista previa"}
+                      className="w-20 h-16 object-cover rounded-sm border"
+                      style={{ borderColor: "color-mix(in oklab, var(--ink) 25%, transparent)" }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => set("image_url", "")}
+                      className="text-xs uppercase tracking-widest opacity-70 hover:opacity-100"
+                    >
+                      Quitar
+                    </button>
+                  </div>
+                )}
+              </div>
             </Field>
             <Field label="Texto alternativo (opcional)">
               <input
