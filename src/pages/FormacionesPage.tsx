@@ -107,6 +107,12 @@ export function FormacionesPage() {
               , el dolor se despliega, toma una nueva vida en la carne de los dos, los dos se
               vuelven más vivos”.
             </h1>
+            <div
+              className="mt-3 text-[11px] uppercase tracking-[0.3em]"
+              style={{ color: "var(--gold)" }}
+            >
+              - Gianni Francesetti
+            </div>
             <p className="mt-8 max-w-2xl text-base" style={{ color: "var(--ink-soft)" }}>
               Las formaciones son encuentros que se configuran como espacios de aprendizaje
               experiencial, donde el conocimiento no se transmite únicamente como contenido, sino
