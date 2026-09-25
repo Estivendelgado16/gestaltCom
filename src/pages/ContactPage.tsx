@@ -162,7 +162,38 @@ export function ContactPage() {
         </aside>
       </section>
 
+      <a
+        href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
+          "Hola Dany, ¿qué tal? Estoy interesado en la terapia gestalt, me gustaría obtener más información.",
+        )}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp"
+        className="whatsapp-float"
+      >
+        <img src="/img/whatsapp.png" alt="WhatsApp" />
+      </a>
+
       <style>{`
+        .whatsapp-float {
+          position: fixed;
+          right: 24px;
+          bottom: 24px;
+          z-index: 9999;
+          display: grid;
+          place-items: center;
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          background: #25d366;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+          transition: transform 0.2s;
+        }
+        .whatsapp-float:hover { transform: scale(1.08); }
+        .whatsapp-float img {
+          width: 36px;
+          height: 36px;
+        }
         .input {
           width: 100%;
           background: transparent;
