@@ -129,17 +129,19 @@ export function SiteLayout({
       <main className="flex-1">{children}</main>
 
       {!hideChrome && (
-        <footer style={{ background: "var(--ink)", color: "var(--cream)" }}>
+        <footer style={{ background: "var(--ink)", color: "#fff" }}>
           <div className="container-clinic py-16 grid gap-10 md:grid-cols-3">
             <div>
               <Logo tone="cream" img="/img/logo2.png" size={56} />
               <p className="mt-6 text-sm opacity-70 leading-relaxed max-w-xs">
                 Espacio de encuentro, formación y difusión de la terapia Gestalt de campo.
               </p>
-              <p>Fundado por Dany R. Mora B.</p>
+              <p className="mt-2 text-sm opacity-70 leading-relaxed">
+                Fundado por Dany R. Mora B.
+              </p>
             </div>
             <div>
-              <div className="text-[10px] uppercase tracking-[0.3em] opacity-60 mb-4">
+              <div className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-90 mb-4">
                 Navegación
               </div>
               <ul className="space-y-2 text-sm">
@@ -164,7 +166,7 @@ export function SiteLayout({
               </ul>
             </div>
             <div>
-              <div className="text-[10px] uppercase tracking-[0.3em] opacity-60 mb-4">
+              <div className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-90 mb-4">
                 Atención terapéutica
               </div>
               <ul className="space-y-2 text-sm opacity-80">

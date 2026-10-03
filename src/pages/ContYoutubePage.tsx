@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { siteFileService, YOUTUBE_LISTA_KEY, type SiteFile } from "@/services/siteFile.service";
 
 // Inicializar cliente Supabase usando variables de entorno de Vite
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
@@ -29,7 +30,15 @@ function getYouTubeId(url: string): string | null {
   return match ? match[1] : null;
 }
 
-function VideoSection({ title, items }: { title: string; items: YoutubeVideo[] }) {
+function VideoSection({
+  title,
+  items,
+  icon,
+}: {
+  title: string;
+  items: YoutubeVideo[];
+  icon?: ReactNode;
+}) {
   const [expanded, setExpanded] = useState(false);
   const visible = expanded ? items : items.slice(0, INITIAL_COUNT);
 
@@ -38,7 +47,10 @@ function VideoSection({ title, items }: { title: string; items: YoutubeVideo[] }
       className="container-clinic pb-28"
       style={{ paddingInline: "0.5cm", maxWidth: "1400px" }}
     >
-      <h2 className="text-2xl font-bold text-gold mb-4">{title}</h2>
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <h2 className="text-2xl font-bold text-gold">{title}</h2>
+        {icon}
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {visible.map((v, i) => {
           const link = v.youtube_link ?? undefined;
@@ -92,6 +104,44 @@ function VideoSection({ title, items }: { title: string; items: YoutubeVideo[] }
         </button>
       )}
     </section>
+  );
+}
+
+function ListaEntrevistas() {
+  const [file, setFile] = useState<SiteFile | null>(null);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    siteFileService
+      .get(YOUTUBE_LISTA_KEY)
+      .then((data) => {
+        if (!cancelled) setFile(data);
+      })
+      .catch(() => {
+        if (!cancelled) setFile(null);
+      })
+      .finally(() => {
+        if (!cancelled) setLoaded(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!loaded || !file) return null;
+
+  return (
+    <a
+      href={file.public_url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Lista de entrevistas"
+      className="shrink-0 inline-flex items-center justify-center rounded-full p-2 transition-transform hover:-translate-y-0.5"
+      style={{ backgroundColor: "var(--gold)" }}
+    >
+      <img src="/img/libro-abierto.png" alt="" className="w-8 h-8 object-contain" />
+    </a>
   );
 }
 
@@ -151,6 +201,7 @@ export function ContYoutubePage() {
           <VideoSection
             title="Parte I: Temáticas generales y aspectos introductorios de la Terapia Gestalt de campo."
             items={partI}
+            icon={<ListaEntrevistas />}
           />
           <VideoSection
             title="Parte II: Situaciones y/o sufrimientos clínicos específicos (intervenciones en 'psicopatología' o temáticas determinadas)."

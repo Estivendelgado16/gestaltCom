@@ -34,7 +34,7 @@ function statusGroup(badges: string[]): StatusGroup {
   return "proximas";
 }
 
-type FilterTab = "todas" | "encurso" | "finalizadas";
+type FilterTab = "todas" | "proximas" | "encurso" | "finalizadas";
 
 export function ActividadesPage() {
   const [filter, setFilter] = useState<FilterTab>("todas");
@@ -70,11 +70,13 @@ export function ActividadesPage() {
   ];
 
   const visibleSections =
-    filter === "encurso"
-      ? sections.filter((s) => s.key === "encurso")
-      : filter === "finalizadas"
-        ? sections.filter((s) => s.key === "finalizadas")
-        : sections;
+    filter === "proximas"
+      ? sections.filter((s) => s.key === "proximas")
+      : filter === "encurso"
+        ? sections.filter((s) => s.key === "encurso")
+        : filter === "finalizadas"
+          ? sections.filter((s) => s.key === "finalizadas")
+          : sections;
 
   return (
     <SiteLayout>
@@ -132,6 +134,7 @@ export function ActividadesPage() {
           {(
             [
               { key: "todas", label: "Todas las actividades" },
+              { key: "proximas", label: "Próximas" },
               { key: "encurso", label: "En curso" },
               { key: "finalizadas", label: "Finalizadas" },
             ] as const

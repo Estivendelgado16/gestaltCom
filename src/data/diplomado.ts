@@ -13,10 +13,7 @@ export type ParrafoSegmentado = { texto: string; segments?: Segmento[] };
 
 export const diplomadoData = {
   hero: {
-    titulo: "Diplomado Internacional en Terapia Gestalt de Campo",
-    subtitulo: "Fundamentos en fenomenología y teoría de campo",
-    fechas: "2026-2027",
-    imagenFondo: "/img/hero-piedras.png",
+    imagenFondo: "/img/banner-diplomado.png",
   },
 
   introduccion: {

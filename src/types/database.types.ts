@@ -289,12 +289,51 @@ export interface Database {
           },
         ];
       };
+      site_files: {
+        Row: {
+          key: string;
+          storage_path: string;
+          public_url: string;
+          file_name: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          key: string;
+          storage_path: string;
+          public_url: string;
+          file_name?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          key?: string;
+          storage_path?: string;
+          public_url?: string;
+          file_name?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
       approve_user_payment: {
         Args: { target_user_id: string; payment_id: string };
         Returns: void;
+      };
+      upsert_site_file: {
+        Args: {
+          p_key: string;
+          p_storage_path: string;
+          p_public_url: string;
+          p_file_name: string;
+        };
+        Returns: {
+          key: string;
+          storage_path: string;
+          public_url: string;
+          file_name: string | null;
+          updated_at: string;
+        };
       };
     };
   };

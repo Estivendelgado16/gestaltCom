@@ -24,7 +24,7 @@ export function AboutPage() {
         <h1 className="mt-8 text-5xl md:text-7xl max-w-4xl leading-[0.98]">
           Dany Rafael <span style={{ color: "var(--gold)" }}>Mora Bracho</span>
         </h1>
-        <p className="mt-8 max-w-2xl text-lg" style={{ color: "var(--ink-soft)" }}>
+        <p className="mt-8 max-w-3xl text-lg" style={{ color: "var(--ink-soft)" }}>
           Psicólogo • Terapeuta Gestáltico • Supervisor • Docente • Fundador de Comunidad Gestáltica
         </p>
       </section>

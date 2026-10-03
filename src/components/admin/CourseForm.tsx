@@ -12,15 +12,15 @@ const schema = z.object({
   titulo: z.string().trim().min(3, "Título requerido").max(120),
   tipo: z.enum(["DIPLOMADO", "CURSO", "TALLER", "OTRO"]),
   fecha_inicio: z.string().min(1, "Fecha requerida").nullable(),
-  descripcion: z.string().trim().min(10, "Descripción muy corta").max(400),
+  descripcion: z.string().trim().min(10, "Descripción muy corta"),
   horarios: z.string().nullable().optional(),
   modalidad: z.enum(["Presencial", "Virtual", "Híbrido"]).default("Presencial"),
   duracion: z.string().max(40).nullable().optional(),
-  flyer_url: z.string().url("URL inválida").or(z.literal("")).nullable().optional(),
-  galeria_fotos: z.array(z.string().url()).default([]).refine(
-    (val) => val.length <= 9,
-    "Máximo 9 fotos en la galería"
-  ),
+  flyer_url: z.string().nullable().optional(),
+  galeria_fotos: z
+    .array(z.string().url())
+    .default([])
+    .refine((val) => val.length <= 9, "Máximo 9 fotos en la galería"),
   precio: z.number().nullable().optional(),
 });
 
@@ -60,7 +60,7 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
   async function uploadFlyer(file: File) {
     setFlyerUploading(true);
     try {
-      const path = `flyer-${new Date().toISOString().slice(0, 10)}-${Date.now()}-${file.name.replace(/[^\w.\-]/g, "_")}`;
+      const path = `flyer-${new Date().toISOString().slice(0, 10)}-${Date.now()}-${file.name.replace(/[^\w.-]/g, "_")}`;
       const publicUrl = await uploadService.uploadToSupabaseStorage(file, path, "flyers");
 
       // Registra la subida en la tabla `flyers` con expiración a 3 meses
@@ -99,7 +99,7 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
       const newUrls: string[] = [];
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const path = `galeria-${new Date().toISOString().slice(0, 10)}-${Date.now()}-${i}-${file.name.replace(/[^\w.\-]/g, "_")}`;
+        const path = `galeria-${new Date().toISOString().slice(0, 10)}-${Date.now()}-${i}-${file.name.replace(/[^\w.-]/g, "_")}`;
         const publicUrl = await uploadService.uploadToSupabaseStorage(file, path, "galeria");
         newUrls.push(publicUrl);
 
@@ -274,8 +274,10 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
       <div className="grid md:grid-cols-2 gap-8">
         <Field label="Flyer / Afiche (opcional)" error={errors.flyer_url}>
           <div className="mt-2">
-            <label className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer transition-colors hover:opacity-80"
-              style={{ borderColor: "color-mix(in oklab, var(--ink) 25%, transparent)" }}>
+            <label
+              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer transition-colors hover:opacity-80"
+              style={{ borderColor: "color-mix(in oklab, var(--ink) 25%, transparent)" }}
+            >
               <Upload className="w-4 h-4" />
               {flyerUploading ? "Subiendo..." : "Subir imagen desde el PC"}
               <input
@@ -321,10 +323,12 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
               <p className="text-xs mt-2" style={{ color: "var(--ink-soft)" }}>
                 Subiendo fotos...
               </p>
-            ) : values.galeria_fotos.length === 0 && (
-              <p className="text-xs mt-2" style={{ color: "var(--ink-soft)" }}>
-                Sube fotos desde el PC. También puedes pegarlas como URLs.
-              </p>
+            ) : (
+              values.galeria_fotos.length === 0 && (
+                <p className="text-xs mt-2" style={{ color: "var(--ink-soft)" }}>
+                  Sube fotos desde el PC. También puedes pegarlas como URLs.
+                </p>
+              )
             )}
             {values.galeria_fotos.map((url, idx) => (
               <div
@@ -349,7 +353,8 @@ export function CourseForm({ initial }: { initial?: Formacion }) {
                 </button>
               </div>
             ))}
-            <label className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer transition-colors hover:opacity-80"
+            <label
+              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer transition-colors hover:opacity-80"
               style={{ borderColor: "color-mix(in oklab, var(--ink) 25%, transparent)" }}
             >
               <Upload className="w-4 h-4" />

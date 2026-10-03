@@ -62,7 +62,7 @@ export function FormacionesPage() {
           className="inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-2 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--ink)", color: "var(--cream)" }}
         >
-          <User className="w-4 h-4" /> Sign in
+          <User className="w-4 h-4" /> Iniciar sesión
         </Link>
       </nav>
       <section className="container-clinic pb-16">
@@ -102,16 +102,16 @@ export function FormacionesPage() {
             >
               "El momento en que el terapeuta está{" "}
               <span style={{ color: "var(--gold)" }}>
-                presente en la ausencia, esta ya no está ausente
+                presente en la ausencia, esta ya no está ausente,
               </span>{" "}
-              , el dolor se despliega, toma una nueva vida en la carne de los dos, los dos se
-              vuelven más vivos”.
+              el dolor se despliega, toma una nueva vida en la carne de los dos, los dos se vuelven
+              más vivos”.
             </h1>
             <div
               className="mt-3 text-[11px] uppercase tracking-[0.3em]"
               style={{ color: "var(--gold)" }}
             >
-              - Gianni Francesetti
+              — Gianni Francesetti
             </div>
             <p className="mt-8 max-w-2xl text-base" style={{ color: "var(--ink-soft)" }}>
               Las formaciones son encuentros que se configuran como espacios de aprendizaje

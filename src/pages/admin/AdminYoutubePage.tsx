@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { AdminShell } from "@/components/layout/AdminShell";
 import { useRequireAdmin } from "@/context/AuthContext";
 import { youtubeService, type YoutubeVideo } from "@/services/youtube.service";
+import { siteFileService, YOUTUBE_LISTA_KEY, type SiteFile } from "@/services/siteFile.service";
 import { toast } from "sonner";
-import { PlusCircle, Pencil, Trash2, X, RefreshCw, ExternalLink } from "lucide-react";
+import { PlusCircle, Pencil, Trash2, X, RefreshCw, ExternalLink, FileText } from "lucide-react";
 
 const PARTS: Array<{ value: "I" | "II" | "III"; label: string }> = [
   { value: "I", label: "Parte I" },
@@ -17,6 +18,8 @@ export function AdminYoutubePage() {
   const [fetching, setFetching] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<YoutubeVideo | null>(null);
+  const [listaFile, setListaFile] = useState<SiteFile | null>(null);
+  const [listaUploading, setListaUploading] = useState(false);
 
   const fetchVideos = async () => {
     setFetching(true);
@@ -35,6 +38,29 @@ export function AdminYoutubePage() {
   useEffect(() => {
     if (user) fetchVideos();
   }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+    siteFileService
+      .get(YOUTUBE_LISTA_KEY)
+      .then(setListaFile)
+      .catch(() => setListaFile(null));
+  }, [user]);
+
+  async function handleListaUpload(file: File) {
+    setListaUploading(true);
+    try {
+      const saved = await siteFileService.upload(YOUTUBE_LISTA_KEY, file);
+      setListaFile(saved);
+      toast.success("Lista de entrevistas actualizada");
+    } catch (err) {
+      toast.error("No se pudo subir el archivo", {
+        description: err instanceof Error ? err.message : "Error desconocido",
+      });
+    } finally {
+      setListaUploading(false);
+    }
+  }
 
   if (loading || !user || !isAdmin) return null;
 
@@ -99,6 +125,60 @@ export function AdminYoutubePage() {
           </button>
         </div>
       </header>
+
+      <section
+        className="mb-10 rounded-2xl border p-6"
+        style={{
+          borderColor: "color-mix(in oklab, var(--ink) 12%, transparent)",
+          background: "color-mix(in oklab, var(--ink) 3%, transparent)",
+        }}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <FileText className="w-5 h-5" style={{ color: "var(--gold)" }} />
+            <div>
+              <div className="text-sm font-semibold" style={{ color: "var(--ink)" }}>
+                Lista de entrevistas (PDF)
+              </div>
+              <div className="text-xs mt-0.5" style={{ color: "var(--ink-soft)" }}>
+                {listaFile
+                  ? (listaFile.file_name ?? "Archivo subido")
+                  : "No hay archivo subido todavía"}
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            {listaFile && (
+              <a
+                href={listaFile.public_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs underline underline-offset-4"
+                style={{ color: "var(--gold)" }}
+              >
+                Ver <ExternalLink className="w-3 h-3" />
+              </a>
+            )}
+            <label
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs uppercase tracking-widest cursor-pointer transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+              style={{ background: "var(--ink)", color: "var(--cream)" }}
+            >
+              <input
+                type="file"
+                accept="application/pdf"
+                className="hidden"
+                disabled={listaUploading}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleListaUpload(file);
+                  e.target.value = "";
+                }}
+              />
+              {listaUploading ? "Subiendo..." : listaFile ? "Reemplazar" : "Subir PDF"}
+            </label>
+          </div>
+        </div>
+      </section>
 
       {fetching && videos.length === 0 ? (
         <div className="text-sm py-10 text-center" style={{ color: "var(--ink-soft)" }}>

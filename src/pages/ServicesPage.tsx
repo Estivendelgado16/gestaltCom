@@ -51,7 +51,7 @@ export function ServicesPage() {
           style={{ width: "90%" }}
         >
           “El dolor no es otra cosa que
-          <span style={{ color: "var(--gold)" }}> la sorpresa de no encontrarnos</span>. De todos
+          <span style={{ color: "var(--gold)" }}> la sorpresa de no encontrarnos.</span> De todos
           los pecados de la psicología, el más mortal es su indiferencia ante la belleza.”
         </h1>
         <div

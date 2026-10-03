@@ -29,7 +29,7 @@ export function HomePage() {
               className="mt-3 text-[11px] uppercase tracking-[0.3em]"
               style={{ color: "var(--gold)" }}
             >
-              - Maurice Merleau-Ponty
+              — Maurice Merleau-Ponty
             </div>
             <div
               className="mt-10 max-w-3xl text-lg leading-relaxed space-y-5"

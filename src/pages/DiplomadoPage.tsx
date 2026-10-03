@@ -51,43 +51,17 @@ export function DiplomadoPage() {
           className="inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-2 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--ink)", color: "var(--cream)" }}
         >
-          <User className="w-4 h-4" /> Sign in
+          <User className="w-4 h-4" /> Inicio sesión
         </Link>
       </nav>
 
-      {/* HERO / PORTADA — piedras zen */}
-      <section
-        className="relative flex items-center justify-center py-32 md:py-48 bg-cover"
-        style={{
-          backgroundImage: `url('${D.hero.imagenFondo}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{ background: "color-mix(in oklab, var(--ink) 55%, transparent)" }}
+      {/* HERO / PORTADA — banner completo */}
+      <section>
+        <img
+          src={D.hero.imagenFondo}
+          alt="Banner del Diplomado Internacional en Terapia Gestalt de Campo"
+          className="block w-full h-full"
         />
-        <div className="relative container-clinic text-center">
-          <Typography.Subtitle className="text-[12px] mb-4" as="span">
-            Diplomado Internacional
-          </Typography.Subtitle>
-          <h1
-            className="text-4xl md:text-6xl leading-tight max-w-4xl mx-auto"
-            style={{ color: "var(--cream)", fontFamily: "var(--font-serif)", fontWeight: 600 }}
-          >
-            {D.hero.titulo}
-          </h1>
-          <p className="mt-6 text-base md:text-lg" style={{ color: "var(--sand-light)" }}>
-            {D.hero.subtitulo}
-          </p>
-          <div
-            className="mt-8 inline-block px-6 py-2 text-sm uppercase tracking-[0.35em]"
-            style={{ color: "var(--gold)", border: "1px solid var(--gold)" }}
-          >
-            {D.hero.fechas}
-          </div>
-        </div>
       </section>
 
       {/* INTRODUCCIÓN — FORMACIÓN ONLINE */}
