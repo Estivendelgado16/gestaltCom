@@ -80,12 +80,9 @@ export function HomePage() {
                 background: "linear-gradient(160deg, var(--sand-light), var(--cream))",
               }}
             >
-              <video
-                src="/img/videoHome1.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
+              <img
+                src="/img/imgHome1.jpg"
+                alt=""
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
@@ -97,12 +94,9 @@ export function HomePage() {
       <section style={{ background: "var(--sand-light)" }}>
         <div className="container-clinic py-14 grid md:grid-cols-3 gap-10 items-center">
           <div className="flex flex-col items-center text-center">
-            <video
-              src="/img/videoHome2.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
+            <img
+              src="/img/imgHome2.jpg"
+              alt=""
               className="mt-6 w-64 rounded-sm object-cover aspect-square"
             />
           </div>
@@ -141,21 +135,21 @@ export function HomePage() {
               n: "01",
               t: "Procesos Teapéuticos",
               d: "Desde una perspectiva fenomenológica-gestáltica.",
-              img: "/img/terapia.jpg",
+              img: "/img/imgTerapia.jpg",
               alt: "Pies descalzos caminando sobre un árbol",
             },
             {
               n: "02",
               t: "Supervisión clínica",
               d: "Espacio para co-visionar la práctica terapéutica desde la perspectiva de campo.",
-              img: "/img/supervision.jpg",
+              img: "/img/imgSupervision.jpg",
               alt: "Gotas de agua creando ondas",
             },
             {
               n: "03",
               t: "Formación profesional",
               d: "Diplomados, cursos, seminarios y encuentros pde la comunidad de aprendizaje.",
-              img: "/img/formacion.jpg",
+              img: "/img/imgFormacion.jpg",
               alt: "Manos pintadas juntas",
             },
           ].map((s) => (

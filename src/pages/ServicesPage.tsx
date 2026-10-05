@@ -74,33 +74,24 @@ export function ServicesPage() {
               onClick={() => setOpen((v) => (v === i ? null : i))}
             >
               <div className="container-clinic p-10 md:p-16 md:py-16 py-10 grid md:grid-cols-12 gap-8">
-                <div className="md:col-span-2">
+                <div className="md:col-span-3">
                   {i === 0 ? (
-                    <video
-                      src="/img/service1.mp4"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="w-full h-64 rounded-sm object-cover"
+                    <img
+                      src="/img/imgTerapIndividual.png"
+                      alt="Psicoterapia individual"
+                      className="w-full h-72 rounded-sm object-cover"
                     />
                   ) : i === 1 ? (
-                    <video
-                      src="/img/service2.mp4"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="w-full h-64 rounded-sm object-cover"
+                    <img
+                      src="/img/imgTerapPareja.png"
+                      alt="Psicoterapia de parejas"
+                      className="w-full h-72 rounded-sm object-cover"
                     />
                   ) : i === 2 ? (
-                    <video
-                      src="/img/service3.mp4"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="w-full h-64 rounded-sm object-cover"
+                    <img
+                      src="/img/imgSupervCasos.jpg"
+                      alt="Supervisión de casos clínicos"
+                      className="w-full h-72 rounded-sm object-cover"
                     />
                   ) : (
                     <>
@@ -119,7 +110,7 @@ export function ServicesPage() {
                     </>
                   )}
                 </div>
-                <div className="md:col-span-7">
+                <div className="md:col-span-6">
                   <h2 className="text-3xl md:text-4xl">{s.t}</h2>
                   <p
                     className="mt-5 text-base leading-relaxed max-w-xl italic"

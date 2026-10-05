@@ -111,13 +111,10 @@ export function ContactPage() {
         </div>
 
         <aside className="md:col-span-5 space-y-8">
-          <video
-            src="/img/videosContact.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full rounded-xl shadow-lg"
+          <img
+            src="/img/imgContact1.jpg"
+            alt="Consulta de psicoterapia"
+            className="w-full rounded-xl shadow-lg object-cover"
           />
           <div className="p-8 rounded-sm" style={{ background: "var(--sand-light)" }}>
             <div
