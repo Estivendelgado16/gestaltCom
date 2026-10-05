@@ -4,6 +4,7 @@ import { SectionLayout } from "@/components/site/SectionLayout";
 import { Typography } from "@/components/site/Typography";
 import { MediaFlexLayout } from "@/components/site/MediaFlexLayout";
 import { DiplomadoPrograma } from "@/components/site/DiplomadoPrograma";
+import { DocentesCarousel } from "@/components/site/DocentesCarousel";
 import { diplomadoData } from "@/data/diplomado";
 import { ArrowLeft, User } from "lucide-react";
 
@@ -150,8 +151,16 @@ export function DiplomadoPage() {
       </SectionLayout>
 
       {/* PROGRAMA / DOCUMENTO EDITORIAL */}
-      <SectionLayout variant="white">
+      <section className="w-full">
         <DiplomadoPrograma />
+      </section>
+
+      {/* DOCENTES */}
+      <SectionLayout variant="light">
+        <Typography.Title withHighlight>Docentes</Typography.Title>
+        <div className="mt-10">
+          <DocentesCarousel />
+        </div>
       </SectionLayout>
     </SiteLayout>
   );

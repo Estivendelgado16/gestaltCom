@@ -11,6 +11,34 @@
 export type Segmento = { text: string; bold: boolean };
 export type ParrafoSegmentado = { texto: string; segments?: Segmento[] };
 
+/** Sesión individual del calendario de un módulo. */
+export type Sesion = {
+  titulo: string;
+  fecha: string;
+  docente: string;
+  pais: string;
+};
+
+/** Módulo del programa: banner visual con título, objetivo y sesiones. */
+export type Modulo = {
+  moduloTag: string;
+  titulo: string;
+  objetivo: string;
+  /** Palabras/frases a resaltar en negrita dentro del objetivo. */
+  resaltes?: readonly string[];
+  imagen: string;
+  imagenAlt: string;
+  logoLeft: string;
+  logoRight: string;
+  sesiones: readonly Sesion[];
+};
+
+/** Logos institucionales usados en la cabecera de cada banner de módulo. */
+const LOGOS = {
+  izquierdo: "/img/logo2.png",
+  derecho: "/img/logo1.png",
+} as const;
+
 export const diplomadoData = {
   hero: {
     imagenFondo: "/img/banner-diplomado.png",
@@ -21,7 +49,7 @@ export const diplomadoData = {
     titulo: "Fundamentos en fenomenología y teoría de campo",
     descripcion:
       "Su objetivo es ofrecer fundamentos en fenomenología y teoría de campo, entendidas como influencias centrales de la Terapia Gestalt que sostienen y orientan la práctica clínica.",
-    imagen: "/img/formacion.jpg",
+    imagen: "/img/imgDiplomado1.jpg",
     imagenAlt: "Piedras apiladas en equilibrio",
   },
 
@@ -55,7 +83,7 @@ export const diplomadoData = {
     titulo: "¿Qué hace diferente este diplomado?",
     texto:
       "Este diplomado se distingue por ofrecer una formación multicultural en los fundamentos filosóficos y conceptuales de la Terapia Gestalt, haciendo una aproximación a las influencias de la fenomenología y la teoría de campo que configuran su marco epistemológico.",
-    imagen: "/img/terapia.jpg",
+    imagen: "/img/imgDiplomado2.jpg",
     imagenAlt: "Pies descalzos caminando sobre un tronco cubierto de musgo",
   },
 
@@ -66,7 +94,7 @@ export const diplomadoData = {
     parrafo2:
       "El programa cuenta con docentes con amplio recorrido, tanto en el ámbito clínico como en el desarrollo teórico, y, con trayectoria específica en las temáticas abordadas, lo que garantiza que los contenidos se encuentren sólidamente sustentados en la experiencia clínica y en la reflexión conceptual.",
     cita: "“Nuestro propio cuerpo está en el mundo como el corazón está en el organismo”. – Merleau-Ponty",
-    imagen: "/img/supervision.jpg",
+    imagen: "/img/imgDiplomado3.jpg",
     imagenAlt: "Mano suspendida sobre el agua tocando la superficie",
   },
 
@@ -112,203 +140,181 @@ export const diplomadoData = {
     cita: "“No hay nada más práctico que una buena teoría”. – Kurt Lewin",
   },
 
-  /** Documento editorial del programa: 4 páginas de contenido y 1 página de calendario. */
+  /** Documento editorial del programa: un banner visual por módulo que integra
+   *  título, objetivo y el calendario de sesiones del módulo. */
   programa: {
-    paleta: {
-      banner: "#4A6B82",
-      panel: "#EAF0F4",
-      cuerpo: "#3D4249",
-      resalte: "#E8A33D",
-      tinta: "#2E3A46",
-    },
-    paginasContenido: [
+    modulos: [
       {
-        banner: true,
-        titulo: "MÓDULO 1: Marco Epistemológico de la Terapia Gestalt",
+        moduloTag: "MÓDULO 1",
+        titulo: "MARCO EPISTEMOLÓGICO DE LA TERAPIA GESTALT",
         objetivo:
           "Reconocer los fundamentos epistemológicos de la Terapia Gestalt, comprendiendo su surgimiento histórico y las principales influencias teóricas que configuran su marco conceptual.",
-        temario: [
-          "Primer encuentro: generalidades.",
-          "De la ruptura al campo: fundamentos históricos e influencias epistemológicas de la terapia Gestalt.",
-          "La Gestalt antes de la Gestalt: filogénesis filosófica.",
-          "Encuentro de cierre para la discusión y asimilación.",
+        resaltes: ["Terapia Gestalt"],
+        imagen: "/img/backgroundMod1.jpg",
+        imagenAlt: "Paisaje panorámico del Módulo 1",
+        logoLeft: LOGOS.izquierdo,
+        logoRight: LOGOS.derecho,
+        sesiones: [
+          {
+            titulo: "Primer encuentro: generalidades",
+            fecha: "15/09/2026",
+            docente: "Dany Mora, María Isabel Moreno",
+            pais: "Venezuela-Colombia · Colombia",
+          },
+          {
+            titulo:
+              "De la ruptura al campo: fundamentos históricos e influencias epistemológicas de la terapia Gestalt",
+            fecha: "19/09/2026",
+            docente: "Fernando Guzmán",
+            pais: "México",
+          },
+          {
+            titulo: "La Gestalt antes de la Gestalt: filogénesis filosófica",
+            fecha: "3/10/2026",
+            docente: "Luis Javier Tobón",
+            pais: "Colombia",
+          },
+          {
+            titulo: "Discusión y asimilación",
+            fecha: "17/10/2026",
+            docente: "María Isabel Moreno",
+            pais: "Colombia",
+          },
         ],
-        imagen: "/img/lineaFotos1.png",
-        imagenAlt: "Manos entrelazadas sobre el tronco de un árbol en un bosque verde",
-        imagenPosition: "left",
       },
       {
-        banner: false,
-        titulo: "MÓDULO 2: Acercamiento a la fenomenología",
+        moduloTag: "MÓDULO 2",
+        titulo: "ACERCAMIENTO A LA FENOMENOLOGÍA",
         objetivo:
           "Abordar los principios de la fenomenología y algunos de sus desarrollos filosóficos relevantes para la Terapia Gestalt, favoreciendo la comprensión de la experiencia, la percepción y el sentido como base ética y metodológica.",
-        temario: [
-          "Lo real haciéndose fenómeno: cartografía fenomenológica para la existencia.",
-          "Génesis fenomenológica de la Gestalt.",
-          "Acontecimiento y comprensión: fenomenología hermenéutica en la práctica gestáltica.",
-          "Encuentro de cierre para la discusión y asimilación.",
+        resaltes: ["fenomenología", "Terapia Gestalt"],
+        imagen: "/img/backgroundMod2.jpg",
+        imagenAlt: "Paisaje panorámico del Módulo 2",
+        logoLeft: LOGOS.izquierdo,
+        logoRight: LOGOS.derecho,
+        sesiones: [
+          {
+            titulo: "Lo real haciéndose fenómeno: cartografía fenomenológica para la existencia",
+            fecha: "7/11/2026",
+            docente: "Luis Javier Tobón",
+            pais: "Colombia",
+          },
+          {
+            titulo: "Génesis fenomenológica de la Gestalt",
+            fecha: "21/11/2026",
+            docente: "Marcos Müller",
+            pais: "Brasil",
+          },
+          {
+            titulo:
+              "Acontecimiento y comprensión: fenomenología hermenéutica en la práctica gestáltica",
+            fecha: "5/12/2026",
+            docente: "Guenadi Búrquez",
+            pais: "México",
+          },
+          {
+            titulo:
+              "Aportes de la fenomenología de la percepción de Merleau-Ponty a la Gestalt de campo",
+            fecha: "16/01/2027",
+            docente: "José Miguel Echavarría",
+            pais: "Argentina",
+          },
+          {
+            titulo: "Discusión y asimilación",
+            fecha: "30/01/2027",
+            docente: "Dany Mora y Daniel Echavarría",
+            pais: "Venezuela-Colombia · Colombia",
+          },
         ],
-        imagen: "/img/supervision.jpg",
-        imagenAlt: "Gotas de agua sobre una superficie tranquila con bokeh dorado",
-        imagenPosition: "left",
       },
       {
-        banner: false,
-        titulo: "MÓDULO 3: Aproximación a la teoría de campo",
+        moduloTag: "MÓDULO 3",
+        titulo: "APROXIMACIÓN A LA TEORÍA DE CAMPO",
         objetivo:
           "Explorar los fundamentos de la teoría de campo para una comprensión de la experiencia humana en el espacio terapéutico.",
-        temario: [
-          "El campo como horizonte: primeras aproximaciones a la teoría de campo.",
-          "De la teoría de campo a la terapia de la situación.",
-          "La co-construcción de la experiencia en terapia Gestalt.",
-          "La teoría de campo en la terapia Gestalt: metodología y práctica.",
-          "Encuentro de cierre para la discusión y asimilación.",
+        resaltes: ["teoría de campo"],
+        imagen: "/img/backgorundMod3.jpg",
+        imagenAlt: "Paisaje panorámico del Módulo 3",
+        logoLeft: LOGOS.izquierdo,
+        logoRight: LOGOS.derecho,
+        sesiones: [
+          {
+            titulo: "El campo como horizonte: primeras aproximaciones a la teoría de campo",
+            fecha: "13/02/2027",
+            docente: "Dany Mora",
+            pais: "Venezuela-Colombia",
+          },
+          {
+            titulo: "De la teoría de campo a la terapia de la situación",
+            fecha: "27/02/2027",
+            docente: "Daniel Echavarría",
+            pais: "Colombia",
+          },
+          {
+            titulo: "La co-construcción de la experiencia en terapia Gestalt",
+            fecha: "13/03/2027",
+            docente: "Ricardo García Jiménez",
+            pais: "Chile",
+          },
+          {
+            titulo: "La teoría de campo en la terapia Gestalt: metodología y práctica",
+            fecha: "3/04/2027",
+            docente: "Julio Polanco",
+            pais: "México",
+          },
+          {
+            titulo: "Discusión y asimilación",
+            fecha: "16/04/2027",
+            docente: "Dany Mora",
+            pais: "Venezuela-Colombia",
+          },
         ],
-        imagen: "/img/lineaFotos2.png",
-        imagenAlt: "Sendero de tierra a través de un campo seco y dorado hacia el horizonte",
-        imagenPosition: "center",
       },
       {
-        banner: false,
-        titulo: "MÓDULO 4: La situación terapéutica como tejido de la experiencia",
+        moduloTag: "MÓDULO 4",
+        titulo: "LA SITUACIÓN TERAPÉUTICA COMO TEJIDO DE LA EXPERIENCIA",
         objetivo:
           "Integrar los aportes de la fenomenología y la teoría de campo, como recursos que orientan el modo de estar y comprender la experiencia en el encuentro terapéutico.",
-        temario: [
-          "Fenomenología en acto: el arte del encuentro terapéutico.",
-          "El terapeuta como portador del campo: intercorporalidad, co-afectación y palabra encarnada.",
-          "El conocimiento relacional estético en la actitud clínica.",
-          "La clínica como campo vivo: fenomenología aplicada en el enfoque gestáltico.",
-          "Encuentro de cierre para la discusión y asimilación.",
+        resaltes: ["fenomenología", "teoría de campo"],
+        imagen: "/img/background4.jpg",
+        imagenAlt: "Paisaje panorámico del Módulo 4",
+        logoLeft: LOGOS.izquierdo,
+        logoRight: LOGOS.derecho,
+        sesiones: [
+          {
+            titulo: "Fenomenología en acto: el arte del encuentro terapéutico",
+            fecha: "8/05/2027",
+            docente: "Jennifer Ortiz",
+            pais: "Colombia",
+          },
+          {
+            titulo:
+              "El terapeuta como portador del campo: intercorporalidad, co-afectación y palabra encarnada",
+            fecha: "22/05/2027",
+            docente: "Jean-Marie Delacroix",
+            pais: "Francia",
+          },
+          {
+            titulo: "El conocimiento relacional estético en la actitud clínica",
+            fecha: "5/06/2027",
+            docente: "Michele Cannavò",
+            pais: "Italia",
+          },
+          {
+            titulo: "La clínica como campo vivo: fenomenología aplicada en el enfoque gestáltico",
+            fecha: "19/06/2027",
+            docente: "Sergio La Rosa",
+            pais: "Argentina-Italia",
+          },
+          {
+            titulo: "Discusión, asimilación y cierre",
+            fecha: "3/07/2027",
+            docente: "Dany Mora",
+            pais: "Venezuela-Colombia",
+          },
         ],
-        imagen: "/img/terapia.jpg",
-        imagenAlt: "Dos manos entrelazadas contra un fondo de hojas verdes tropicales",
-        imagenPosition: "right",
       },
     ],
-    calendario: {
-      titulo: "Programa",
-      modulos: [
-        {
-          titulo: "MÓDULO 1: MARCO EPISTEMOLÓGICO DE LA TERAPIA GESTALT",
-          sesiones: [
-            {
-              titulo: "Primer encuentro: generalidades",
-              fecha: "15/09/2026",
-              docente: "Dany Mora (Venezuela-Colombia), María Isabel Moreno (Colombia)",
-            },
-            {
-              titulo:
-                "De la ruptura al campo: fundamentos históricos e influencias epistemológicas de la terapia Gestalt",
-              fecha: "19/09/2026",
-              docente: "Fernando Guzmán (México)",
-            },
-            {
-              titulo: "La Gestalt antes de la Gestalt: filogénesis filosófica",
-              fecha: "3/10/2026",
-              docente: "Luis Javier Tobón (Colombia)",
-            },
-            {
-              titulo: "Discusión y asimilación",
-              fecha: "17/10/2026",
-              docente: "María Isabel Moreno (Colombia)",
-            },
-          ],
-        },
-        {
-          titulo: "MÓDULO 2: ACERCAMIENTO A LA FENOMENOLOGÍA",
-          sesiones: [
-            {
-              titulo: "Lo real haciéndose fenómeno: cartografía fenomenológica para la existencia",
-              fecha: "7/11/2026",
-              docente: "Luis Javier Tobón (Colombia)",
-            },
-            {
-              titulo: "Génesis fenomenológica de la Gestalt",
-              fecha: "21/11/2026",
-              docente: "Marcos Müller (Brasil)",
-            },
-            {
-              titulo:
-                "Acontecimiento y comprensión: fenomenología hermenéutica en la práctica gestáltica",
-              fecha: "5/12/2026",
-              docente: "Guenadi Búrquez (México)",
-            },
-            {
-              titulo:
-                "Aportes de la fenomenología de la percepción de Merleau-Ponty a la Gestalt de campo",
-              fecha: "16/01/2027",
-              docente: "José Miguel Echavarría (Argentina)",
-            },
-            {
-              titulo: "Discusión y asimilación",
-              fecha: "30/01/2027",
-              docente: "Dany Mora (Venezuela-Colombia) y Daniel Echavarría (Colombia)",
-            },
-          ],
-        },
-        {
-          titulo: "MÓDULO 3: APROXIMACIÓN A LA TEORÍA DE CAMPO",
-          sesiones: [
-            {
-              titulo: "El campo como horizonte: primeras aproximaciones a la teoría de campo",
-              fecha: "13/02/2027",
-              docente: "Dany Mora (Venezuela-Colombia)",
-            },
-            {
-              titulo: "De la teoría de campo a la terapia de la situación",
-              fecha: "27/02/2027",
-              docente: "Daniel Echavarría (Colombia)",
-            },
-            {
-              titulo: "La co-construcción de la experiencia en terapia Gestalt",
-              fecha: "13/03/2027",
-              docente: "Ricardo García Jiménez (Chile)",
-            },
-            {
-              titulo: "La teoría de campo en la terapia Gestalt: metodología y práctica",
-              fecha: "3/04/2027",
-              docente: "Julio Polanco (México)",
-            },
-            {
-              titulo: "Discusión y asimilación",
-              fecha: "16/04/2027",
-              docente: "Dany Mora (Venezuela-Colombia)",
-            },
-          ],
-        },
-        {
-          titulo: "MÓDULO 4: LA SITUACIÓN TERAPÉUTICA COMO TEJIDO DE LA EXPERIENCIA",
-          sesiones: [
-            {
-              titulo: "Fenomenología en acto: el arte del encuentro terapéutico",
-              fecha: "8/05/2027",
-              docente: "Jennifer Ortiz (Colombia)",
-            },
-            {
-              titulo:
-                "El terapeuta como portador del campo: intercorporalidad, co-afectación y palabra encarnada",
-              fecha: "22/05/2027",
-              docente: "Jean-Marie Delacroix (Francia)",
-            },
-            {
-              titulo: "El conocimiento relacional estético en la actitud clínica",
-              fecha: "5/06/2027",
-              docente: "Michele Cannavò (Italia)",
-            },
-            {
-              titulo: "La clínica como campo vivo: fenomenología aplicada en el enfoque gestáltico",
-              fecha: "19/06/2027",
-              docente: "Sergio La Rosa (Argentina-Italia)",
-            },
-            {
-              titulo: "Discusión, asimilación y cierre",
-              fecha: "3/07/2027",
-              docente: "Dany Mora (Venezuela-Colombia)",
-            },
-          ],
-        },
-      ],
-    },
   },
 } as const;
 
