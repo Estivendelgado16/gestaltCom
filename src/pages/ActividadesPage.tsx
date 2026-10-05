@@ -81,7 +81,7 @@ export function ActividadesPage() {
   return (
     <SiteLayout>
       <section style={{ background: "var(--sand-light)" }}>
-        <div className="container-clinic pt-6 pb-10">
+        <div className="container-clinic pt-6 pb-6">
           <div
             className="text-[10px] uppercase tracking-[0.3em]"
             style={{ color: "var(--ink-soft)" }}
@@ -89,6 +89,15 @@ export function ActividadesPage() {
             Comunidad · Actividades · Espacios de Encuentro
           </div>
         </div>
+      </section>
+
+      {/* Banner */}
+      <section className="w-full">
+        <img
+          src="/img/banner-actividades.png"
+          alt="Actividades y espacios de encuentro"
+          className="w-full block"
+        />
       </section>
 
       {/* Encabezado */}

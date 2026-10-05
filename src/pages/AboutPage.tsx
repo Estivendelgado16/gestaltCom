@@ -20,13 +20,12 @@ export function AboutPage() {
 
   return (
     <SiteLayout>
-      <section className="container-clinic pt-6 pb-16">
-        <h1 className="mt-8 text-5xl md:text-7xl max-w-4xl leading-[0.98]">
-          Dany Rafael <span style={{ color: "var(--gold)" }}>Mora Bracho</span>
-        </h1>
-        <p className="mt-8 max-w-3xl text-lg" style={{ color: "var(--ink-soft)" }}>
-          Psicólogo • Terapeuta Gestáltico • Supervisor • Docente • Fundador de Comunidad Gestáltica
-        </p>
+      <section className="w-full pb-10">
+        <img
+          src="/img/banner-about.png"
+          alt="Dany Rafael Mora Bracho — Psicólogo, Terapeuta Gestáltico, Supervisor, Docente y Fundador de Comunidad Gestáltica"
+          className="w-full block"
+        />
       </section>
 
       <section className="container-clinic pb-28 grid md:grid-cols-12 gap-16">
