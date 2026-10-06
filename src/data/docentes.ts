@@ -1,3 +1,5 @@
+import { University } from "lucide-react";
+
 /**
  * Docentes del Diplomado Internacional en Terapia Gestalt de Campo.
  *
@@ -25,11 +27,11 @@ export const docentes: Docente[] = [
   },
   {
     nombre: "Jennifer Ortíz",
-    pais: "Chile",
+    pais: "Colombia",
     descripcion:
       "Psicóloga y Magíster en Ciencias Sociales. Formación en Terapia Gestalt y terapia existencial. Docente e investigadora.",
     foto: "/img/JenniferOrtiz.png",
-    bandera: "/img/chile.png",
+    bandera: "/img/bandera-colombia.png",
   },
   {
     nombre: "Luis Javier Tobón",
@@ -97,12 +99,12 @@ export const docentes: Docente[] = [
   },
   {
     nombre: "Dany Rafael Mora Bracho",
-    pais: "Colombia · Venezuela",
+    pais: "Venezuela · Colombia",
     descripcion:
       "Psicólogo, magíster en Orientación. Terapeuta Gestáltico con formación en psicopatología. Fundador de Comunidad Gestáltica: Estudios de Gestalt de Campo.",
     foto: "/img/DanyMoraBracho.png",
-    bandera: "/img/bandera-colombia.png",
-    banderas: ["/img/bandera-colombia.png", "/img/bandera-venezuela.png"],
+    bandera: "/img/bandera-venezuela.png",
+    banderas: ["/img/bandera-venezuela.png", "/img/bandera-colombia.png"],
   },
   {
     nombre: "Daniel Echavarría",
@@ -111,5 +113,22 @@ export const docentes: Docente[] = [
       "Psicólogo, magíster en Psicología Clínica y Salud Mental, especialista en Psicología Sanitaria, con estudios en filosofía y terapia existencial.",
     foto: "/img/DanielEchavaria.png",
     bandera: "/img/bandera-colombia.png",
+  },
+  {
+    nombre: "Michele Cannavò",
+    pais: "Italia",
+    descripcion:
+      "Psiquiatra, PhD en Medicina Neurovegetativa y psicoterapeuta gestáltico. Docente universitario en la UniCT",
+    foto: "/img/MicheleCannavò.png",
+    bandera: "/img/bandera-italia.png",
+  },
+  {
+    nombre: "Sergio La Rosa",
+    pais: "Argentina · Italia",
+    descripcion:
+      "Macrobiólogo, formado como psicoanalista en la Tercera Escuela Vienesa de Psicoterapia. Es miembro del Instituto de Terapia Gestalt de Nueva York.",
+    foto: "/img/SergioLaRosa.png",
+    bandera: "/img/bandera-italia.png",
+    banderas: ["/img/bandera-argentina.png", "/img/bandera-italia.png"],
   },
 ];
