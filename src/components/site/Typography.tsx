@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -74,15 +74,19 @@ type BodyProps = {
   as?: "p" | "div";
   tone?: "default" | "on-dark";
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
 };
 
-function Body({ as = "p", tone = "default", className, children }: BodyProps) {
+function Body({ as = "p", tone = "default", className, style, children }: BodyProps) {
   const Tag = as;
   return (
     <Tag
       className={cn("text-base md:text-lg leading-relaxed", className)}
-      style={{ color: tone === "on-dark" ? "var(--cream)" : "var(--ink-soft)" }}
+      style={{
+        color: tone === "on-dark" ? "var(--cream)" : "var(--ink-soft)",
+        ...style,
+      }}
     >
       {children}
     </Tag>

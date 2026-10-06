@@ -93,9 +93,10 @@ export const diplomadoData = {
       "La propuesta metodológica del diplomado está orientada a favorecer una comprensión teórica y reflexiva de dichos fundamentos de la Terapia Gestalt, integrando el estudio conceptual con la elaboración clínica y la experiencia compartida en grupo.",
     parrafo2:
       "El programa cuenta con docentes con amplio recorrido, tanto en el ámbito clínico como en el desarrollo teórico, y, con trayectoria específica en las temáticas abordadas, lo que garantiza que los contenidos se encuentren sólidamente sustentados en la experiencia clínica y en la reflexión conceptual.",
-    cita: "“Nuestro propio cuerpo está en el mundo como el corazón está en el organismo”. – Merleau-Ponty",
-    imagen: "/img/imgDiplomado3.jpg",
-    imagenAlt: "Mano suspendida sobre el agua tocando la superficie",
+    parrafos: [
+      "El diplomado se desarrollará en cuatro módulos en modalidad 100% virtual-sincrónica que favorecen el diálogo entre distintas perspectivas culturales y profesionales. Para cerrar cada módulo se realizará un encuentro de discusión y asimilación, orientado a la clarificación de conceptos, la integración de los contenidos trabajados y el fortalecimiento del proceso grupal.",
+      "Asimismo, el proceso formativo incluye trabajo de lectura y estudio previo a cada encuentro, elemento fundamental para propiciar una participación activa y una comprensión más profunda de los contenidos.",
+    ],
   },
 
   generalidades: {
@@ -150,8 +151,8 @@ export const diplomadoData = {
         objetivo:
           "Reconocer los fundamentos epistemológicos de la Terapia Gestalt, comprendiendo su surgimiento histórico y las principales influencias teóricas que configuran su marco conceptual.",
         resaltes: ["Terapia Gestalt"],
-        imagen: "/img/backgroundMod1.jpg",
-        imagenAlt: "Paisaje panorámico del Módulo 1",
+        imagen: "/img/modulo-1.png",
+        imagenAlt: "Banner del Módulo 1",
         logoLeft: LOGOS.izquierdo,
         logoRight: LOGOS.derecho,
         sesiones: [
@@ -188,8 +189,8 @@ export const diplomadoData = {
         objetivo:
           "Abordar los principios de la fenomenología y algunos de sus desarrollos filosóficos relevantes para la Terapia Gestalt, favoreciendo la comprensión de la experiencia, la percepción y el sentido como base ética y metodológica.",
         resaltes: ["fenomenología", "Terapia Gestalt"],
-        imagen: "/img/backgroundMod2.jpg",
-        imagenAlt: "Paisaje panorámico del Módulo 2",
+        imagen: "/img/modulo-2.png",
+        imagenAlt: "Banner del Módulo 2",
         logoLeft: LOGOS.izquierdo,
         logoRight: LOGOS.derecho,
         sesiones: [
@@ -233,8 +234,8 @@ export const diplomadoData = {
         objetivo:
           "Explorar los fundamentos de la teoría de campo para una comprensión de la experiencia humana en el espacio terapéutico.",
         resaltes: ["teoría de campo"],
-        imagen: "/img/backgorundMod3.jpg",
-        imagenAlt: "Paisaje panorámico del Módulo 3",
+        imagen: "/img/modulo-3.png",
+        imagenAlt: "Banner del Módulo 3",
         logoLeft: LOGOS.izquierdo,
         logoRight: LOGOS.derecho,
         sesiones: [
@@ -276,8 +277,8 @@ export const diplomadoData = {
         objetivo:
           "Integrar los aportes de la fenomenología y la teoría de campo, como recursos que orientan el modo de estar y comprender la experiencia en el encuentro terapéutico.",
         resaltes: ["fenomenología", "teoría de campo"],
-        imagen: "/img/background4.jpg",
-        imagenAlt: "Paisaje panorámico del Módulo 4",
+        imagen: "/img/modulo-4.png",
+        imagenAlt: "Banner del Módulo 4",
         logoLeft: LOGOS.izquierdo,
         logoRight: LOGOS.derecho,
         sesiones: [
@@ -313,6 +314,151 @@ export const diplomadoData = {
             pais: "Venezuela-Colombia",
           },
         ],
+      },
+    ],
+  },
+
+  inscripcion: {
+    titulo: "Proceso de Inscripción",
+    pasos: [
+      {
+        titulo: "Paso 1",
+        parts: [
+          {
+            text: "Pre-inscripción mediante el formulario en el enlace ",
+          },
+          {
+            text: "https://forms.gle/d82hFNEW69TSASVJ8",
+            href: "https://forms.gle/d82hFNEW69TSASVJ8",
+          },
+          { text: "." },
+        ],
+      },
+      {
+        titulo: "Paso 2",
+        parts: [{ text: "Programación de entrevista con las personas pre-inscritas." }],
+      },
+      {
+        titulo: "Paso 3",
+        parts: [
+          { text: "Envío de información para procesar el pago mediante el enlace " },
+          { text: "PROCESO DE PAGO", bold: true },
+          { text: "." },
+        ],
+      },
+      {
+        titulo: "Paso 4",
+        parts: [
+          {
+            text: "Confirmación efectiva de la inscripción tras el primer pago correspondiente.",
+          },
+        ],
+      },
+    ],
+    cita: "Los apasionados son libertinos porque se arriesgan a ver la vida con los ojos del otro",
+    citaAutor: "Marcos José Müller",
+  },
+
+  inversion: {
+    titulo: "Inversión",
+    imagen: "/img/imgDiplomado4.jpg",
+    imagenAlt:
+      "Persona colocando la última piedra en una torre de piedras equilibradas al atardecer en la playa",
+    bloques: [
+      {
+        titulo: "Pago Único",
+        items: [
+          { precio: "2.950.000 COP", aclaracion: "Residentes en Colombia" },
+          {
+            precio: "1.000 USD",
+            aclaracion: "Colombianos en el exterior y extranjeros",
+          },
+        ],
+        fechaLabel: "Fecha límite de pago:",
+        fecha: "15 de agosto de 2026",
+      },
+      {
+        titulo: "Pago en 2 Cuotas",
+        items: [
+          {
+            precio: "1.600.000 COP",
+            aclaracion: "Residentes en Colombia",
+          },
+          {
+            precio: "550 USD",
+            aclaracion: "Colombianos en el exterior y extranjeros",
+          },
+        ],
+        fechaLabel: "Fechas de pago:",
+        fecha: "Primera cuota el 15 de agosto de 2026 y segunda cuota el 4 de diciembre de 2026",
+      },
+    ],
+  },
+
+  mediosPago: {
+    titulo: ["Medios de pago"],
+    bloques: [
+      {
+        titulo: "Nacional",
+        aclaracion: "(residentes en Colombia)",
+        items: [
+          "Transferencia bancaria a cuenta Bancolombia.",
+          "Pago con tarjeta de crédito mediante link de pago.",
+        ],
+      },
+      {
+        titulo: "Internacional",
+        aclaracion: "(exterior / extranjeros)",
+        items: [
+          "Transferencia bancaria vía Zelle, Bank of America, Western Union o PayPal.",
+          "Pago con tarjeta de crédito mediante link de pago.",
+        ],
+      },
+    ],
+    nota: "Nota importante: Las comisiones o recargos por envío de dinero deben ser asumidos por el participante.",
+  },
+
+  devolucion: {
+    titulo: "Política de Devolución",
+    items: [
+      {
+        titulo: "Antes del inicio del diplomado",
+        texto:
+          "Se devolverá el 80% del valor pagado (descontando gastos administrativos), sujeto a revisión de casos excepcionales por el equipo.",
+      },
+      {
+        titulo: "Una vez iniciado el diplomado",
+        texto:
+          "No se realizarán devoluciones debido a la reserva de cupo y disponibilidad de recursos académicos.",
+      },
+    ],
+  },
+
+  contacto: {
+    titulo: "Contacto y Aval Académico",
+    items: [
+      {
+        label: "WhatsApp",
+        valor: "+57 3127897914",
+        href: "https://wa.me/573127897914",
+      },
+      {
+        label: "Correo electrónico",
+        valor: "comunidadgestaltica.co@gmail.com",
+        href: "mailto:comunidadgestaltica.co@gmail.com",
+      },
+      {
+        label: "Instagram",
+        valor: "@comunidad.gestaltica",
+        href: "https://instagram.com/comunidad.gestaltica",
+      },
+    ],
+    entidades:
+      "Entidades: Comunidad Gestáltica (Estudios de Gestalt de Campo) con el aval académico de la Universidad Nexum de México.",
+    logos: [
+      {
+        src: "/img/logo1.png",
+        alt: "Comunidad Gestáltica — Estudios de Gestalt de Campo",
       },
     ],
   },
