@@ -46,7 +46,7 @@ export function SiteLayout({
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       {!hideChrome && (
         <header className="sticky top-0 z-40 backdrop-blur-md bg-background/80 border-b border-border/60">
-          <div className="container-clinic flex items-center justify-between h-20">
+          <div className="container-clinic flex items-center justify-between h-24">
             <Link to="/" className="shrink-0">
               <Logo />
             </Link>
@@ -75,7 +75,7 @@ export function SiteLayout({
             </nav>
             <Link
               to="/ContYoutube"
-              className="hidden lg:inline-flex items-center rounded-full px-5 py-2 text-[12px] uppercase tracking-widest transition-transform hover:-translate-y-0.5"
+              className="hidden lg:inline-flex items-center leading-none rounded-full px-5 py-2.5 text-[12px] uppercase tracking-widest transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--ink)", color: "var(--cream)" }}
             >
               Youtube
@@ -136,9 +136,7 @@ export function SiteLayout({
               <p className="mt-6 text-sm opacity-70 leading-relaxed max-w-xs">
                 Espacio de encuentro, formación y difusión de la terapia Gestalt de campo.
               </p>
-              <p className="mt-2 text-sm opacity-70 leading-relaxed">
-                Fundado por Dany R. Mora B.
-              </p>
+              <p className="mt-2 text-sm opacity-70 leading-relaxed">Fundado por Dany R. Mora B.</p>
             </div>
             <div>
               <div className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-90 mb-4">

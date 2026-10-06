@@ -80,9 +80,12 @@ export function HomePage() {
                 background: "linear-gradient(160deg, var(--sand-light), var(--cream))",
               }}
             >
-              <img
-                src="/img/imgHome1.jpg"
-                alt=""
+              <video
+                src="/img/videoHome1.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
