@@ -230,7 +230,7 @@ export function DiplomadoPage() {
         </h2>
 
         <div className="mt-10 grid gap-8 md:grid-cols-2 md:items-stretch">
-          <div className="relative min-h-[360px] overflow-hidden rounded-sm md:min-h-0">
+          <div className="relative min-h-90 overflow-hidden rounded-sm md:min-h-0">
             <img
               src={D.inversion.imagen}
               alt={D.inversion.imagenAlt}
