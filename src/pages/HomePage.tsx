@@ -7,7 +7,7 @@ export function HomePage() {
     <SiteLayout>
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="container-clinic pt-6 pb-32 md:pt-10 md:pb-44 grid md:grid-cols-12 gap-12 items-start">
+        <div className="container-clinic pt-6 pb-16 md:pt-10 md:pb-20 grid md:grid-cols-12 gap-12 items-start">
           <div className="md:col-span-8 animate-rise">
             <div
               className="text-[11px] uppercase tracking-[0.35em] mb-8"
@@ -23,7 +23,7 @@ export function HomePage() {
               <em className="not-italic" style={{ color: "var(--gold)" }}>
                 poder aterrador, la delicada fragilidad y la belleza efímera del mundo{" "}
               </em>
-              que emana hacia adelante en cada ahora”.
+              que emana hacia adelante en cada ahora”
             </h1>
             <div
               className="mt-3 text-[11px] uppercase tracking-[0.3em]"
@@ -107,16 +107,15 @@ export function HomePage() {
             className="md:col-span-2 text-2xl md:text-3xl leading-snug"
             style={{ color: "var(--ink)" }}
           >
-            "
             <em className="not-italic" style={{ color: "var(--gold)" }}>
-              Otro debe prestar su propia carne{" "}
+              "Otro debe prestar su propia carne{" "}
             </em>
             para permitir que lo no formado llegue a la presencia, es necesario
             <em className="not-italic" style={{ color: "var(--gold)" }}>
               {" "}
               que alguien esté presente y disponible{" "}
             </em>
-            para sentir lo no sentido porque no es sentible”.
+            para sentir lo no sentido porque no es sentible”
             <div
               className="mt-3 text-[11px] uppercase tracking-[0.3em]"
               style={{ color: "var(--gold)" }}
@@ -136,8 +135,8 @@ export function HomePage() {
           {[
             {
               n: "01",
-              t: "Procesos Teapéuticos",
-              d: "Desde una perspectiva fenomenológica-gestáltica.",
+              t: "Procesos Terapéuticos",
+              d: "Individuales, de pareja y grupales desde una perspectiva fenomenológica-gestáltica.",
               img: "/img/imgTerapia.jpg",
               alt: "Pies descalzos caminando sobre un árbol",
             },
@@ -151,7 +150,7 @@ export function HomePage() {
             {
               n: "03",
               t: "Formación profesional",
-              d: "Diplomados, cursos, seminarios y encuentros pde la comunidad de aprendizaje.",
+              d: "Diplomados, cursos, seminarios y encuentros de la comunidad de aprendizaje.",
               img: "/img/imgFormacion.jpg",
               alt: "Manos pintadas juntas",
             },

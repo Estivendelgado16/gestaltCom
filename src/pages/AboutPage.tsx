@@ -67,7 +67,7 @@ export function AboutPage() {
               <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink-soft)" }}>
                 <li>Psicólogo de orientación clínica</li>
                 <li>Terapeuta Gestáltico con perspectiva de campo</li>
-                <li>Docente y supervisor</li>
+                <li>Magíster en orientación</li>
               </ul>
             </div>
             <div>
@@ -80,7 +80,7 @@ export function AboutPage() {
               <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink-soft)" }}>
                 <li>Consulta privada</li>
                 <li>Supervisión y entrenamiento clínico</li>
-                <li>Formación gestáltica</li>
+                <li>Formación Gestáltica</li>
               </ul>
             </div>
           </div>

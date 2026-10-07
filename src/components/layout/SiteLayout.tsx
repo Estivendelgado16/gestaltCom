@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import { Menu } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
+import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import {
   Sheet,
   SheetContent,
@@ -134,7 +135,7 @@ export function SiteLayout({
             <div>
               <Logo tone="cream" img="/img/logo2.png" size={56} />
               <p className="mt-6 text-sm opacity-70 leading-relaxed max-w-xs">
-                Espacio de encuentro, formación y difusión de la terapia Gestalt de campo.
+                Espacio de encuentro, formación y difusión de la Terapia Gestalt de Campo.
               </p>
               <p className="mt-2 text-sm opacity-70 leading-relaxed">Fundado por Dany R. Mora B.</p>
             </div>
@@ -169,8 +170,13 @@ export function SiteLayout({
               </div>
               <ul className="space-y-2 text-sm opacity-80">
                 <li>
+                  <p className="font-stretch-50% text-sm  leading-relaxed">
+                    Presencial en Medellín y online para el resto del mundo hispanohablante.
+                  </p>
+                </li>
+                <li>
                   <span className="font-semibold">Lugar del consultorio:</span> Barrio Simón
-                  Bolívar, Medellín, Antioquia, Colombia
+                  Bolívar, Medellín, Antioquia, Colombia.
                 </li>
                 <li>
                   <span className="font-semibold">Horarios:</span>
@@ -179,7 +185,7 @@ export function SiteLayout({
                   <span className="font-semibold">Lunes a viernes:</span> 9 am a 12 m / 3 pm a 8 pm
                 </li>
                 <li>
-                  <span className="font-semibold">Sábados:</span> 9 am a 12 m (hora Colombia)
+                  <span className="font-semibold">Sábados:</span> 9 am a 12 m (hora Colombia).
                 </li>
               </ul>
               <div className="flex gap-4 mt-6">
@@ -205,11 +211,13 @@ export function SiteLayout({
           <div className="border-t border-white/10">
             <div className="container-clinic py-6 flex flex-wrap justify-between items-center gap-4 text-xs opacity-60">
               <span>© {new Date().getFullYear()} Comunidad Gestáltica</span>
-              <span>Estudios de Gestalt de Campo · Dany Mora Bracho</span>
+              <span>Estudios de Gestalt de Campo · Dany R. Mora Bracho</span>
             </div>
           </div>
         </footer>
       )}
+
+      <WhatsAppFloat />
     </div>
   );
 }

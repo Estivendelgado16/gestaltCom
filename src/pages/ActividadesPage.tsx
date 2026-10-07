@@ -85,9 +85,7 @@ export function ActividadesPage() {
           <div
             className="text-[10px] uppercase tracking-[0.3em]"
             style={{ color: "var(--ink-soft)" }}
-          >
-            Comunidad · Actividades · Espacios de Encuentro
-          </div>
+          ></div>
         </div>
       </section>
 

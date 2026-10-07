@@ -53,11 +53,11 @@ export function ContactPage() {
             Contacto
           </div>
           <h1 className="mt-8 text-3xl md:text-6xl max-w-2xl leading-[0.98] space-y-3">
-            <span className="block">Información,</span>
+            <span className="block">Información</span>
             <span className="block" style={{ color: "var(--gold)" }}>
-              Solicitudes,
+              Solicitudes
             </span>
-            <span className="block">Inscripciones.</span>
+            <span className="block">Inscripciones</span>
           </h1>
 
           <form onSubmit={onSubmit} className="mt-14 md:max-w-xl space-y-6" noValidate>
@@ -123,74 +123,62 @@ export function ContactPage() {
             >
               Consulta
             </div>
-            <p className="mt-4 text-lg" style={{ color: "var(--ink)" }}>
-              Presencial en Medellín y online para el resto del mundo hispanoparlante.
-            </p>
-          </div>
-          <div className="space-y-3 text-sm" style={{ color: "var(--ink-soft)" }}>
-            <div>
-              <span
-                className="uppercase tracking-widest text-[10px] block mb-1"
-                style={{ color: "var(--gold)" }}
-              >
-                Email
-              </span>{" "}
-              comunidadgestaltica.co@gmail.com
-            </div>
-            <div>
-              <span
-                className="uppercase tracking-widest text-[10px] block mb-1"
-                style={{ color: "var(--gold)" }}
-              >
-                WhatsApp
-              </span>{" "}
-              +57 3127897914
-            </div>
-            <div>
-              <span
-                className="uppercase tracking-widest text-[10px] block mb-1"
-                style={{ color: "var(--gold)" }}
-              >
-                Instagram
-              </span>{" "}
-              @comunidadgestaltica
+            <div className="mt-4 space-y-4 text-sm" style={{ color: "var(--ink-soft)" }}>
+              <div>
+                <span
+                  className="uppercase tracking-widest text-[10px] block mb-1"
+                  style={{ color: "var(--gold)" }}
+                >
+                  Email
+                </span>
+                <a
+                  href="mailto:comunidadgestaltica.co@gmail.com"
+                  className="hover:underline"
+                  style={{ color: "var(--ink)" }}
+                >
+                  comunidadgestaltica.co@gmail.com
+                </a>
+              </div>
+              <div>
+                <span
+                  className="uppercase tracking-widest text-[10px] block mb-1"
+                  style={{ color: "var(--gold)" }}
+                >
+                  WhatsApp
+                </span>
+                <a
+                  href={`https://wa.me/${WHATSAPP}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                  style={{ color: "var(--ink)" }}
+                >
+                  +57 3127897914
+                </a>
+              </div>
+              <div>
+                <span
+                  className="uppercase tracking-widest text-[10px] block mb-1"
+                  style={{ color: "var(--gold)" }}
+                >
+                  Instagram
+                </span>
+                <a
+                  href="https://instagram.com/comunidadgestaltica"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline"
+                  style={{ color: "var(--ink)" }}
+                >
+                  @comunidadgestaltica
+                </a>
+              </div>
             </div>
           </div>
         </aside>
       </section>
 
-      <a
-        href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(
-          "Hola Dany, ¿qué tal? Estoy interesado en la terapia gestalt, me gustaría obtener más información.",
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Contactar por WhatsApp"
-        className="whatsapp-float"
-      >
-        <img src="/img/whatsapp.png" alt="WhatsApp" />
-      </a>
-
       <style>{`
-        .whatsapp-float {
-          position: fixed;
-          right: 24px;
-          bottom: 24px;
-          z-index: 9999;
-          display: grid;
-          place-items: center;
-          width: 64px;
-          height: 64px;
-          border-radius: 50%;
-          background: #25d366;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-          transition: transform 0.2s;
-        }
-        .whatsapp-float:hover { transform: scale(1.08); }
-        .whatsapp-float img {
-          width: 36px;
-          height: 36px;
-        }
         .input {
           width: 100%;
           background: transparent;
