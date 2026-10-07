@@ -94,7 +94,7 @@ export function HomePage() {
       </section>
 
       {/* Manifiesto */}
-      <section style={{ background: "var(--sand-light)" }}>
+      <section style={{ background: "var(--cream)" }}>
         <div className="container-clinic py-14 grid md:grid-cols-3 gap-10 items-center">
           <div className="flex flex-col items-center text-center">
             <img

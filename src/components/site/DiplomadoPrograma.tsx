@@ -18,11 +18,7 @@ export function DiplomadoPrograma() {
       <div className="flex">
         {P.modulos.map((modulo) => (
           <div key={modulo.moduloTag} className="min-w-0 flex-[0_0_100%]">
-            <img
-              src={modulo.imagen}
-              alt={modulo.imagenAlt}
-              className="block w-full h-auto"
-            />
+            <img src={modulo.imagen} alt={modulo.imagenAlt} className="block w-full h-auto" />
           </div>
         ))}
       </div>

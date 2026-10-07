@@ -65,8 +65,16 @@ export function DiplomadoPage() {
         />
       </section>
 
+      {/* DOCENTES */}
+      <SectionLayout variant="light">
+        <Typography.Title withHighlight>Docentes</Typography.Title>
+        <div className="mt-10">
+          <DocentesCarousel />
+        </div>
+      </SectionLayout>
+
       {/* INTRODUCCIÓN — FORMACIÓN ONLINE */}
-      <SectionLayout variant="light" style={{ background: "#f7dfea" }}>
+      <SectionLayout variant="light" style={{ background: "var(--cream)" }}>
         <MediaFlexLayout
           imageSrc={D.introduccion.imagen}
           imageAlt={D.introduccion.imagenAlt}
@@ -107,8 +115,13 @@ export function DiplomadoPage() {
         </div>
       </SectionLayout>
 
+      {/* PROGRAMA / DOCUMENTO EDITORIAL */}
+      <section className="w-full">
+        <DiplomadoPrograma />
+      </section>
+
       {/* DIFERENCIADORES */}
-      <SectionLayout variant="light" style={{ background: "#f7dfea" }}>
+      <SectionLayout variant="light" style={{ background: "var(--cream)" }}>
         <MediaFlexLayout
           imageSrc={D.diferenciadores.imagen}
           imageAlt={D.diferenciadores.imagenAlt}
@@ -136,7 +149,7 @@ export function DiplomadoPage() {
       </SectionLayout>
 
       {/* GENERALIDADES */}
-      <SectionLayout variant="light" style={{ background: "#f7dfea" }}>
+      <SectionLayout variant="light" style={{ background: "var(--cream)" }}>
         <div className="max-w-3xl">
           <Typography.Title withHighlight>{D.generalidades.titulo}</Typography.Title>
           <div className="mt-8 space-y-6">
@@ -146,19 +159,6 @@ export function DiplomadoPage() {
               </Typography.Body>
             ))}
           </div>
-        </div>
-      </SectionLayout>
-
-      {/* PROGRAMA / DOCUMENTO EDITORIAL */}
-      <section className="w-full">
-        <DiplomadoPrograma />
-      </section>
-
-      {/* DOCENTES */}
-      <SectionLayout variant="light">
-        <Typography.Title withHighlight>Docentes</Typography.Title>
-        <div className="mt-10">
-          <DocentesCarousel />
         </div>
       </SectionLayout>
 
@@ -359,7 +359,7 @@ export function DiplomadoPage() {
       </SectionLayout>
 
       {/* CONTACTO Y AVAL ACADÉMICO */}
-      <SectionLayout variant="light" style={{ background: "#f7dfea" }}>
+      <SectionLayout variant="light" style={{ background: "var(--cream)" }}>
         <div className="max-w-3xl">
           <Typography.Title withHighlight>{D.contacto.titulo}</Typography.Title>
           <ul className="mt-8 space-y-4">
