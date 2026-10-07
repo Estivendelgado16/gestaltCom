@@ -45,7 +45,7 @@ export const diplomadoData = {
   },
 
   introduccion: {
-    categoria: "FORMACIÓN ONLINE:",
+    categoria: "FORMACIÓN ONLINE",
     titulo: "Fundamentos en fenomenología y teoría de campo",
     descripcion:
       "Su objetivo es ofrecer fundamentos en fenomenología y teoría de campo, entendidas como influencias centrales de la Terapia Gestalt que sostienen y orientan la práctica clínica.",

@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 type SectionVariant = "light" | "dark" | "white";
 
@@ -37,7 +38,7 @@ export function SectionLayout({
 }) {
   return (
     <section id={id} style={{ ...VARIANT_STYLES[variant], ...style }}>
-      <div className={`container-clinic py-16 md:py-24 ${className}`.trim()}>{children}</div>
+      <div className={cn("container-clinic py-6 md:py-8", className)}>{children}</div>
     </section>
   );
 }

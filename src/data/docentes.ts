@@ -18,36 +18,37 @@ export type Docente = {
 
 export const docentes: Docente[] = [
   {
-    nombre: "María Isabel Moreno",
-    pais: "Colombia",
+    nombre: "Jean-Marie Delacroix",
+    pais: "Francia",
     descripcion:
-      "Psicóloga y especialista en Intervención Creativa. Formación en Terapia Gestalt y docente.",
-    foto: "/img/MariaIsabelMoreno.png",
-    bandera: "/img/bandera-colombia.png",
+      "Psicólogo clínico, Terapeuta Gestalt de Canadá, con más de 50 años de trayectoria dedicados a la psicoterapia, la formación y la supervisión en diversos países del mundo. Es autor de varios libros.",
+    foto: "/img/JeanMarieDelacroix.png",
+    bandera: "/img/bandera-francia.png",
   },
   {
-    nombre: "Jennifer Ortíz",
-    pais: "Colombia",
+    nombre: "Michele Cannavò",
+    pais: "Italia",
     descripcion:
-      "Psicóloga y Magíster en Ciencias Sociales. Formación en Terapia Gestalt y terapia existencial. Docente e investigadora.",
-    foto: "/img/JenniferOrtiz.png",
-    bandera: "/img/bandera-colombia.png",
+      "Psiquiatra, PhD en Medicina Neurovegetativa y psicoterapeuta gestáltico. Docente universitario en la UniCT",
+    foto: "/img/MicheleCannavò.png",
+    bandera: "/img/bandera-italia.png",
   },
   {
-    nombre: "Luis Javier Tobón",
-    pais: "Colombia",
+    nombre: "Sergio La Rosa",
+    pais: "Argentina · Italia",
     descripcion:
-      "Licenciado en Filosofía y Ciencias Religiosas, Psicólogo, Especialista en Pedagogía, Doctor en Psicología. Docente e investigador. Miembro ALPE.",
-    foto: "/img/LuisJavierTobon.png",
-    bandera: "/img/bandera-colombia.png",
+      "Macrobiólogo, formado como psicoanalista en la Tercera Escuela Vienesa de Psicoterapia. Es miembro del Instituto de Terapia Gestalt de Nueva York.",
+    foto: "/img/SergioLaRosa.png",
+    bandera: "/img/bandera-italia.png",
+    banderas: ["/img/bandera-argentina.png", "/img/bandera-italia.png"],
   },
   {
-    nombre: "Ricardo García Jiménez",
-    pais: "Chile",
+    nombre: "Marcos José Müller",
+    pais: "Brasil",
     descripcion:
-      "Psicólogo clínico, Magíster en Teoría y Práctica de la Psicoterapia Gestáltica. Especialista en Psicoterapia y Psicología Clínica Fenomenológico-Existencial. Formación en psicopatología.",
-    foto: "/img/RicardoGarciaJimenez.png",
-    bandera: "/img/chile.png",
+      "Gestalt-analista, Escritor, Filósofo, Psicólogo clínico y catedrático en Ontología y Clínica. Es autor de varias obras.",
+    foto: "/img/MarcosJoseMuller.png",
+    bandera: "/img/brasil.png",
   },
   {
     nombre: "Julio Polanco Ocampo",
@@ -63,30 +64,6 @@ export const docentes: Docente[] = [
     descripcion:
       "Licenciado en Filosofía y Maestro en Psicoterapia Humanista. Docente, investigador y conferencista en temas que abarcan la filosofía, la fenomenología hermenéutica y la Terapia Gestalt de campo.",
     foto: "/img/GuennadiBurquez.png",
-    bandera: "/img/bandera-mexico.png",
-  },
-  {
-    nombre: "Jean-Marie Delacroix",
-    pais: "Francia",
-    descripcion:
-      "Psicólogo clínico, Terapeuta Gestalt de Canadá, con más de 50 años de trayectoria dedicados a la psicoterapia, la formación y la supervisión en diversos países del mundo. Es autor de varios libros.",
-    foto: "/img/JeanMarieDelacroix.png",
-    bandera: "/img/bandera-francia.png",
-  },
-  {
-    nombre: "Marcos José Müller",
-    pais: "Brasil",
-    descripcion:
-      "Gestalt-analista, Escritor, Filósofo, Psicólogo clínico y catedrático en Ontología y Clínica. Es autor de varias obras.",
-    foto: "/img/MarcosJoseMuller.png",
-    bandera: "/img/brasil.png",
-  },
-  {
-    nombre: "Fernando Guzmán Cárdenas",
-    pais: "México",
-    descripcion:
-      "Doctor en Psicoterapia Humanista, Maestro en Ciencias en Psicoterapia Humanista y licenciado en Psicología Humanista. Líder Estratégico en la Universidad Nexum de México y docente.",
-    foto: "/img/FernandoGuzman.png",
     bandera: "/img/bandera-mexico.png",
   },
   {
@@ -107,6 +84,22 @@ export const docentes: Docente[] = [
     banderas: ["/img/bandera-venezuela.png", "/img/bandera-colombia.png"],
   },
   {
+    nombre: "Luis Javier Tobón",
+    pais: "Colombia",
+    descripcion:
+      "Licenciado en Filosofía y Ciencias Religiosas, Psicólogo, Especialista en Pedagogía, Doctor en Psicología. Docente e investigador. Miembro ALPE.",
+    foto: "/img/LuisJavierTobon.png",
+    bandera: "/img/bandera-colombia.png",
+  },
+  {
+    nombre: "Ricardo García Jiménez",
+    pais: "Chile",
+    descripcion:
+      "Psicólogo clínico, Magíster en Teoría y Práctica de la Psicoterapia Gestáltica. Especialista en Psicoterapia y Psicología Clínica Fenomenológico-Existencial. Formación en psicopatología.",
+    foto: "/img/RicardoGarciaJimenez.png",
+    bandera: "/img/chile.png",
+  },
+  {
     nombre: "Daniel Echavarría",
     pais: "Colombia",
     descripcion:
@@ -115,20 +108,27 @@ export const docentes: Docente[] = [
     bandera: "/img/bandera-colombia.png",
   },
   {
-    nombre: "Michele Cannavò",
-    pais: "Italia",
+    nombre: "María Isabel Moreno",
+    pais: "Colombia",
     descripcion:
-      "Psiquiatra, PhD en Medicina Neurovegetativa y psicoterapeuta gestáltico. Docente universitario en la UniCT",
-    foto: "/img/MicheleCannavò.png",
-    bandera: "/img/bandera-italia.png",
+      "Psicóloga y especialista en Intervención Creativa. Formación en Terapia Gestalt y docente.",
+    foto: "/img/MariaIsabelMoreno.png",
+    bandera: "/img/bandera-colombia.png",
   },
   {
-    nombre: "Sergio La Rosa",
-    pais: "Argentina · Italia",
+    nombre: "Jennifer Ortíz",
+    pais: "Colombia",
     descripcion:
-      "Macrobiólogo, formado como psicoanalista en la Tercera Escuela Vienesa de Psicoterapia. Es miembro del Instituto de Terapia Gestalt de Nueva York.",
-    foto: "/img/SergioLaRosa.png",
-    bandera: "/img/bandera-italia.png",
-    banderas: ["/img/bandera-argentina.png", "/img/bandera-italia.png"],
+      "Psicóloga y Magíster en Ciencias Sociales. Formación en Terapia Gestalt y terapia existencial. Docente e investigadora.",
+    foto: "/img/JenniferOrtiz.png",
+    bandera: "/img/bandera-colombia.png",
+  },
+  {
+    nombre: "Fernando Guzmán Cárdenas",
+    pais: "México",
+    descripcion:
+      "Doctor en Psicoterapia Humanista, Maestro en Ciencias en Psicoterapia Humanista y licenciado en Psicología Humanista. Líder Estratégico en la Universidad Nexum de México y docente.",
+    foto: "/img/FernandoGuzman.png",
+    bandera: "/img/bandera-mexico.png",
   },
 ];
