@@ -14,7 +14,7 @@ export const uploadService = {
     path: string,
     bucketName: string = "videos",
   ): Promise<string> {
-    const { error } = await supabase.storage.from(bucketName).upload(path, file);
+    const { error } = await supabase.storage.from(bucketName).upload(path, file, { upsert: true });
 
     if (error) throw new Error(error.message ?? "No se pudo subir el archivo");
 
@@ -25,6 +25,15 @@ export const uploadService = {
     return urlData.publicUrl;
   },
 
+  /** Elimina un archivo del storage (mejor esfuerzo: no lanza error). */
+  async deleteFromStorage(path: string, bucketName: string): Promise<void> {
+    const { error } = await supabase.storage.from(bucketName).remove([path]);
+
+    if (error) {
+      console.error("No se pudo eliminar el archivo del storage:", error.message);
+    }
+  },
+
   /**
    * Sube un flyer al bucket "flyers" y lo registra en la tabla `flyers`
    * con fecha de expiración a 3 meses (la limpia pg_cron automáticamente).
@@ -32,7 +41,7 @@ export const uploadService = {
    */
   async uploadFlyer(file: File, formacionId?: string): Promise<string> {
     const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
-    const safeName = file.name.replace(/[^\w.\-]/g, "_");
+    const safeName = file.name.replace(/[^\w.-]/g, "_");
     const path = `flyer-${Date.now()}-${safeName}`;
 
     const publicUrl = await this.uploadToSupabaseStorage(file, path, "flyers");

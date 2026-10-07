@@ -1,5 +1,6 @@
 import type { Formacion } from "@/types";
 import { Calendar, MapPin, Clock, Instagram } from "lucide-react";
+import { GaleriaCarousel } from "@/components/site/GaleriaCarousel";
 
 const INSTAGRAM_URL = "https://www.instagram.com/comunidad.gestaltica";
 
@@ -64,27 +65,9 @@ export function FormacionDetails({ formacion }: { formacion: Formacion }) {
         {formacion.descripcion}
       </p>
 
-      {/* 3. Galería de fotos (hasta 4) — el admin las sube al finalizar la formación */}
+      {/* 3. Galería de fotos — el admin las sube al finalizar la formación */}
       {formacion.galeria_fotos?.length > 0 && (
-        <div>
-          <p
-            className="text-[10px] uppercase tracking-[0.3em] mb-3"
-            style={{ color: "var(--ink-soft)" }}
-          >
-            Galería
-          </p>
-          <div className="grid grid-cols-2 gap-3">
-            {formacion.galeria_fotos.slice(0, 4).map((url, i) => (
-              <img
-                key={i}
-                src={url}
-                alt={`${formacion.titulo} — foto ${i + 1}`}
-                loading="lazy"
-                className="rounded-sm object-cover aspect-video w-full"
-              />
-            ))}
-          </div>
-        </div>
+        <GaleriaCarousel fotos={formacion.galeria_fotos} titulo={formacion.titulo} />
       )}
 
       {/* 2. Link de Instagram */}

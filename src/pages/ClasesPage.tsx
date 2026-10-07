@@ -1,25 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { ChevronDown, FileText, Lock, Play, X } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, FileText, Lock } from "lucide-react";
 import { useLessons, useLessonPreviews, useModules } from "@/hooks/useLessons";
 import { formacionService } from "@/services/formacion.service";
+import { LinkifiedText } from "@/components/LinkifiedText";
 import type { Lesson, LessonPreview, Module } from "@/types";
 
-/** Clase desbloqueada: título + icono de video que abre un popup (lazy) + PDF. */
+/** Clase desbloqueada: título + documento principal y PDFs secundarios. */
 function ClaseDesbloqueada({ lesson }: { lesson: Lesson }) {
-  // El reproductor solo se monta cuando el usuario abre el popup (lazy),
-  // para no cargar todos los videos de la página de una vez.
-  const [showVideo, setShowVideo] = useState(false);
-
-  // Cerrar el popup con la tecla Escape.
-  useEffect(() => {
-    if (!showVideo) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setShowVideo(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [showVideo]);
+  const secondary = lesson.secondary_pdf_urls ?? [];
 
   return (
     <div className="rounded-sm border border-ink/15 p-5">
@@ -27,79 +16,53 @@ function ClaseDesbloqueada({ lesson }: { lesson: Lesson }) {
         <div className="flex-1 min-w-0">
           <div className="text-sm font-medium text-ink">{lesson.title}</div>
           {lesson.description && (
-            <div className="text-xs mt-0.5 truncate text-ink-soft">{lesson.description}</div>
+            <div className="text-xs mt-0.5 text-ink-soft">
+              <LinkifiedText text={lesson.description} />
+            </div>
           )}
         </div>
-
-        {lesson.video_url ? (
-          <button
-            type="button"
-            onClick={() => setShowVideo(true)}
-            aria-label={`Ver video de ${lesson.title}`}
-            title="Ver video"
-            className="flex-shrink-0 flex items-center justify-center w-11 h-11 rounded-full bg-ink text-cream transition-transform hover:scale-105"
-          >
-            <Play className="w-4 h-4 ml-0.5" />
-          </button>
-        ) : (
-          <span
-            title="El video se subirá próximamente"
-            className="flex-shrink-0 flex items-center justify-center w-11 h-11 rounded-full bg-sand-light text-ink-soft"
-          >
-            <Play className="w-4 h-4 ml-0.5" />
-          </span>
-        )}
-
-        {lesson.pdf_url && (
-          <a
-            href={lesson.pdf_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Abrir PDF de ${lesson.title}`}
-            title="Material PDF"
-            className="flex-shrink-0 flex items-center justify-center w-11 h-11 rounded-full border border-ink/20 text-ink transition-colors hover:bg-sand-light/40"
-          >
-            <FileText className="w-4 h-4" />
-          </a>
-        )}
-
-        {(lesson.secondary_pdf_urls ?? []).map((file) => (
-          <a
-            key={file.url}
-            href={file.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Abrir ${file.name}`}
-            title={file.name}
-            className="flex-shrink-0 flex items-center justify-center w-11 h-11 rounded-full border border-ink/20 text-ink transition-colors hover:bg-sand-light/40"
-          >
-            <FileText className="w-4 h-4" />
-          </a>
-        ))}
       </div>
 
-      {showVideo && lesson.video_url && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
-          onClick={() => setShowVideo(false)}
-        >
-          <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              onClick={() => setShowVideo(false)}
-              aria-label="Cerrar video"
-              className="absolute -top-12 right-0 flex items-center justify-center w-10 h-10 rounded-full bg-cream text-ink transition-transform hover:scale-105"
+      {(lesson.pdf_url || secondary.length > 0) && (
+        <div className="mt-4 pt-4 border-t border-ink/10 space-y-2">
+          {lesson.pdf_url && (
+            <a
+              href={lesson.pdf_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-sm border border-ink/20 px-3 py-2.5 transition-colors hover:bg-sand-light/40"
             >
-              <X className="w-5 h-5" />
-            </button>
-            <video
-              controls
-              autoPlay
-              preload="metadata"
-              src={lesson.video_url}
-              className="w-full rounded-sm bg-black aspect-video"
-            />
-          </div>
+              <FileText className="w-4 h-4 shrink-0 text-gold" />
+              <div className="min-w-0 flex-1">
+                <div className="text-sm text-ink truncate">
+                  {lesson.pdf_name || "Documento principal"}
+                </div>
+                <div className="text-[10px] uppercase tracking-widest text-ink-soft">
+                  Documento principal
+                </div>
+              </div>
+            </a>
+          )}
+
+          {secondary.length > 0 && (
+            <div className="pl-6 space-y-1.5">
+              {secondary.map((file) => (
+                <a
+                  key={file.url}
+                  href={file.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-sm px-3 py-2 text-xs transition-colors hover:bg-sand-light/40"
+                >
+                  <FileText className="w-3.5 h-3.5 shrink-0 text-ink-soft" />
+                  <span className="truncate text-ink">{file.name}</span>
+                  <span className="ml-auto shrink-0 text-[9px] uppercase tracking-widest text-ink-soft">
+                    Secundario
+                  </span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -116,7 +79,9 @@ function ClaseBloqueada({ preview }: { preview: LessonPreview }) {
       <div className="flex-1 min-w-0">
         <div className="text-sm font-medium text-ink">{preview.title}</div>
         {preview.description && (
-          <div className="text-xs mt-0.5 truncate text-ink-soft">{preview.description}</div>
+          <div className="text-xs mt-0.5 text-ink-soft">
+            <LinkifiedText text={preview.description} />
+          </div>
         )}
       </div>
       <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-widest px-3 py-1.5 rounded-full bg-sand-light text-ink-soft">

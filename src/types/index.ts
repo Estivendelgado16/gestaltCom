@@ -26,8 +26,8 @@ export interface Lesson {
   id: string;
   title: string;
   description: string | null;
-  video_url: string;
   pdf_url: string | null;
+  pdf_name: string | null;
   secondary_pdf_urls: LessonFile[];
   is_published: boolean;
   module_id: string | null;
@@ -71,7 +71,6 @@ export interface LessonPreview {
   description: string | null;
   is_published: boolean;
   created_at: string;
-  has_video: boolean;
   has_pdf: boolean;
 }
 

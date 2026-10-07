@@ -125,7 +125,7 @@ export const lessonService = {
     return data;
   },
 
-  /** Crear una lección dentro de un módulo. Video opcional (se sube después de la clase). */
+  /** Crear una lección dentro de un módulo. */
   async createLesson(input: {
     moduleId: string;
     title: string;
@@ -137,7 +137,6 @@ export const lessonService = {
         module_id: input.moduleId,
         title: input.title.trim(),
         description: input.description?.trim() || null,
-        video_url: "",
         secondary_pdf_urls: [],
         is_published: false,
       })
@@ -148,12 +147,58 @@ export const lessonService = {
     return data;
   },
 
-  /** Actualizar URLs de una lección (PDF, video o PDFs secundarios). */
+  /** Renombrar/editar un módulo. */
+  async updateModule(
+    moduleId: string,
+    input: { title: string; description?: string | null },
+  ): Promise<void> {
+    const { error } = await supabase
+      .from("modules")
+      .update({
+        title: input.title.trim(),
+        description: input.description?.trim() || null,
+      })
+      .eq("id", moduleId);
+
+    if (error) throw error;
+  },
+
+  /** Renombrar/editar una lección. */
+  async updateLesson(
+    lessonId: string,
+    input: { title: string; description?: string | null },
+  ): Promise<void> {
+    const { error } = await supabase
+      .from("lessons")
+      .update({
+        title: input.title.trim(),
+        description: input.description?.trim() || null,
+      })
+      .eq("id", lessonId);
+
+    if (error) throw error;
+  },
+
+  /** Eliminar un módulo (borra también sus lecciones por ON DELETE CASCADE). */
+  async deleteModule(moduleId: string): Promise<void> {
+    const { error } = await supabase.from("modules").delete().eq("id", moduleId);
+
+    if (error) throw error;
+  },
+
+  /** Eliminar una lección. */
+  async deleteLesson(lessonId: string): Promise<void> {
+    const { error } = await supabase.from("lessons").delete().eq("id", lessonId);
+
+    if (error) throw error;
+  },
+
+  /** Actualizar URLs y nombres de una lección (PDF o PDFs secundarios). */
   async updateLessonUrls(
     lessonId: string,
     urls: {
       pdf_url?: string | null;
-      video_url?: string | null;
+      pdf_name?: string | null;
       secondary_pdf_urls?: LessonFile[];
     },
   ): Promise<void> {

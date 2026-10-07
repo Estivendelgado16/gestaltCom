@@ -4,6 +4,7 @@ import { formacionService } from "@/services/formacion.service";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { FeaturedCourseCard } from "@/components/site/CourseCard";
 import { FormacionDetails } from "@/components/site/FormacionDetails";
+import { GaleriaCarousel } from "@/components/site/GaleriaCarousel";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { User } from "lucide-react";
 import type { Formacion } from "@/types";
@@ -201,12 +202,16 @@ export function FormacionesPage() {
                       className="pb-6 pl-1 max-w-2xl text-sm leading-relaxed"
                       style={{ color: "var(--ink-soft)" }}
                     >
-                      {c.descripcion}
                       {(c.modalidad || c.duracion) && (
-                        <div className="mt-3 text-xs opacity-70">
+                        <div className="text-xs opacity-70">
                           {c.modalidad}
                           {c.modalidad && c.duracion ? " · " : ""}
                           {c.duracion}
+                        </div>
+                      )}
+                      {(c.galeria_fotos?.length ?? 0) > 0 && (
+                        <div className="mt-6">
+                          <GaleriaCarousel fotos={c.galeria_fotos} titulo={c.titulo} />
                         </div>
                       )}
                     </div>
