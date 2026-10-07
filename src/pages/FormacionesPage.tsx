@@ -54,18 +54,20 @@ export function FormacionesPage() {
 
   return (
     <SiteLayout>
-      <nav className="container-clinic pt-6 flex items-center justify-between">
-        <span />
-        <Link
-          to="/admin"
-          aria-label="Ingresar"
-          className="inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-2 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5"
-          style={{ background: "var(--ink)", color: "var(--cream)" }}
-        >
-          <User className="w-4 h-4" /> Iniciar sesión
-        </Link>
-      </nav>
-      <section className="container-clinic pb-16">
+      <section style={{ background: "var(--sand-light)" }}>
+        <div className="container-clinic pt-3 pb-3 flex items-center justify-between">
+          <span />
+          <Link
+            to="/admin"
+            aria-label="Ingresar"
+            className="inline-flex items-center gap-2 rounded-full pl-3 pr-4 py-2 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5"
+            style={{ background: "var(--ink)", color: "var(--cream)" }}
+          >
+            <User className="w-4 h-4" /> Iniciar sesión
+          </Link>
+        </div>
+      </section>
+      <section className="container-clinic pt-8 pb-16">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
           {/* Diplomado: protagonista, arriba a la izquierda */}
           <div className="lg:order-1">
@@ -97,15 +99,15 @@ export function FormacionesPage() {
           {/* Texto introductorio: desplazado a la derecha */}
           <div className="lg:order-2">
             <h1
-              className="mt-8 text-2xl md:text-3xl lg:text-4xl leading-[1.1]"
-              style={{ width: "90%" }}
+              className="mt-8 text-xl md:text-2xl lg:text-3xl leading-[1.2]"
+              style={{ width: "100%" }}
             >
               "El momento en que el terapeuta está{" "}
               <span style={{ color: "var(--gold)" }}>
                 presente en la ausencia, esta ya no está ausente,
               </span>{" "}
               el dolor se despliega, toma una nueva vida en la carne de los dos, los dos se vuelven
-              más vivos”.
+              más vivos”
             </h1>
             <div
               className="mt-3 text-[11px] uppercase tracking-[0.3em]"

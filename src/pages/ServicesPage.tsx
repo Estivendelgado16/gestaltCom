@@ -39,13 +39,17 @@ export function ServicesPage() {
 
   return (
     <SiteLayout>
-      <section className="container-clinic pt-6 pb-16">
-        <div
-          className="text-[11px] uppercase tracking-[0.35em]"
-          style={{ color: "var(--ink-soft)" }}
-        >
-          Servicios
+      <section style={{ background: "var(--sand-light)" }}>
+        <div className="container-clinic pt-6 pb-6">
+          <div
+            className="text-[12px] uppercase tracking-[0.3em]"
+            style={{ color: "var(--ink-soft)" }}
+          >
+            Servicios
+          </div>
         </div>
+      </section>
+      <section className="container-clinic pt-6 pb-16">
         <h1
           className="mt-8 text-2xl md:text-3xl lg:text-4xl leading-[1.1]"
           style={{ width: "90%" }}
@@ -62,7 +66,7 @@ export function ServicesPage() {
         </div>
       </section>
 
-      <section className="pb-28">
+      <section>
         <div
           className="grid gap-px"
           style={{ background: "color-mix(in oklab, var(--ink) 12%, transparent)" }}

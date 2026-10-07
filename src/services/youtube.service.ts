@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabaseClient";
 
 export interface YoutubeVideo {
   id: string;
-  part: "I" | "II" | "III";
+  part: string;
   order_num: number;
   tema: string;
   invitado: string | null;

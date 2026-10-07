@@ -14,7 +14,7 @@ const INITIAL_COUNT = 20;
 
 interface YoutubeVideo {
   id: string;
-  part: "I" | "II" | "III";
+  part: string;
   order_num: number;
   tema: string;
   invitado: string | null;
@@ -174,9 +174,19 @@ export function ContYoutubePage() {
   }, []);
 
   // Organizar videos por parte una vez que ya cargaron
-  const partI = loaded ? videos.filter((v) => v.part === "I") : [];
-  const partII = loaded ? videos.filter((v) => v.part === "II") : [];
-  const partIII = loaded ? videos.filter((v) => v.part === "III") : [];
+  const parts = loaded
+    ? Array.from(new Set(videos.map((v) => v.part))).sort((a, b) =>
+        a.localeCompare(b, "es", { numeric: true }),
+      )
+    : [];
+
+  const partsByTitle: Record<string, string> = {
+    I: "Parte I: Temáticas generales y aspectos introductorios de la Terapia Gestalt de campo.",
+    II: "Parte II: Situaciones y/o sufrimientos clínicos específicos (intervenciones en 'psicopatología' o temáticas determinadas).",
+    III: "Parte III: Actualmente en etapa de planificación y desarrollo.",
+  };
+
+  const videosByPart = (part: string) => videos.filter((v) => v.part === part);
 
   return (
     <SiteLayout>
@@ -198,19 +208,14 @@ export function ContYoutubePage() {
 
       {loaded && (
         <>
-          <VideoSection
-            title="Parte I: Temáticas generales y aspectos introductorios de la Terapia Gestalt de campo."
-            items={partI}
-            icon={<ListaEntrevistas />}
-          />
-          <VideoSection
-            title="Parte II: Situaciones y/o sufrimientos clínicos específicos (intervenciones en 'psicopatología' o temáticas determinadas)."
-            items={partII}
-          />
-          <VideoSection
-            title="Parte III: Actualmente en etapa de planificación y desarrollo."
-            items={partIII}
-          />
+          {parts.map((part, idx) => (
+            <VideoSection
+              key={part}
+              title={partsByTitle[part] ?? `Parte ${part}`}
+              items={videosByPart(part)}
+              icon={idx === 0 ? <ListaEntrevistas /> : undefined}
+            />
+          ))}
         </>
       )}
 

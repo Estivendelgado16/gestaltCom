@@ -6,15 +6,19 @@ export function HomePage() {
   return (
     <SiteLayout>
       {/* Hero */}
+      <section style={{ background: "var(--sand-light)" }}>
+        <div className="container-clinic pt-6 pb-6">
+          <div
+            className="text-[12px] uppercase tracking-[0.3em]"
+            style={{ color: "var(--ink-soft)" }}
+          >
+            Estudios de Gestal de Campo
+          </div>
+        </div>
+      </section>
       <section className="relative overflow-hidden">
         <div className="container-clinic pt-6 pb-16 md:pt-10 md:pb-20 grid md:grid-cols-12 gap-12 items-start">
           <div className="md:col-span-8 animate-rise">
-            <div
-              className="text-[11px] uppercase tracking-[0.35em] mb-8"
-              style={{ color: "var(--ink-soft)" }}
-            >
-              Estudios de Gestalt de Campo
-            </div>
             <h1
               className="text-xl md:text-3xl lg:text-4xl leading-[1.1]"
               style={{ color: "var(--ink)" }}

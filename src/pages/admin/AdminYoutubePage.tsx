@@ -6,12 +6,6 @@ import { siteFileService, YOUTUBE_LISTA_KEY, type SiteFile } from "@/services/si
 import { toast } from "sonner";
 import { PlusCircle, Pencil, Trash2, X, RefreshCw, ExternalLink, FileText } from "lucide-react";
 
-const PARTS: Array<{ value: "I" | "II" | "III"; label: string }> = [
-  { value: "I", label: "Parte I" },
-  { value: "II", label: "Parte II" },
-  { value: "III", label: "Parte III" },
-];
-
 export function AdminYoutubePage() {
   const { user, isAdmin, loading } = useRequireAdmin();
   const [videos, setVideos] = useState<YoutubeVideo[]>([]);
@@ -387,29 +381,12 @@ function YoutubeForm({
 
           <div className="grid md:grid-cols-2 gap-6">
             <Field label="Parte">
-              <div className="flex gap-2">
-                {PARTS.map((p) => (
-                  <button
-                    key={p.value}
-                    type="button"
-                    onClick={() => set("part", p.value)}
-                    className="rounded-full px-4 py-2 text-xs uppercase tracking-widest border transition-colors"
-                    style={{
-                      borderColor:
-                        values.part === p.value
-                          ? "var(--gold)"
-                          : "color-mix(in oklab, var(--ink) 20%, transparent)",
-                      color: values.part === p.value ? "var(--ink)" : "var(--ink-soft)",
-                      background:
-                        values.part === p.value
-                          ? "color-mix(in oklab, var(--gold) 25%, transparent)"
-                          : "transparent",
-                    }}
-                  >
-                    {p.label}
-                  </button>
-                ))}
-              </div>
+              <input
+                value={values.part}
+                onChange={(e) => set("part", e.target.value)}
+                className="input"
+                placeholder="I, II, III, IV..."
+              />
             </Field>
             <Field label="Orden (número)">
               <input
