@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabaseClient";
-import type { Lesson, LessonPreview, Module } from "@/types";
+import type { Lesson, LessonFile, LessonPreview, Module } from "@/types";
 
 export const lessonService = {
   async getPublishedLessons(formacionId?: string): Promise<Lesson[]> {
@@ -138,6 +138,7 @@ export const lessonService = {
         title: input.title.trim(),
         description: input.description?.trim() || null,
         video_url: "",
+        secondary_pdf_urls: [],
         is_published: false,
       })
       .select()
@@ -147,10 +148,14 @@ export const lessonService = {
     return data;
   },
 
-  /** Actualizar URLs de una lección (PDF o video). */
+  /** Actualizar URLs de una lección (PDF, video o PDFs secundarios). */
   async updateLessonUrls(
     lessonId: string,
-    urls: { pdf_url?: string | null; video_url?: string | null },
+    urls: {
+      pdf_url?: string | null;
+      video_url?: string | null;
+      secondary_pdf_urls?: LessonFile[];
+    },
   ): Promise<void> {
     const { error } = await supabase.from("lessons").update(urls).eq("id", lessonId);
 

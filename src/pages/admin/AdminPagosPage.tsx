@@ -10,10 +10,11 @@ interface PaymentRow {
   user_id: string;
   receipt_url: string | null;
   reference_number: string | null;
+  user_name: string | null;
+  user_email: string | null;
   status: string;
   notes: string | null;
   created_at: string;
-  user_email?: string;
 }
 
 function fmt(d: string) {
@@ -111,7 +112,7 @@ export function AdminPagosPage() {
             Pagos
           </div>
           <h1 className="mt-2 text-4xl" style={{ color: "var(--ink)" }}>
-            Comprobantes de pago
+            Pagos
           </h1>
           <p className="text-sm mt-2" style={{ color: "var(--ink-soft)" }}>
             {pending.length} pendiente{pending.length === 1 ? "" : "s"} · {processed.length}{" "}
@@ -133,11 +134,11 @@ export function AdminPagosPage() {
 
       {fetching && payments.length === 0 ? (
         <div className="text-sm py-10 text-center" style={{ color: "var(--ink-soft)" }}>
-          Cargando comprobantes...
+          Cargando pagos...
         </div>
       ) : payments.length === 0 ? (
         <div className="text-sm py-10 text-center" style={{ color: "var(--ink-soft)" }}>
-          No hay comprobantes registrados.
+          No hay pagos registrados.
         </div>
       ) : (
         <>
@@ -198,8 +199,8 @@ export function AdminPagosPage() {
                           className="border-t"
                           style={{ borderColor: "color-mix(in oklab, var(--ink) 8%, transparent)" }}
                         >
-                          <td className="px-6 py-4 text-xs" style={{ color: "var(--ink-soft)" }}>
-                            {p.user_id.slice(0, 8)}...
+                          <td className="px-6 py-4" style={{ color: "var(--ink)" }}>
+                            {p.user_name || p.user_email || `${p.user_id.slice(0, 8)}...`}
                           </td>
                           <td className="px-6 py-4" style={{ color: "var(--ink)" }}>
                             {p.reference_number || "—"}
@@ -253,9 +254,17 @@ function PaymentCard({
     >
       <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
         <div>
-          <div className="text-xs" style={{ color: "var(--ink-soft)" }}>
-            Usuario: <code className="text-[11px]">{payment.user_id}</code>
+          <div className="text-sm" style={{ color: "var(--ink)" }}>
+            Usuario:{" "}
+            <strong>
+              {payment.user_name || payment.user_email || payment.user_id.slice(0, 8)}
+            </strong>
           </div>
+          {payment.user_email && payment.user_name && (
+            <div className="text-xs" style={{ color: "var(--ink-soft)" }}>
+              {payment.user_email}
+            </div>
+          )}
           {payment.reference_number && (
             <div className="text-sm mt-1" style={{ color: "var(--ink)" }}>
               Referencia: <strong>{payment.reference_number}</strong>

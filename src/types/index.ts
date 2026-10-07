@@ -17,12 +17,18 @@ export interface Formacion {
   created_at: string;
 }
 
+export interface LessonFile {
+  name: string;
+  url: string;
+}
+
 export interface Lesson {
   id: string;
   title: string;
   description: string | null;
   video_url: string;
   pdf_url: string | null;
+  secondary_pdf_urls: LessonFile[];
   is_published: boolean;
   module_id: string | null;
   created_at: string;

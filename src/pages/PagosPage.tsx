@@ -5,9 +5,9 @@ import { paymentService } from "@/services/payment.service";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { PageLoading } from "@/components/layout/PageLoading";
 import { toast } from "sonner";
-import { Upload, CheckCircle, XCircle, Clock, LogIn } from "lucide-react";
+import { CheckCircle, XCircle, Clock, LogIn } from "lucide-react";
 
-type PaymentStatus = "idle" | "uploading" | "success" | "error";
+type PaymentStatus = "idle" | "submitting" | "success" | "error";
 
 interface ExistingPayment {
   id: string;
@@ -29,7 +29,6 @@ export function PagosPage() {
   }, [authLoading, user, hasPaidAccess, nav]);
 
   const [referenceNumber, setReferenceNumber] = useState("");
-  const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<PaymentStatus>("idle");
   const [existingPayment, setExistingPayment] = useState<ExistingPayment | null>(null);
   const [checkingPayment, setCheckingPayment] = useState(true);
@@ -45,24 +44,25 @@ export function PagosPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!user || !file) return;
+    if (!user || !referenceNumber.trim()) return;
 
-    setStatus("uploading");
+    setStatus("submitting");
 
-    const { error } = await paymentService.uploadReceipt(
-      user.id,
-      file,
-      referenceNumber.trim() || null,
-    );
+    const { error } = await paymentService.submitReference({
+      userId: user.id,
+      referenceNumber: referenceNumber.trim(),
+      userName: (user.user_metadata?.full_name as string | undefined) ?? null,
+      userEmail: user.email ?? null,
+    });
 
     if (error) {
-      toast.error("Error al subir comprobante", { description: error.message });
+      toast.error("Error al enviar la referencia", { description: error.message });
       setStatus("error");
       return;
     }
 
     setStatus("success");
-    toast.success("Comprobante enviado", {
+    toast.success("Referencia enviada", {
       description: "Tu pago está pendiente de revisión por el administrador.",
     });
   }
@@ -88,8 +88,8 @@ export function PagosPage() {
                 <XCircle className="w-16 h-16 mx-auto text-gold" />
                 <h1 className="text-3xl text-ink">Pago rechazado</h1>
                 <p className="text-sm text-ink-soft">
-                  Tu comprobante no pudo ser verificado. Revisa que la imagen sea legible y que el
-                  número de referencia coincida, y vuelve a enviarlo.
+                  Tu referencia no pudo ser verificada. Revisa que el número de transacción sea
+                  correcto y vuelve a enviarlo.
                 </p>
                 <button
                   onClick={() => {
@@ -98,7 +98,7 @@ export function PagosPage() {
                   }}
                   className="inline-flex items-center gap-2 rounded-full px-8 py-3 text-sm uppercase tracking-widest bg-ink text-cream"
                 >
-                  Enviar nuevo comprobante
+                  Enviar nueva referencia
                 </button>
               </>
             ) : payment.status === "APPROVED" ? (
@@ -120,7 +120,7 @@ export function PagosPage() {
                 <Clock className="w-16 h-16 mx-auto text-gold" />
                 <h1 className="text-3xl text-ink">Pago en revisión</h1>
                 <p className="text-sm text-ink-soft">
-                  Hemos recibido tu comprobante. El administrador lo revisará pronto.
+                  Hemos recibido tu referencia. El administrador la revisará pronto.
                 </p>
                 {payment.reference_number && (
                   <p className="text-xs text-ink-soft">
@@ -135,7 +135,7 @@ export function PagosPage() {
                     }}
                     className="text-xs uppercase tracking-widest underline text-ink-soft"
                   >
-                    Enviar otro comprobante
+                    Enviar otra referencia
                   </button>
                 </div>
               </>
@@ -152,16 +152,16 @@ export function PagosPage() {
         <div className="text-[11px] uppercase tracking-[0.35em] mb-4 text-ink-soft">
           Formulario de pago
         </div>
-        <h1 className="text-4xl mb-2 text-ink">Subir comprobante</h1>
+        <h1 className="text-4xl mb-2 text-ink">Registrar pago</h1>
         <p className="text-sm mb-10 text-ink-soft">
-          Adjunta tu comprobante de transferencia y el número de referencia para que el
-          administrador verifique tu pago.
+          Ingresa el número de referencia de tu transferencia para que el administrador verifique tu
+          pago.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div>
             <label className="text-[10px] uppercase tracking-[0.3em] text-ink-soft">
-              Número de referencia
+              Número de referencia de la transacción
             </label>
             <input
               type="text"
@@ -169,36 +169,16 @@ export function PagosPage() {
               onChange={(e) => setReferenceNumber(e.target.value)}
               placeholder="Ej: ABC123456"
               className="mt-1 w-full bg-transparent border-b py-3 outline-none focus:border-[var(--gold)] border-ink/25 text-ink"
+              required
             />
-          </div>
-
-          <div>
-            <label className="text-[10px] uppercase tracking-[0.3em] text-ink-soft">
-              Imagen del comprobante
-            </label>
-            <div className="mt-2 relative flex flex-col items-center justify-center border-2 border-dashed rounded-lg p-8 transition-colors hover:border-[var(--gold)] border-ink/20">
-              <Upload className="w-8 h-8 mb-3 text-ink-soft" />
-              {file ? (
-                <p className="text-sm text-ink">{file.name}</p>
-              ) : (
-                <p className="text-xs text-ink-soft">Haz clic o arrastra una imagen</p>
-              )}
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                required
-              />
-            </div>
           </div>
 
           <button
             type="submit"
-            disabled={status === "uploading" || !file}
+            disabled={status === "submitting" || !referenceNumber.trim()}
             className="w-full inline-flex justify-center items-center rounded-full px-8 py-4 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5 disabled:opacity-50 bg-ink text-cream"
           >
-            {status === "uploading" ? "Enviando..." : "Enviar comprobante"}
+            {status === "submitting" ? "Enviando..." : "Enviar referencia"}
           </button>
         </form>
 

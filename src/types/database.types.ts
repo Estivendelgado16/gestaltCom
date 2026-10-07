@@ -9,6 +9,8 @@ export interface Database {
           user_id: string;
           receipt_url: string | null;
           reference_number: string | null;
+          user_name: string | null;
+          user_email: string | null;
           status: "PENDING" | "APPROVED" | "REJECTED";
           notes: string | null;
           created_at: string;
@@ -19,6 +21,8 @@ export interface Database {
           user_id: string;
           receipt_url?: string | null;
           reference_number?: string | null;
+          user_name?: string | null;
+          user_email?: string | null;
           status?: "PENDING" | "APPROVED" | "REJECTED";
           notes?: string | null;
           created_at?: string;
@@ -29,6 +33,8 @@ export interface Database {
           user_id?: string;
           receipt_url?: string | null;
           reference_number?: string | null;
+          user_name?: string | null;
+          user_email?: string | null;
           status?: "PENDING" | "APPROVED" | "REJECTED";
           notes?: string | null;
           created_at?: string;
@@ -256,6 +262,7 @@ export interface Database {
           description: string | null;
           video_url: string;
           pdf_url: string | null;
+          secondary_pdf_urls: Json;
           is_published: boolean;
           created_at: string;
         };
@@ -266,6 +273,7 @@ export interface Database {
           description?: string | null;
           video_url: string;
           pdf_url?: string | null;
+          secondary_pdf_urls?: Json;
           is_published?: boolean;
           created_at?: string;
         };
@@ -276,6 +284,7 @@ export interface Database {
           description?: string | null;
           video_url?: string;
           pdf_url?: string | null;
+          secondary_pdf_urls?: Json;
           is_published?: boolean;
           created_at?: string;
         };

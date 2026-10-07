@@ -13,6 +13,7 @@ export function LoginPage() {
   const [mode, setMode] = useState<Mode>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -59,7 +60,7 @@ export function LoginPage() {
     }
 
     // Registro
-    const { error } = await authService.signUp(email.trim(), password);
+    const { error } = await authService.signUp(email.trim(), password, name);
 
     setSubmitting(false);
 
@@ -156,6 +157,26 @@ export function LoginPage() {
                   ? "Crear cuenta"
                   : "Recuperar contraseña"}
             </h2>
+
+            {mode === "registro" && (
+              <div>
+                <label
+                  className="text-[10px] uppercase tracking-[0.3em]"
+                  style={{ color: "var(--ink-soft)" }}
+                >
+                  Nombre completo
+                </label>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="mt-1 w-full bg-transparent border-b py-3 outline-none focus:border-gold"
+                  style={inputStyle}
+                  autoComplete="name"
+                  required
+                />
+              </div>
+            )}
 
             <div>
               <label

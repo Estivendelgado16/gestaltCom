@@ -62,6 +62,20 @@ function ClaseDesbloqueada({ lesson }: { lesson: Lesson }) {
             <FileText className="w-4 h-4" />
           </a>
         )}
+
+        {(lesson.secondary_pdf_urls ?? []).map((file) => (
+          <a
+            key={file.url}
+            href={file.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Abrir ${file.name}`}
+            title={file.name}
+            className="flex-shrink-0 flex items-center justify-center w-11 h-11 rounded-full border border-ink/20 text-ink transition-colors hover:bg-sand-light/40"
+          >
+            <FileText className="w-4 h-4" />
+          </a>
+        ))}
       </div>
 
       {showVideo && lesson.video_url && (

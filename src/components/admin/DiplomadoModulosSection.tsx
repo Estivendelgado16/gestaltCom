@@ -3,7 +3,7 @@ import { useState } from "react";
 import { lessonService } from "@/services/lesson.service";
 import { uploadService } from "@/services/upload.service";
 import { toast } from "sonner";
-import { FileText, PlusCircle, Video } from "lucide-react";
+import { FileText, PlusCircle, Trash2, Video } from "lucide-react";
 import type { Formacion } from "@/types";
 
 /**
@@ -97,6 +97,54 @@ export function DiplomadoModulosSection({ formacion }: { formacion: Formacion })
       });
     } finally {
       setUploading(null);
+    }
+  };
+
+  const uploadSecondaryPdf = async (lessonId: string, file: File) => {
+    const key = `${lessonId}-pdf-secondary`;
+    setUploading(key);
+    try {
+      const lesson = lessons.find((l) => l.id === lessonId);
+      const current = lesson?.secondary_pdf_urls ?? [];
+      if (current.length >= 4) {
+        toast.error("Límite alcanzado", { description: "Máximo 4 PDFs secundarios." });
+        return;
+      }
+      const publicUrl = await uploadService.uploadToSupabaseStorage(
+        file,
+        `${lessonId}-pdf-${Date.now()}`,
+        "modules-pdfs",
+      );
+      await lessonService.updateLessonUrls(lessonId, {
+        secondary_pdf_urls: [...current, { name: file.name, url: publicUrl }],
+      });
+      await refresh();
+      toast.success("PDF secundario subido");
+    } catch (err) {
+      toast.error("No se pudo subir el archivo", {
+        description: err instanceof Error ? err.message : "Error desconocido",
+      });
+    } finally {
+      setUploading(null);
+    }
+  };
+
+  const removeSecondaryPdf = async (lessonId: string, index: number) => {
+    const lesson = lessons.find((l) => l.id === lessonId);
+    const current = lesson?.secondary_pdf_urls ?? [];
+    setPending(true);
+    try {
+      await lessonService.updateLessonUrls(lessonId, {
+        secondary_pdf_urls: current.filter((_, i) => i !== index),
+      });
+      await refresh();
+      toast.success("PDF secundario eliminado");
+    } catch (err) {
+      toast.error("No se pudo eliminar el archivo", {
+        description: err instanceof Error ? err.message : "Error desconocido",
+      });
+    } finally {
+      setPending(false);
     }
   };
 
@@ -207,62 +255,110 @@ export function DiplomadoModulosSection({ formacion }: { formacion: Formacion })
                 {modLessons.map((lesson) => (
                   <div
                     key={lesson.id}
-                    className="flex flex-wrap items-center justify-between gap-3 rounded-sm px-3 py-2"
+                    className="rounded-sm px-3 py-2"
                     style={{ background: "var(--background)" }}
                   >
-                    <div className="min-w-0">
-                      <p className="text-sm truncate" style={{ color: "var(--ink)" }}>
-                        {lesson.title}
-                      </p>
-                      {lesson.description && (
-                        <p className="text-xs truncate" style={{ color: "var(--ink-soft)" }}>
-                          {lesson.description}
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="text-sm truncate" style={{ color: "var(--ink)" }}>
+                          {lesson.title}
                         </p>
-                      )}
+                        {lesson.description && (
+                          <p className="text-xs truncate" style={{ color: "var(--ink-soft)" }}>
+                            {lesson.description}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        {lesson.pdf_url ? (
+                          <a
+                            href={lesson.pdf_url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 text-xs"
+                            style={{ color: "var(--ink-soft)" }}
+                          >
+                            <FileText className="w-3.5 h-3.5" /> PDF
+                          </a>
+                        ) : null}
+                        <UploadButton
+                          label={lesson.pdf_url ? "Reemplazar PDF" : "Subir PDF"}
+                          accept="application/pdf"
+                          uploading={uploading === `${lesson.id}-pdf`}
+                          onSelect={(file) => uploadFile(lesson.id, file, "pdf")}
+                        />
+                        {lesson.video_url ? (
+                          <a
+                            href={lesson.video_url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-1 text-xs"
+                            style={{ color: "var(--ink-soft)" }}
+                          >
+                            <Video className="w-3.5 h-3.5" /> Video
+                          </a>
+                        ) : null}
+                        <UploadButton
+                          label={lesson.video_url ? "Reemplazar video" : "Subir video"}
+                          accept="video/mp4,video/webm,video/quicktime"
+                          uploading={uploading === `${lesson.id}-video`}
+                          onSelect={(file) => uploadFile(lesson.id, file, "video")}
+                        />
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 cursor-pointer accent-[var(--gold)]"
+                          checked={lesson.is_published}
+                          disabled={pending}
+                          onChange={() =>
+                            toggleLesson(lesson.id, lesson.is_published, lesson.title)
+                          }
+                        />
+                      </div>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                      {lesson.pdf_url ? (
-                        <a
-                          href={lesson.pdf_url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 text-xs"
-                          style={{ color: "var(--ink-soft)" }}
-                        >
-                          <FileText className="w-3.5 h-3.5" /> PDF
-                        </a>
-                      ) : null}
-                      <UploadButton
-                        label={lesson.pdf_url ? "Reemplazar PDF" : "Subir PDF"}
-                        accept="application/pdf"
-                        uploading={uploading === `${lesson.id}-pdf`}
-                        onSelect={(file) => uploadFile(lesson.id, file, "pdf")}
-                      />
-                      {lesson.video_url ? (
-                        <a
-                          href={lesson.video_url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 text-xs"
-                          style={{ color: "var(--ink-soft)" }}
-                        >
-                          <Video className="w-3.5 h-3.5" /> Video
-                        </a>
-                      ) : null}
-                      <UploadButton
-                        label={lesson.video_url ? "Reemplazar video" : "Subir video"}
-                        accept="video/mp4,video/webm,video/quicktime"
-                        uploading={uploading === `${lesson.id}-video`}
-                        onSelect={(file) => uploadFile(lesson.id, file, "video")}
-                      />
-                      <input
-                        type="checkbox"
-                        className="h-4 w-4 cursor-pointer accent-[var(--gold)]"
-                        checked={lesson.is_published}
-                        disabled={pending}
-                        onChange={() => toggleLesson(lesson.id, lesson.is_published, lesson.title)}
-                      />
+                    {/* PDFs secundarios (hasta 4) */}
+                    <div
+                      className="mt-2 pt-2 border-t space-y-1"
+                      style={{
+                        borderColor: "color-mix(in oklab, var(--ink) 10%, transparent)",
+                      }}
+                    >
+                      {(lesson.secondary_pdf_urls ?? []).map((file, i) => (
+                        <div key={i} className="flex items-center gap-2 text-xs">
+                          <FileText
+                            className="w-3.5 h-3.5 shrink-0"
+                            style={{ color: "var(--ink-soft)" }}
+                          />
+                          <a
+                            href={file.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="truncate"
+                            style={{ color: "var(--ink-soft)" }}
+                          >
+                            {file.name}
+                          </a>
+                          <button
+                            type="button"
+                            onClick={() => removeSecondaryPdf(lesson.id, i)}
+                            disabled={pending}
+                            className="ml-auto shrink-0 opacity-60 hover:opacity-100"
+                            title="Quitar PDF"
+                            aria-label={`Quitar ${file.name}`}
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ))}
+                      {(lesson.secondary_pdf_urls ?? []).length < 4 && (
+                        <UploadButton
+                          label="Agregar PDF secundario"
+                          accept="application/pdf"
+                          uploading={uploading === `${lesson.id}-pdf-secondary`}
+                          onSelect={(file) => uploadSecondaryPdf(lesson.id, file)}
+                        />
+                      )}
                     </div>
                   </div>
                 ))}

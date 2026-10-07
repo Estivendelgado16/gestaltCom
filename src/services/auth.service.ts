@@ -5,12 +5,13 @@ export const authService = {
     return supabase.auth.signInWithPassword({ email, password });
   },
 
-  async signUp(email: string, password: string) {
+  async signUp(email: string, password: string, name?: string) {
     return supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: `${window.location.origin}/login`,
+        data: { full_name: name?.trim() || "" },
       },
     });
   },

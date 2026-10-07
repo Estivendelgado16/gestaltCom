@@ -24,27 +24,24 @@ export const paymentService = {
     return query.order("created_at", { ascending: false });
   },
 
-  async uploadReceipt(
-    userId: string,
-    file: File,
-    referenceNumber: string | null,
-    formacionId?: string,
-  ) {
-    const fileExt = file.name.split(".").pop();
-    const filePath = `${userId}_${Date.now()}.${fileExt}`;
-
-    const { error: uploadError } = await supabase.storage.from("receipts").upload(filePath, file);
-
-    if (uploadError) return { error: uploadError };
-
-    // Bucket privado: se guarda la ruta del storage (no una URL pública).
-    // La visualización se hace con URLs firmadas (ver getReceiptSignedUrl).
+  /**
+   * Registra un pago solo con la referencia de la transacción (sin comprobante).
+   * Guarda también el nombre y email del usuario para que el admin lo identifique.
+   */
+  async submitReference(input: {
+    userId: string;
+    referenceNumber: string;
+    userName?: string | null;
+    userEmail?: string | null;
+    formacionId?: string;
+  }) {
     return supabase.from("manual_payments").insert({
-      user_id: userId,
-      receipt_url: filePath,
-      reference_number: referenceNumber,
+      user_id: input.userId,
+      reference_number: input.referenceNumber,
+      user_name: input.userName ?? null,
+      user_email: input.userEmail ?? null,
       status: "PENDING",
-      formacion_id: formacionId,
+      formacion_id: input.formacionId,
     });
   },
 
