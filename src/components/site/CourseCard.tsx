@@ -92,10 +92,6 @@ export function FeaturedCourseCard({
           </span>
         )}
       </div>
-      <div
-        className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full opacity-20 blur-2xl"
-        style={{ background: "var(--gold)" }}
-      />
     </article>
   );
 }

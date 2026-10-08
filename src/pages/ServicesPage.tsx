@@ -50,10 +50,7 @@ export function ServicesPage() {
         </div>
       </section>
       <section className="container-clinic pt-6 pb-16">
-        <h1
-          className="mt-8 text-2xl md:text-3xl lg:text-4xl leading-[1.1]"
-          style={{ width: "90%" }}
-        >
+        <h1 className="mt-8 text-3xl leading-relaxed" style={{ width: "90%" }}>
           “El dolor no es otra cosa que
           <span style={{ color: "var(--gold)" }}> la sorpresa de no encontrarnos.</span> De todos
           los pecados de la psicología, el más mortal es su indiferencia ante la belleza”

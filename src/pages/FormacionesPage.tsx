@@ -195,6 +195,11 @@ export function FormacionesPage() {
                       >
                         Finalizado
                       </span>
+                      {c.descripcion && (
+                        <div className="col-span-12 mt-2 text-sm line-clamp-3">
+                          {c.descripcion}
+                        </div>
+                      )}
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
