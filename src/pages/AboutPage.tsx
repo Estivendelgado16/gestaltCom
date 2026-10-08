@@ -1,5 +1,6 @@
 import { Fragment, useRef, useState } from "react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Reveal } from "@/components/Reveal";
 import { VerMasButton } from "@/components/site/VerMasButton";
 
 export function AboutPage() {
@@ -29,62 +30,70 @@ export function AboutPage() {
       </section>
 
       <section className="container-clinic pb-28 grid md:grid-cols-12 gap-16">
-        <div className="md:col-span-5">
-          <div className="aspect-4/5 rounded-sm relative overflow-hidden">
+        <Reveal className="md:col-span-5">
+          <div className="group aspect-4/5 rounded-sm relative overflow-hidden">
             <img
               src="/img/dany-mora.jpg"
               alt="Dany Mora Bracho"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>
-        </div>
+        </Reveal>
         <div
           className="md:col-span-7 space-y-8 text-lg leading-relaxed"
           style={{ color: "var(--ink)" }}
         >
-          <p>
-            Creo en la terapia como una experiencia co-construida y situacional, entendiendo esta
-            como una matriz de sentido en permanente configuración. Soy psicólogo y terapeuta
-            gestáltico con un profundo interés en la Terapia Gestalt desde una perspectiva de campo.
-            Mi trayectoria integra la práctica clínica, la formación académica y la construcción de
-            comunidad como espacios vivos de encuentro, diálogo y transformación.
-          </p>
-          <p>
-            A lo largo de más de una década he acompañado procesos terapéuticos, formativos e
-            institucionales. Soy fundador de Comunidad Gestáltica: Estudios de Terapia Gestalt de
-            Campo, un proyecto orientado a la reflexión, el intercambio internacional y la formación
-            permanente en Gestalt que articula la clínica fenomenológica, la supervisión clínica, la
-            clínica y la psicopatología gestáltica.
-          </p>
-          <div className="hairline pt-8 grid grid-cols-2 gap-8">
-            <div>
-              <div
-                className="text-[10px] uppercase tracking-[0.3em]"
-                style={{ color: "var(--gold)" }}
-              >
-                Formación
+          <Reveal>
+            <p>
+              Creo en la terapia como una experiencia co-construida y situacional, entendiendo esta
+              como una matriz de sentido en permanente configuración. Soy psicólogo y terapeuta
+              gestáltico con un profundo interés en la Terapia Gestalt desde una perspectiva de
+              campo. Mi trayectoria integra la práctica clínica, la formación académica y la
+              construcción de comunidad como espacios vivos de encuentro, diálogo y transformación.
+            </p>
+          </Reveal>
+          <Reveal delay={120}>
+            <p>
+              A lo largo de más de una década he acompañado procesos terapéuticos, formativos e
+              institucionales. Soy fundador de Comunidad Gestáltica: Estudios de Terapia Gestalt de
+              Campo, un proyecto orientado a la reflexión, el intercambio internacional y la
+              formación permanente en Gestalt que articula la clínica fenomenológica, la supervisión
+              clínica, la clínica y la psicopatología gestáltica.
+            </p>
+          </Reveal>
+          <Reveal delay={200}>
+            <div className="hairline pt-8 grid grid-cols-2 gap-8">
+              <div>
+                <div
+                  className="text-[10px] uppercase tracking-[0.3em]"
+                  style={{ color: "var(--gold)" }}
+                >
+                  Formación
+                </div>
+                <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink-soft)" }}>
+                  <li>Psicólogo de orientación clínica</li>
+                  <li>Terapeuta Gestáltico con perspectiva de campo</li>
+                  <li>Magíster en orientación</li>
+                </ul>
               </div>
-              <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink-soft)" }}>
-                <li>Psicólogo de orientación clínica</li>
-                <li>Terapeuta Gestáltico con perspectiva de campo</li>
-                <li>Magíster en orientación</li>
-              </ul>
-            </div>
-            <div>
-              <div
-                className="text-[10px] uppercase tracking-[0.3em]"
-                style={{ color: "var(--gold)" }}
-              >
-                Práctica
+              <div>
+                <div
+                  className="text-[10px] uppercase tracking-[0.3em]"
+                  style={{ color: "var(--gold)" }}
+                >
+                  Práctica
+                </div>
+                <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink-soft)" }}>
+                  <li>Consulta privada</li>
+                  <li>Supervisión y entrenamiento clínico</li>
+                  <li>Formación Gestáltica</li>
+                </ul>
               </div>
-              <ul className="mt-4 space-y-2 text-sm" style={{ color: "var(--ink-soft)" }}>
-                <li>Consulta privada</li>
-                <li>Supervisión y entrenamiento clínico</li>
-                <li>Formación Gestáltica</li>
-              </ul>
             </div>
-          </div>
-          <VerMasButton expanded={showMore} onToggle={handleToggle} />
+          </Reveal>
+          <Reveal delay={280}>
+            <VerMasButton expanded={showMore} onToggle={handleToggle} />
+          </Reveal>
         </div>
       </section>
 
@@ -121,7 +130,12 @@ export function AboutPage() {
                 "Es cofundador de Catarsis: Psicoterapia & Formación desde 2021.",
               ].map((item, i) => (
                 <Fragment key={i}>
-                  <li className="relative">
+                  <li
+                    className="relative"
+                    style={{
+                      animation: `rise 0.7s cubic-bezier(.2,.7,.2,1) ${i * 70}ms both`,
+                    }}
+                  >
                     <span
                       className="inline-block mr-3 w-2 h-2 rounded-full align-middle"
                       style={{ background: "var(--gold)" }}

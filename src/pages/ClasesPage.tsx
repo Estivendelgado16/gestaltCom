@@ -73,7 +73,7 @@ function ClaseDesbloqueada({ lesson }: { lesson: Lesson }) {
 function ClaseBloqueada({ preview }: { preview: LessonPreview }) {
   return (
     <div className="flex items-center gap-4 rounded-sm border border-ink/10 p-4 opacity-50 cursor-not-allowed">
-      <div className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-sand-light">
+      <div className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center bg-sand-light">
         <Lock className="w-4 h-4 text-ink-soft" />
       </div>
       <div className="flex-1 min-w-0">
