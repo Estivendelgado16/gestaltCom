@@ -166,7 +166,7 @@ export function ContactPage() {
                     Instagram
                   </span>
                   <a
-                    href="https://instagram.com/comunidadgestaltica"
+                    href="https://www.instagram.com/comunidad.gestaltica"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:underline"
