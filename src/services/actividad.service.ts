@@ -15,9 +15,7 @@ export const actividadService = {
     return data ?? [];
   },
 
-  async createActividad(
-    payload: Omit<Actividad, "id" | "created_at">,
-  ): Promise<Actividad> {
+  async createActividad(payload: Omit<Actividad, "id" | "created_at">): Promise<Actividad> {
     const { data, error } = await supabase.from("actividades").insert(payload).select().single();
 
     if (error) throw error;

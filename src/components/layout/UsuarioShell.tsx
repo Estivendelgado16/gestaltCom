@@ -5,9 +5,7 @@ import { authService } from "@/services/auth.service";
 import { BookOpen, LogOut, ExternalLink } from "lucide-react";
 import { Logo } from "@/components/site/Logo";
 
-const items = [
-  { to: "/usuarios/clases", label: "Clases", icon: BookOpen },
-];
+const items = [{ to: "/usuarios/clases", label: "Clases", icon: BookOpen }];
 
 /** Shell del área privada de usuarios (/usuarios): sidebar con navegación interna. */
 export function UsuarioShell({ children }: { children: ReactNode }) {
