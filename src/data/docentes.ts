@@ -22,7 +22,7 @@ export const docentes: Docente[] = [
     pais: "Francia",
     descripcion:
       "Psicólogo clínico, Terapeuta Gestalt de Canadá, con más de 50 años de trayectoria dedicados a la psicoterapia, la formación y la supervisión en diversos países del mundo. Es autor de varios libros.",
-    foto: "/img/JeanMarieDelacroix.png",
+    foto: "/img/Jean-MarieDelacroix.jpg",
     bandera: "/img/bandera-francia.png",
   },
   {
@@ -30,7 +30,7 @@ export const docentes: Docente[] = [
     pais: "Italia",
     descripcion:
       "Psiquiatra, PhD en Medicina Neurovegetativa y psicoterapeuta gestáltico. Docente universitario en la UniCT",
-    foto: "/img/MicheleCannavò.png",
+    foto: "/img/MicheleCannavò.jpeg",
     bandera: "/img/bandera-italia.png",
   },
   {
@@ -38,7 +38,7 @@ export const docentes: Docente[] = [
     pais: "Argentina · Italia",
     descripcion:
       "Macrobiólogo, formado como psicoanalista en la Tercera Escuela Vienesa de Psicoterapia. Es miembro del Instituto de Terapia Gestalt de Nueva York.",
-    foto: "/img/SergioLaRosa.png",
+    foto: "/img/SergioLaRosa.jpeg",
     bandera: "/img/bandera-italia.png",
     banderas: ["/img/bandera-argentina.png", "/img/bandera-italia.png"],
   },
@@ -47,7 +47,7 @@ export const docentes: Docente[] = [
     pais: "Brasil",
     descripcion:
       "Gestalt-analista, Escritor, Filósofo, Psicólogo clínico y catedrático en Ontología y Clínica. Es autor de varias obras.",
-    foto: "/img/MarcosJoseMuller.png",
+    foto: "/img/MarcosMuller.png",
     bandera: "/img/brasil.png",
   },
   {
@@ -55,7 +55,7 @@ export const docentes: Docente[] = [
     pais: "México",
     descripcion:
       "Psicólogo, Magíster en Psicoterapia Gestalt y especialista en psicopatología. Coordinador académico y docente de la Maestría en Psicoterapia Gestalt de Casa Gestalt Mérida.",
-    foto: "/img/JulioPolancoOcampo.png",
+    foto: "/img/JulioPolancoOcampo.jpg",
     bandera: "/img/bandera-mexico.png",
   },
   {
@@ -71,7 +71,7 @@ export const docentes: Docente[] = [
     pais: "Argentina",
     descripcion:
       "Profesor de Filosofía y Psicólogo. Especialista en Psicoterapia y Psicopatología Gestáltica. Docente, supervisor y formador en Terapia Gestalt de campo.",
-    foto: "/img/JoseM-Echarte.png",
+    foto: "/img/JoseMiguelEcharte.jpeg",
     bandera: "/img/bandera-argentina.png",
   },
   {
@@ -88,7 +88,7 @@ export const docentes: Docente[] = [
     pais: "Colombia",
     descripcion:
       "Licenciado en Filosofía y Ciencias Religiosas, Psicólogo, Especialista en Pedagogía, Doctor en Psicología. Docente e investigador. Miembro ALPE.",
-    foto: "/img/LuisJavierTobon.png",
+    foto: "/img/LuisJavierTobon.jpeg",
     bandera: "/img/bandera-colombia.png",
   },
   {
@@ -96,7 +96,7 @@ export const docentes: Docente[] = [
     pais: "Chile",
     descripcion:
       "Psicólogo clínico, Magíster en Teoría y Práctica de la Psicoterapia Gestáltica. Especialista en Psicoterapia y Psicología Clínica Fenomenológico-Existencial. Formación en psicopatología.",
-    foto: "/img/RicardoGarciaJimenez.png",
+    foto: "/img/RicardoGarcia.jpeg",
     bandera: "/img/chile.png",
   },
   {
@@ -104,7 +104,7 @@ export const docentes: Docente[] = [
     pais: "Colombia",
     descripcion:
       "Psicólogo, magíster en Psicología Clínica y Salud Mental, especialista en Psicología Sanitaria, con estudios en filosofía y terapia existencial.",
-    foto: "/img/DanielEchavaria.png",
+    foto: "/img/DanielEchavarria.jpeg",
     bandera: "/img/bandera-colombia.png",
   },
   {
@@ -112,7 +112,7 @@ export const docentes: Docente[] = [
     pais: "Colombia",
     descripcion:
       "Psicóloga y especialista en Intervención Creativa. Formación en Terapia Gestalt y docente.",
-    foto: "/img/MariaIsabelMoreno.png",
+    foto: "/img/MariaIsabelMoreno.jpeg",
     bandera: "/img/bandera-colombia.png",
   },
   {
@@ -120,7 +120,7 @@ export const docentes: Docente[] = [
     pais: "Colombia",
     descripcion:
       "Psicóloga y Magíster en Ciencias Sociales. Formación en Terapia Gestalt y terapia existencial. Docente e investigadora.",
-    foto: "/img/JenniferOrtiz.png",
+    foto: "/img/JenniferOrtiz.jpeg",
     bandera: "/img/bandera-colombia.png",
   },
   {
@@ -128,7 +128,7 @@ export const docentes: Docente[] = [
     pais: "México",
     descripcion:
       "Doctor en Psicoterapia Humanista, Maestro en Ciencias en Psicoterapia Humanista y licenciado en Psicología Humanista. Líder Estratégico en la Universidad Nexum de México y docente.",
-    foto: "/img/FernandoGuzman.png",
+    foto: "/img/FernandoGuzman.jpg",
     bandera: "/img/bandera-mexico.png",
   },
 ];
