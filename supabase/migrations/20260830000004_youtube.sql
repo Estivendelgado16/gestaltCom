@@ -1,13 +1,17 @@
 -- ============================================================
--- Migración 2026-09-05: tabla youtube_playlist + programación
--- Idempotente (re-ejecutable): CREATE TABLE IF NOT EXISTS y
--- INSERT ... ON CONFLICT (part, order_num) DO UPDATE
+-- YouTube (youtube_playlist)
+-- Consolidado de:
+--   20260905000000_create_youtube_playlist.sql
+--   20261007000003_youtube_admin_policy.sql
+--   20261007000004_youtube_part_free_text.sql
 -- ============================================================
 
--- Tabla que alimenta la vista pública /ContYoutube
+-- Tabla que alimenta la vista pública /ContYoutube.
+-- `part` admite cualquier valor (I, II, III, IV, ...): se eliminó el
+-- CHECK original para que el admin pueda escribir la parte libremente.
 CREATE TABLE IF NOT EXISTS public.youtube_playlist (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    part TEXT NOT NULL CHECK (part IN ('I', 'II', 'III')),
+    part TEXT NOT NULL,
     order_num INT NOT NULL,
     tema TEXT NOT NULL,
     invitado TEXT,
@@ -25,8 +29,12 @@ CREATE POLICY "Playlist youtube publica"
 ON public.youtube_playlist FOR SELECT TO public
 USING (true);
 
--- El orden se resuelve con el índice UNIQUE (part, order_num)
--- (ya creado por la restricción UNIQUE de la tabla).
+-- Permisos de admin para /admin/youtube
+DROP POLICY IF EXISTS "Admin gestiona youtube_playlist" ON public.youtube_playlist;
+CREATE POLICY "Admin gestiona youtube_playlist"
+ON public.youtube_playlist FOR ALL TO authenticated
+USING (COALESCE(auth.jwt() -> 'app_metadata' ->> 'role', '') = 'admin')
+WITH CHECK (COALESCE(auth.jwt() -> 'app_metadata' ->> 'role', '') = 'admin');
 
 -- ------------------------------------------------------------
 -- DATOS: Parte I (1-27)

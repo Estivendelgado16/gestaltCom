@@ -1,8 +1,7 @@
 -- ============================================================
--- Migración 2026-09-30: archivos únicos editables (site_files)
--- Efecto: permite guardar un archivo por clave (ej. la "Lista de
---   entrevistas" de YouTube) y que el admin lo reemplace desde el
---   panel sin desplegar código.
+-- Archivos únicos editables (site_files)
+-- Consolidado de:
+--   20260930000001_site_files.sql
 -- ============================================================
 
 -- 1. Bucket público para estos archivos

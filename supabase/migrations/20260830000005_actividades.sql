@@ -1,10 +1,7 @@
 -- ============================================================
 -- Actividades & Espacios de Encuentro
---
--- Tabla para gestionar las actividades del sitio público
--- (/actividades) desde el panel de administración (/admin/actividades).
--- Se replica el modelo que usa la página pública actual (ActividadesPage)
--- con campos adicionales de control (publicación, destacada, orden).
+-- Consolidado de:
+--   20260917000001_create_actividades.sql
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS public.actividades (
@@ -28,6 +25,7 @@ CREATE TABLE IF NOT EXISTS public.actividades (
 ALTER TABLE public.actividades ENABLE ROW LEVEL SECURITY;
 
 -- Publico anónimo: solo actividades publicadas
+DROP POLICY IF EXISTS "Actividades publicadas son legibles por todos" ON public.actividades;
 CREATE POLICY "Actividades publicadas son legibles por todos"
 ON public.actividades FOR SELECT TO public
 USING (is_published = true);
