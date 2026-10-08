@@ -10,8 +10,12 @@ test.describe("Home", () => {
   test("carga y muestra el hero", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveTitle(/.+/);
-    await expect(page.getByRole("heading", { name: /el encuentro/i }).first()).toBeVisible();
-    await expect(page.getByRole("main").getByText("Estudios de Gestalt de Campo")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /necesitamos estar preparados/i }).first(),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("main").getByRole("link", { name: /ver formaciones/i }),
+    ).toBeVisible();
   });
 
   test("errores de consola inesperados", async ({ page }) => {
@@ -31,7 +35,7 @@ test.describe("Navegación", () => {
       .first()
       .click();
     await expect(page).toHaveURL(/\/formaciones/);
-    await expect(page.getByRole("heading", { name: /estudiar la gestalt/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /formaciones disponibles/i })).toBeVisible();
   });
 
   test("los enlaces principales de navegación están presentes", async ({ page }) => {
@@ -46,17 +50,17 @@ test.describe("Navegación", () => {
 test.describe("Páginas públicas", () => {
   test("Servicios renderiza", async ({ page }) => {
     await page.goto("/servicios");
-    await expect(page.getByRole("heading", { name: /cuatro modos de/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /el dolor no es otra cosa/i })).toBeVisible();
   });
 
   test("Formaciones renderiza", async ({ page }) => {
     await page.goto("/formaciones");
-    await expect(page.getByRole("heading", { name: /estudiar la gestalt/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /formaciones disponibles/i })).toBeVisible();
   });
 
   test("Sobre mí renderiza", async ({ page }) => {
     await page.goto("/sobre-mi");
-    await expect(page.getByRole("heading", { name: /dany rafael/i })).toBeVisible();
+    await expect(page.getByRole("img", { name: /dany rafael mora bracho/i })).toBeVisible();
   });
 
   test("Clases (ruta legada) redirige al login sin sesión", async ({ page }) => {
@@ -88,18 +92,18 @@ test.describe("Contacto", () => {
   test("renderiza el formulario completo", async ({ page }) => {
     await page.goto("/contacto");
     await waitForHydration(page);
-    await expect(page.getByRole("heading", { name: /escribe, con/i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /inscripciones/i })).toBeVisible();
     await expect(page.locator("form input").nth(0)).toBeVisible();
     await expect(page.locator("form select")).toBeVisible();
     await expect(page.locator("form textarea")).toBeVisible();
-    await expect(page.getByRole("button", { name: /enviar y abrir whatsapp/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^enviar$/i })).toBeVisible();
   });
 
   test("muestra errores de validación al enviar vacío", async ({ page }) => {
     await page.goto("/contacto");
     await waitForHydration(page);
     await expect(page.locator("form")).toBeVisible();
-    await page.getByRole("button", { name: /enviar y abrir whatsapp/i }).click();
+    await page.getByRole("button", { name: /^enviar$/i }).click();
     await expect(page.getByText("Nombre requerido")).toBeVisible();
     await expect(page.getByText("Correo inválido")).toBeVisible();
     await expect(page.getByText("Cuenta un poco más")).toBeVisible();
@@ -118,7 +122,7 @@ test.describe("Contacto", () => {
     // Evitar abrir una pestaña real a wa.me: interceptamos window.open target
     await context.route("https://wa.me/**", (route) => route.abort());
 
-    await page.getByRole("button", { name: /enviar y abrir whatsapp/i }).click();
+    await page.getByRole("button", { name: /^enviar$/i }).click();
 
     // Toast de éxito
     await expect(page.getByText("Mensaje enviado")).toBeVisible();
