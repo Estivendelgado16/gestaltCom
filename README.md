@@ -197,4 +197,4 @@ npx vercel
 
 ## 👤 Autor
 
-**Dany Mora Bracho** — Psicólogo, terapeuta gestáltico y fundador de Comunidad Gestáltica.
+**Brallam E. Delgado git: Estivendelgado16** 
