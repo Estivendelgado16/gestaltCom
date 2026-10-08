@@ -247,6 +247,9 @@ function ActividadForm({
     cta_link: initial?.cta_link ?? "",
     image_url: initial?.image_url ?? "",
     image_alt: initial?.image_alt ?? "",
+    fecha: initial?.fecha ?? "",
+    hora: initial?.hora ?? "",
+    quien_acompana: initial?.quien_acompana ?? "",
     is_featured: initial?.is_featured ?? false,
     is_published: initial?.is_published ?? true,
   });
@@ -293,6 +296,9 @@ function ActividadForm({
       cta_link: values.cta_link.trim() || null,
       image_url: values.image_url.trim() || null,
       image_alt: values.image_alt.trim() || null,
+      fecha: values.fecha.trim() || null,
+      hora: values.hora.trim() || null,
+      quien_acompana: values.quien_acompana.trim() || null,
       is_featured: values.is_featured,
       is_published: values.is_published,
       sort_order: initial?.sort_order ?? 0,
@@ -388,6 +394,33 @@ function ActividadForm({
               placeholder="ej. Última sesión gratuita: 14 de septiembre a las 19:30 h."
             />
           </Field>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <Field label="Fecha">
+              <input
+                value={values.fecha}
+                onChange={(e) => set("fecha", e.target.value)}
+                className="input"
+                placeholder="ej. 20 de octubre"
+              />
+            </Field>
+            <Field label="Hora">
+              <input
+                value={values.hora}
+                onChange={(e) => set("hora", e.target.value)}
+                className="input"
+                placeholder="ej. 19:30 h"
+              />
+            </Field>
+            <Field label="Quién acompaña">
+              <input
+                value={values.quien_acompana}
+                onChange={(e) => set("quien_acompana", e.target.value)}
+                className="input"
+                placeholder="ej. Dany Mora"
+              />
+            </Field>
+          </div>
 
           <Field label="Etiquetas / badges">
             <div className="flex flex-wrap gap-6">

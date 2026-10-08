@@ -184,9 +184,17 @@ export function ClasesPage() {
 
   return (
     <>
+      <section className="-mt-8 -mx-8 md:-mt-14 md:-mx-14">
+        <img
+          src="/img/BannerDiplomadoUsers.jpeg"
+          alt="Diplomado"
+          className="w-full block object-cover"
+        />
+      </section>
+
       <section className="pt-6 pb-12">
         <div className="text-[11px] uppercase tracking-[0.35em] text-ink-soft">Mi formación</div>
-        <h1 className="mt-8 text-4xl md:text-6xl max-w-4xl leading-[1.02]">
+        <h1 className="mt-8 text-2xl md:text-3xl max-w-4xl leading-[1.1]">
           {diplomado?.titulo ?? (
             <>
               Tus <span className="text-gold">clases</span>

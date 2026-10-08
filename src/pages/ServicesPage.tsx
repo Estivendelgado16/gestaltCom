@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Reveal } from "@/components/Reveal";
 
 export function ServicesPage() {
   const [open, setOpen] = useState<number | null>(null);
@@ -50,17 +51,19 @@ export function ServicesPage() {
         </div>
       </section>
       <section className="container-clinic pt-6 pb-16">
-        <h1 className="mt-8 text-3xl leading-relaxed" style={{ width: "90%" }}>
-          “El dolor no es otra cosa que
-          <span style={{ color: "var(--gold)" }}> la sorpresa de no encontrarnos.</span> De todos
-          los pecados de la psicología, el más mortal es su indiferencia ante la belleza”
-        </h1>
-        <div
-          className="mt-3 text-[11px] uppercase tracking-[0.3em]"
-          style={{ color: "var(--gold)" }}
-        >
-          — J. Hillman
-        </div>
+        <Reveal>
+          <h1 className="mt-8 text-3xl leading-relaxed" style={{ width: "90%" }}>
+            “El dolor no es otra cosa que
+            <span style={{ color: "var(--gold)" }}> la sorpresa de no encontrarnos.</span> De todos
+            los pecados de la psicología, el más mortal es su indiferencia ante la belleza”
+          </h1>
+          <div
+            className="mt-3 text-[11px] uppercase tracking-[0.3em]"
+            style={{ color: "var(--gold)" }}
+          >
+            — J. Hillman
+          </div>
+        </Reveal>
       </section>
 
       <section>
@@ -69,85 +72,86 @@ export function ServicesPage() {
           style={{ background: "color-mix(in oklab, var(--ink) 12%, transparent)" }}
         >
           {services.map((s, i) => (
-            <article
-              key={s.n}
-              className="bg-background transition-colors group cursor-pointer hover:bg-cream"
-              onClick={() => setOpen((v) => (v === i ? null : i))}
-            >
-              <div className="container-clinic p-10 md:p-16 md:py-16 py-10 grid md:grid-cols-12 gap-8">
-                <div className="md:col-span-3">
-                  {i === 0 ? (
-                    <img
-                      src="/img/imgTerapIndividual.png"
-                      alt="Psicoterapia individual"
-                      className="w-full h-72 rounded-sm object-cover"
-                    />
-                  ) : i === 1 ? (
-                    <img
-                      src="/img/imgTerapPareja.png"
-                      alt="Psicoterapia de parejas"
-                      className="w-full h-72 rounded-sm object-cover"
-                    />
-                  ) : i === 2 ? (
-                    <img
-                      src="/img/imgSupervCasos.jpg"
-                      alt="Supervisión de casos clínicos"
-                      className="w-full h-72 rounded-sm object-cover"
-                    />
-                  ) : (
-                    <>
-                      <div
-                        className="text-[11px] tracking-[0.3em]"
-                        style={{ color: "var(--gold)" }}
-                      >
-                        {s.n}
-                      </div>
-                      <div
-                        className="mt-2 text-[10px] uppercase tracking-[0.28em]"
-                        style={{ color: "var(--ink-soft)" }}
-                      >
-                        {s.tag}
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div className="md:col-span-6">
-                  <h2 className="text-3xl md:text-4xl">{s.t}</h2>
-                  <p
-                    className="mt-5 text-base leading-relaxed max-w-xl italic"
-                    style={{ color: "var(--ink-soft)" }}
-                  >
-                    {s.d}
-                  </p>
-                  <div
-                    className="mt-3 text-[11px] uppercase tracking-[0.3em]"
-                    style={{ color: "var(--gold)" }}
-                  >
-                    — {s.author}
+            <Reveal key={s.n} delay={i * 150} className="bg-background">
+              <article
+                className="h-full transition-colors group cursor-pointer hover:bg-cream"
+                onClick={() => setOpen((v) => (v === i ? null : i))}
+              >
+                <div className="container-clinic p-10 md:p-16 md:py-16 py-10 grid md:grid-cols-12 gap-8">
+                  <div className="md:col-span-3">
+                    {i === 0 ? (
+                      <img
+                        src="/img/imgTerapIndividual.png"
+                        alt="Psicoterapia individual"
+                        className="w-full h-72 rounded-sm object-cover"
+                      />
+                    ) : i === 1 ? (
+                      <img
+                        src="/img/imgTerapPareja.png"
+                        alt="Psicoterapia de parejas"
+                        className="w-full h-72 rounded-sm object-cover"
+                      />
+                    ) : i === 2 ? (
+                      <img
+                        src="/img/imgSupervCasos.jpg"
+                        alt="Supervisión de casos clínicos"
+                        className="w-full h-72 rounded-sm object-cover"
+                      />
+                    ) : (
+                      <>
+                        <div
+                          className="text-[11px] tracking-[0.3em]"
+                          style={{ color: "var(--gold)" }}
+                        >
+                          {s.n}
+                        </div>
+                        <div
+                          className="mt-2 text-[10px] uppercase tracking-[0.28em]"
+                          style={{ color: "var(--ink-soft)" }}
+                        >
+                          {s.tag}
+                        </div>
+                      </>
+                    )}
                   </div>
-                  {open === i && (
-                    <div
-                      className="mt-6 text-base leading-relaxed max-w-xl animate-rise"
+                  <div className="md:col-span-6">
+                    <h2 className="text-3xl md:text-4xl">{s.t}</h2>
+                    <p
+                      className="mt-5 text-base leading-relaxed max-w-xl italic"
                       style={{ color: "var(--ink-soft)" }}
                     >
-                      {s.d_ext}
+                      {s.d}
+                    </p>
+                    <div
+                      className="mt-3 text-[11px] uppercase tracking-[0.3em]"
+                      style={{ color: "var(--gold)" }}
+                    >
+                      — {s.author}
                     </div>
-                  )}
+                    {open === i && (
+                      <div
+                        className="mt-6 text-base leading-relaxed max-w-xl animate-rise"
+                        style={{ color: "var(--ink-soft)" }}
+                      >
+                        {s.d_ext}
+                      </div>
+                    )}
+                  </div>
+                  <div className="md:col-span-3 flex md:justify-end items-center">
+                    <a
+                      href={`https://wa.me/${s.whatsapp}`}
+                      onClick={(e) => e.stopPropagation()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm uppercase tracking-widest border-b pb-1 transition-transform group-hover:-translate-y-0.5"
+                      style={{ color: "var(--ink)", borderColor: "var(--gold)" }}
+                    >
+                      Solicitar información
+                    </a>
+                  </div>
                 </div>
-                <div className="md:col-span-3 flex md:justify-end items-center">
-                  <a
-                    href={`https://wa.me/${s.whatsapp}`}
-                    onClick={(e) => e.stopPropagation()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm uppercase tracking-widest border-b pb-1 transition-transform group-hover:-translate-y-0.5"
-                    style={{ color: "var(--ink)", borderColor: "var(--gold)" }}
-                  >
-                    Solicitar información
-                  </a>
-                </div>
-              </div>
-            </article>
+              </article>
+            </Reveal>
           ))}
         </div>
       </section>

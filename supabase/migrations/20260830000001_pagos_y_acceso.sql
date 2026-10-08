@@ -8,6 +8,7 @@
 --   20260911000001_receipts_bucket_and_admin_payments.sql
 --   20260914000001_enable_realtime_user_access.sql
 --   20261007000002_manual_payments_user_info.sql
+--   20261008000001_medio_pago_fecha.sql
 -- ============================================================
 
 -- 1. Tabla de comprobantes de pago reportados
@@ -16,6 +17,8 @@ CREATE TABLE IF NOT EXISTS public.manual_payments (
     user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
     receipt_url TEXT,                 -- URL de la imagen en Supabase Storage
     reference_number VARCHAR(100),    -- Código de comprobante/transacción
+    medio_pago TEXT,                  -- Método usado (Bancolombia, Wompi, PayPal, etc.)
+    fecha_pago TEXT,                  -- Fecha en la que el usuario realizó el pago
     status VARCHAR(20) DEFAULT 'PENDING', -- 'PENDING', 'APPROVED', 'REJECTED'
     notes TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,

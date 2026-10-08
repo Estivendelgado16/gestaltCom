@@ -58,6 +58,9 @@ export interface Actividad {
   cta_link: string | null;
   image_url: string | null;
   image_alt: string | null;
+  fecha: string | null;
+  hora: string | null;
+  quien_acompana: string | null;
   is_featured: boolean;
   is_published: boolean;
   sort_order: number;

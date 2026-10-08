@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { formacionService } from "@/services/formacion.service";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Reveal } from "@/components/Reveal";
 import { FeaturedCourseCard } from "@/components/site/CourseCard";
 import { FormacionDetails } from "@/components/site/FormacionDetails";
 import { GaleriaCarousel } from "@/components/site/GaleriaCarousel";
@@ -99,43 +100,50 @@ export function FormacionesPage() {
 
           {/* Texto introductorio: desplazado a la derecha */}
           <div className="lg:order-2">
-            <h1
-              className="mt-8 text-xl md:text-2xl lg:text-3xl leading-[1.2]"
-              style={{ width: "100%" }}
-            >
-              "El momento en que el terapeuta está{" "}
-              <span style={{ color: "var(--gold)" }}>
-                presente en la ausencia, esta ya no está ausente,
-              </span>{" "}
-              el dolor se despliega, toma una nueva vida en la carne de los dos, los dos se vuelven
-              más vivos”
-            </h1>
-            <div
-              className="mt-3 text-[11px] uppercase tracking-[0.3em]"
-              style={{ color: "var(--gold)" }}
-            >
-              — Gianni Francesetti
-            </div>
-            <p className="mt-8 max-w-2xl text-base" style={{ color: "var(--ink-soft)" }}>
-              Las formaciones son encuentros que se configuran como espacios de aprendizaje
-              experiencial, donde el conocimiento no se transmite únicamente como contenido, sino
-              que se construye en el encuentro, en diálogo con la experiencia y el contexto. Estos
-              espacios están orientados a acompañar procesos de formación que articulen el
-              desarrollo profesional con la experiencia personal, promoviendo una mirada crítica,
-              sensible y comprometida con el quehacer terapéutico.
-            </p>
+            <Reveal>
+              <h1
+                className="mt-8 text-xl md:text-2xl lg:text-3xl leading-[1.2]"
+                style={{ width: "100%" }}
+              >
+                "El momento en que el terapeuta está{" "}
+                <span style={{ color: "var(--gold)" }}>
+                  presente en la ausencia, esta ya no está ausente,
+                </span>{" "}
+                el dolor se despliega, toma una nueva vida en la carne de los dos, los dos se
+                vuelven más vivos”
+              </h1>
+              <div
+                className="mt-3 text-[11px] uppercase tracking-[0.3em]"
+                style={{ color: "var(--gold)" }}
+              >
+                — Gianni Francesetti
+              </div>
+              <p className="mt-8 max-w-2xl text-base" style={{ color: "var(--ink-soft)" }}>
+                Las formaciones son encuentros que se configuran como espacios de aprendizaje
+                experiencial, donde el conocimiento no se transmite únicamente como contenido, sino
+                que se construye en el encuentro, en diálogo con la experiencia y el contexto. Estos
+                espacios están orientados a acompañar procesos de formación que articulen el
+                desarrollo profesional con la experiencia personal, promoviendo una mirada crítica,
+                sensible y comprometida con el quehacer terapéutico.
+              </p>
+            </Reveal>
           </div>
         </div>
       </section>
 
       {/* Resto de formaciones */}
       <section className="container-clinic pb-24">
-        <div className="mb-10 flex items-baseline justify-between">
-          <h2 className="text-2xl">Formaciones disponibles</h2>
-          <span className="text-xs uppercase tracking-widest" style={{ color: "var(--ink-soft)" }}>
-            {otros.length} programa{otros.length === 1 ? "" : "s"}
-          </span>
-        </div>
+        <Reveal>
+          <div className="mb-10 flex items-baseline justify-between">
+            <h2 className="text-2xl">Formaciones disponibles</h2>
+            <span
+              className="text-xs uppercase tracking-widest"
+              style={{ color: "var(--ink-soft)" }}
+            >
+              {otros.length} programa{otros.length === 1 ? "" : "s"}
+            </span>
+          </div>
+        </Reveal>
         {otros.length === 0 ? (
           <p className="text-sm" style={{ color: "var(--ink-soft)" }}>
             No hay otras formaciones activas en este momento.
@@ -158,12 +166,14 @@ export function FormacionesPage() {
       {finished.length > 0 && (
         <section className="container-clinic pb-28">
           <div className="hairline pt-16">
-            <div
-              className="text-[11px] uppercase tracking-[0.35em] mb-6"
-              style={{ color: "var(--ink-soft)" }}
-            >
-              Historial de formaciones
-            </div>
+            <Reveal>
+              <div
+                className="text-[11px] uppercase tracking-[0.35em] mb-6"
+                style={{ color: "var(--ink-soft)" }}
+              >
+                Historial de formaciones
+              </div>
+            </Reveal>
             <Accordion type="single" collapsible className="w-full">
               {finished.map((c) => (
                 <AccordionItem
@@ -196,9 +206,7 @@ export function FormacionesPage() {
                         Finalizado
                       </span>
                       {c.descripcion && (
-                        <div className="col-span-12 mt-2 text-sm line-clamp-3">
-                          {c.descripcion}
-                        </div>
+                        <div className="col-span-12 mt-2 text-sm line-clamp-3">{c.descripcion}</div>
                       )}
                     </div>
                   </AccordionTrigger>

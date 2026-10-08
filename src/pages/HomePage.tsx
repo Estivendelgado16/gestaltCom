@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Reveal } from "@/components/Reveal";
 import { ArrowRight } from "lucide-react";
 
 export function HomePage() {
@@ -100,33 +101,32 @@ export function HomePage() {
       {/* Manifiesto */}
       <section style={{ background: "var(--cream)" }}>
         <div className="container-clinic py-14 grid md:grid-cols-3 gap-10 items-center">
-          <div className="flex flex-col items-center text-center">
+          <Reveal className="flex flex-col items-center text-center">
             <img
               src="/img/imgHome2.jpg"
               alt=""
               className="mt-6 w-64 rounded-sm object-cover aspect-square"
             />
-          </div>
-          <p
-            className="md:col-span-2 text-2xl md:text-3xl leading-snug"
-            style={{ color: "var(--ink)" }}
-          >
-            <em className="not-italic" style={{ color: "var(--gold)" }}>
-              "Otro debe prestar su propia carne{" "}
-            </em>
-            para permitir que lo no formado llegue a la presencia, es necesario
-            <em className="not-italic" style={{ color: "var(--gold)" }}>
-              {" "}
-              que alguien esté presente y disponible{" "}
-            </em>
-            para sentir lo no sentido porque no es sentible”
-            <div
-              className="mt-3 text-[11px] uppercase tracking-[0.3em]"
-              style={{ color: "var(--gold)" }}
-            >
-              — Gianni Francesetti
-            </div>
-          </p>
+          </Reveal>
+          <Reveal className="md:col-span-2" delay={150}>
+            <p className="text-2xl md:text-3xl leading-snug" style={{ color: "var(--ink)" }}>
+              <em className="not-italic" style={{ color: "var(--gold)" }}>
+                "Otro debe prestar su propia carne{" "}
+              </em>
+              para permitir que lo no formado llegue a la presencia, es necesario
+              <em className="not-italic" style={{ color: "var(--gold)" }}>
+                {" "}
+                que alguien esté presente y disponible{" "}
+              </em>
+              para sentir lo no sentido porque no es sentible”
+              <div
+                className="mt-3 text-[11px] uppercase tracking-[0.3em]"
+                style={{ color: "var(--gold)" }}
+              >
+                — Gianni Francesetti
+              </div>
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -158,21 +158,22 @@ export function HomePage() {
               img: "/img/imgFormacion.jpg",
               alt: "Manos pintadas juntas",
             },
-          ].map((s) => (
-            <Link
-              key={s.n}
-              to="/servicios"
-              className="p-10 bg-background hover:bg-secondary/40 transition-colors block"
-            >
-              <div className="text-[11px] tracking-[0.3em]" style={{ color: "var(--gold)" }}>
-                {s.n}
-              </div>
-              <h3 className="mt-6 text-2xl">{s.t}</h3>
-              <p className="mt-4 text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-                {s.d}
-              </p>
-              <img src={s.img} alt={s.alt} className="mt-6 w-full h-48 object-cover rounded-sm" />
-            </Link>
+          ].map((s, i) => (
+            <Reveal key={s.n} delay={i * 150} className="bg-background">
+              <Link
+                to="/servicios"
+                className="p-10 h-full hover:bg-secondary/40 transition-colors block"
+              >
+                <div className="text-[11px] tracking-[0.3em]" style={{ color: "var(--gold)" }}>
+                  {s.n}
+                </div>
+                <h3 className="mt-6 text-2xl">{s.t}</h3>
+                <p className="mt-4 text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                  {s.d}
+                </p>
+                <img src={s.img} alt={s.alt} className="mt-6 w-full h-48 object-cover rounded-sm" />
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>

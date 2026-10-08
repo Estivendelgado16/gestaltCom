@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { actividadService } from "@/services/actividad.service";
 import type { Actividad } from "@/types";
+import { Calendar, Clock, UserRound } from "lucide-react";
 
 const STATUS_PRIORITY: Record<string, number> = {
   "proximo inicio": 0,
@@ -251,6 +252,33 @@ function ActivityCard({ activity: a, blue = false }: { activity: Actividad; blue
       >
         {a.title}
       </h3>
+      {(a.fecha || a.hora || a.quien_acompana) && (
+        <div
+          className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm"
+          style={{
+            color: blue ? "color-mix(in oklab, var(--cream) 82%, transparent)" : "var(--ink-soft)",
+          }}
+        >
+          {a.fecha && (
+            <span className="inline-flex items-center gap-1.5">
+              <Calendar className="w-4 h-4" />
+              {a.fecha}
+            </span>
+          )}
+          {a.hora && (
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="w-4 h-4" />
+              {a.hora}
+            </span>
+          )}
+          {a.quien_acompana && (
+            <span className="inline-flex items-center gap-1.5">
+              <UserRound className="w-4 h-4" />
+              Acompaña: {a.quien_acompana}
+            </span>
+          )}
+        </div>
+      )}
       <p
         className="mt-3 text-sm md:text-base leading-relaxed flex-1"
         style={{
@@ -275,7 +303,7 @@ function ActivityCard({ activity: a, blue = false }: { activity: Actividad; blue
   if (!a.image_url) {
     return (
       <article
-        className="rounded-2xl p-6 md:p-8 flex flex-col"
+        className="rounded-2xl p-6 md:p-8 flex flex-col animate-rise transition-transform duration-300 hover:-translate-y-1"
         style={{ background: blue ? "var(--ink-soft)" : "var(--sand-light)" }}
       >
         {content}
@@ -285,13 +313,20 @@ function ActivityCard({ activity: a, blue = false }: { activity: Actividad; blue
 
   return (
     <article
-      className="grid md:grid-cols-12 gap-8 rounded-2xl p-6 md:p-10 md:col-span-2"
+      className="group grid md:grid-cols-12 gap-8 rounded-2xl p-6 md:p-10 md:col-span-2 animate-rise transition-transform duration-300 hover:-translate-y-1"
       style={{ background: blue ? "var(--ink-soft)" : "var(--sand-light)" }}
     >
-      <div className="md:col-span-7 flex flex-col">{content}</div>
-      <div className="md:col-span-5">
-        <div className="h-full min-h-64 rounded-xl overflow-hidden" style={{ background: imageBg }}>
-          <img src={a.image_url} alt={a.image_alt ?? ""} className="w-full h-full object-cover" />
+      <div className="md:col-span-9 flex flex-col">{content}</div>
+      <div className="md:col-span-3">
+        <div
+          className="h-full min-h-40 md:max-w-40 rounded-xl overflow-hidden ml-auto"
+          style={{ background: imageBg }}
+        >
+          <img
+            src={a.image_url}
+            alt={a.image_alt ?? ""}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
         </div>
       </div>
     </article>

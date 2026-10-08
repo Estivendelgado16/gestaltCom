@@ -1,4 +1,5 @@
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { Reveal } from "@/components/Reveal";
 import { useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -45,7 +46,7 @@ export function ContactPage() {
   return (
     <SiteLayout>
       <section className="container-clinic pt-6 pb-16 grid md:grid-cols-12 gap-16 items-start">
-        <div className="md:col-span-7">
+        <Reveal className="md:col-span-7">
           <div
             className="text-[11px] uppercase tracking-[0.35em]"
             style={{ color: "var(--ink-soft)" }}
@@ -108,74 +109,76 @@ export function ContactPage() {
               {sending ? "Enviando…" : "Enviar"}
             </button>
           </form>
-        </div>
+        </Reveal>
 
-        <aside className="md:col-span-5 space-y-8">
-          <img
-            src="/img/imgContact1.jpg"
-            alt="Consulta de psicoterapia"
-            className="w-full rounded-xl shadow-lg object-cover"
-          />
-          <div className="p-8 rounded-sm" style={{ background: "var(--sand-light)" }}>
-            <div
-              className="text-[10px] uppercase tracking-[0.3em]"
-              style={{ color: "var(--ink-soft)" }}
-            >
-              Consulta
+        <Reveal className="md:col-span-5" delay={150}>
+          <aside className="space-y-8">
+            <img
+              src="/img/imgContact1.jpg"
+              alt="Consulta de psicoterapia"
+              className="w-full rounded-xl shadow-lg object-cover"
+            />
+            <div className="p-8 rounded-sm" style={{ background: "var(--sand-light)" }}>
+              <div
+                className="text-[10px] uppercase tracking-[0.3em]"
+                style={{ color: "var(--ink-soft)" }}
+              >
+                Consulta
+              </div>
+              <div className="mt-4 space-y-4 text-sm" style={{ color: "var(--ink-soft)" }}>
+                <div>
+                  <span
+                    className="uppercase tracking-widest text-[10px] block mb-1"
+                    style={{ color: "var(--gold)" }}
+                  >
+                    Email
+                  </span>
+                  <a
+                    href="mailto:comunidadgestaltica.co@gmail.com"
+                    className="hover:underline"
+                    style={{ color: "var(--ink)" }}
+                  >
+                    comunidadgestaltica.co@gmail.com
+                  </a>
+                </div>
+                <div>
+                  <span
+                    className="uppercase tracking-widest text-[10px] block mb-1"
+                    style={{ color: "var(--gold)" }}
+                  >
+                    WhatsApp
+                  </span>
+                  <a
+                    href={`https://wa.me/${WHATSAPP}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                    style={{ color: "var(--ink)" }}
+                  >
+                    +57 3127897914
+                  </a>
+                </div>
+                <div>
+                  <span
+                    className="uppercase tracking-widest text-[10px] block mb-1"
+                    style={{ color: "var(--gold)" }}
+                  >
+                    Instagram
+                  </span>
+                  <a
+                    href="https://instagram.com/comunidadgestaltica"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                    style={{ color: "var(--ink)" }}
+                  >
+                    @comunidadgestaltica
+                  </a>
+                </div>
+              </div>
             </div>
-            <div className="mt-4 space-y-4 text-sm" style={{ color: "var(--ink-soft)" }}>
-              <div>
-                <span
-                  className="uppercase tracking-widest text-[10px] block mb-1"
-                  style={{ color: "var(--gold)" }}
-                >
-                  Email
-                </span>
-                <a
-                  href="mailto:comunidadgestaltica.co@gmail.com"
-                  className="hover:underline"
-                  style={{ color: "var(--ink)" }}
-                >
-                  comunidadgestaltica.co@gmail.com
-                </a>
-              </div>
-              <div>
-                <span
-                  className="uppercase tracking-widest text-[10px] block mb-1"
-                  style={{ color: "var(--gold)" }}
-                >
-                  WhatsApp
-                </span>
-                <a
-                  href={`https://wa.me/${WHATSAPP}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline"
-                  style={{ color: "var(--ink)" }}
-                >
-                  +57 3127897914
-                </a>
-              </div>
-              <div>
-                <span
-                  className="uppercase tracking-widest text-[10px] block mb-1"
-                  style={{ color: "var(--gold)" }}
-                >
-                  Instagram
-                </span>
-                <a
-                  href="https://instagram.com/comunidadgestaltica"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline"
-                  style={{ color: "var(--ink)" }}
-                >
-                  @comunidadgestaltica
-                </a>
-              </div>
-            </div>
-          </div>
-        </aside>
+          </aside>
+        </Reveal>
       </section>
 
       <style>{`

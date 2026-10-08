@@ -2,6 +2,7 @@
 -- Actividades & Espacios de Encuentro
 -- Consolidado de:
 --   20260917000001_create_actividades.sql
+--   20261008000002_actividades_fecha_hora_acompana.sql
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS public.actividades (
@@ -16,6 +17,9 @@ CREATE TABLE IF NOT EXISTS public.actividades (
     cta_link TEXT,
     image_url TEXT,
     image_alt TEXT,
+    fecha TEXT,
+    hora TEXT,
+    quien_acompana TEXT,
     is_featured BOOLEAN DEFAULT false,
     is_published BOOLEAN DEFAULT false,
     sort_order INTEGER DEFAULT 0,

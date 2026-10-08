@@ -10,6 +10,8 @@ interface PaymentRow {
   user_id: string;
   receipt_url: string | null;
   reference_number: string | null;
+  medio_pago: string | null;
+  fecha_pago: string | null;
   user_name: string | null;
   user_email: string | null;
   status: string;
@@ -185,8 +187,8 @@ export function AdminPagosPage() {
                       }}
                     >
                       <th className="px-6 py-4">Usuario</th>
-                      <th className="px-6 py-4">Referencia</th>
-                      <th className="px-6 py-4">Fecha</th>
+                      <th className="px-6 py-4">Medio de pago</th>
+                      <th className="px-6 py-4">Fecha de pago</th>
                       <th className="px-6 py-4">Estado</th>
                     </tr>
                   </thead>
@@ -203,13 +205,13 @@ export function AdminPagosPage() {
                             {p.user_name || p.user_email || `${p.user_id.slice(0, 8)}...`}
                           </td>
                           <td className="px-6 py-4" style={{ color: "var(--ink)" }}>
-                            {p.reference_number || "—"}
+                            {p.medio_pago || "—"}
                           </td>
                           <td
                             className="px-6 py-4 whitespace-nowrap text-xs"
                             style={{ color: "var(--ink-soft)" }}
                           >
-                            {fmt(p.created_at)}
+                            {p.fecha_pago || fmt(p.created_at)}
                           </td>
                           <td className="px-6 py-4">
                             <span
@@ -265,9 +267,14 @@ function PaymentCard({
               {payment.user_email}
             </div>
           )}
-          {payment.reference_number && (
+          {payment.medio_pago && (
             <div className="text-sm mt-1" style={{ color: "var(--ink)" }}>
-              Referencia: <strong>{payment.reference_number}</strong>
+              Medio de pago: <strong>{payment.medio_pago}</strong>
+            </div>
+          )}
+          {payment.fecha_pago && (
+            <div className="text-xs mt-1" style={{ color: "var(--ink-soft)" }}>
+              Fecha de pago: {payment.fecha_pago}
             </div>
           )}
           <div className="text-xs mt-1" style={{ color: "var(--ink-soft)" }}>

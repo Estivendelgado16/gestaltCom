@@ -4,7 +4,7 @@ export const paymentService = {
   async getLatestPayment(userId: string, formacionId?: string) {
     let query = supabase
       .from("manual_payments")
-      .select("id, status, reference_number, created_at")
+      .select("id, status, reference_number, medio_pago, fecha_pago, created_at")
       .eq("user_id", userId);
 
     if (formacionId) {
@@ -25,19 +25,21 @@ export const paymentService = {
   },
 
   /**
-   * Registra un pago solo con la referencia de la transacción (sin comprobante).
+   * Registra un pago con el medio de pago y la fecha de pago (sin comprobante).
    * Guarda también el nombre y email del usuario para que el admin lo identifique.
    */
-  async submitReference(input: {
+  async submitPayment(input: {
     userId: string;
-    referenceNumber: string;
+    medioPago: string;
+    fechaPago: string;
     userName?: string | null;
     userEmail?: string | null;
     formacionId?: string;
   }) {
     return supabase.from("manual_payments").insert({
       user_id: input.userId,
-      reference_number: input.referenceNumber,
+      medio_pago: input.medioPago,
+      fecha_pago: input.fechaPago,
       user_name: input.userName ?? null,
       user_email: input.userEmail ?? null,
       status: "PENDING",

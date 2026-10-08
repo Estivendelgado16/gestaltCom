@@ -13,6 +13,8 @@ interface ExistingPayment {
   id: string;
   status: string;
   reference_number: string | null;
+  medio_pago: string | null;
+  fecha_pago: string | null;
   created_at: string;
 }
 
@@ -28,7 +30,8 @@ export function PagosPage() {
     }
   }, [authLoading, user, hasPaidAccess, nav]);
 
-  const [referenceNumber, setReferenceNumber] = useState("");
+  const [medioPago, setMedioPago] = useState("");
+  const [fechaPago, setFechaPago] = useState("");
   const [status, setStatus] = useState<PaymentStatus>("idle");
   const [existingPayment, setExistingPayment] = useState<ExistingPayment | null>(null);
   const [checkingPayment, setCheckingPayment] = useState(true);
@@ -44,13 +47,14 @@ export function PagosPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!user || !referenceNumber.trim()) return;
+    if (!user || !medioPago.trim() || !fechaPago.trim()) return;
 
     setStatus("submitting");
 
-    const { error } = await paymentService.submitReference({
+    const { error } = await paymentService.submitPayment({
       userId: user.id,
-      referenceNumber: referenceNumber.trim(),
+      medioPago: medioPago.trim(),
+      fechaPago: fechaPago.trim(),
       userName: (user.user_metadata?.full_name as string | undefined) ?? null,
       userEmail: user.email ?? null,
     });
@@ -76,7 +80,9 @@ export function PagosPage() {
   if (status === "success" || existingPayment) {
     const payment = existingPayment ?? {
       status: "PENDING",
-      reference_number: referenceNumber,
+      reference_number: null,
+      medio_pago: medioPago,
+      fecha_pago: fechaPago,
       created_at: new Date().toISOString(),
     };
     return (
@@ -122,9 +128,14 @@ export function PagosPage() {
                 <p className="text-sm text-ink-soft">
                   Hemos recibido tu referencia. El administrador la revisará pronto.
                 </p>
-                {payment.reference_number && (
+                {payment.medio_pago && (
                   <p className="text-xs text-ink-soft">
-                    Referencia: <code>{payment.reference_number}</code>
+                    Medio de pago: <code>{payment.medio_pago}</code>
+                  </p>
+                )}
+                {payment.fecha_pago && (
+                  <p className="text-xs text-ink-soft">
+                    Fecha: <code>{payment.fecha_pago}</code>
                   </p>
                 )}
                 <div className="pt-4">
@@ -152,7 +163,7 @@ export function PagosPage() {
         <div className="text-[11px] uppercase tracking-[0.35em] mb-4 text-ink-soft">
           Formulario de pago
         </div>
-        <h1 className="text-4xl mb-2 text-ink">Registrar pago</h1>
+        <h1 className="text-4xl mb-2 text-ink">Registrar curso</h1>
         <p className="text-sm mb-10 text-ink-soft">
           Ingresa el número de referencia de tu transferencia para que el administrador verifique tu
           pago.
@@ -161,24 +172,37 @@ export function PagosPage() {
         <form onSubmit={handleSubmit} className="space-y-8">
           <div>
             <label className="text-[10px] uppercase tracking-[0.3em] text-ink-soft">
-              Número de referencia de la transacción
+              Medio de pago (Bancolombia, Wompi, PayPal, etc.)
             </label>
             <input
               type="text"
-              value={referenceNumber}
-              onChange={(e) => setReferenceNumber(e.target.value)}
-              placeholder="Ej: ABC123456"
-              className="mt-1 w-full bg-transparent border-b py-3 outline-none focus:border-[var(--gold)] border-ink/25 text-ink"
+              value={medioPago}
+              onChange={(e) => setMedioPago(e.target.value)}
+              placeholder="Ej: Bancolombia"
+              className="mt-1 w-full bg-transparent border-b py-3 outline-none focus:border-gold border-ink/25 text-ink"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="text-[10px] uppercase tracking-[0.3em] text-ink-soft">
+              Fecha de pago
+            </label>
+            <input
+              type="date"
+              value={fechaPago}
+              onChange={(e) => setFechaPago(e.target.value)}
+              className="mt-1 w-full bg-transparent border-b py-3 outline-none focus:border-gold border-ink/25 text-ink"
               required
             />
           </div>
 
           <button
             type="submit"
-            disabled={status === "submitting" || !referenceNumber.trim()}
+            disabled={status === "submitting" || !medioPago.trim() || !fechaPago.trim()}
             className="w-full inline-flex justify-center items-center rounded-full px-8 py-4 text-sm uppercase tracking-widest transition-transform hover:-translate-y-0.5 disabled:opacity-50 bg-ink text-cream"
           >
-            {status === "submitting" ? "Enviando..." : "Enviar referencia"}
+            {status === "submitting" ? "Enviando..." : "Enviar pago"}
           </button>
         </form>
 

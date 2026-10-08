@@ -15,12 +15,15 @@ export type Database = {
           cta_link: string | null;
           cta_text: string;
           description: string;
+          fecha: string | null;
           featured_notice: string | null;
+          hora: string | null;
           id: string;
           image_alt: string | null;
           image_url: string | null;
           is_featured: boolean | null;
           is_published: boolean | null;
+          quien_acompana: string | null;
           sort_order: number | null;
           status_badges: string[] | null;
           subtitle: string | null;
@@ -32,12 +35,15 @@ export type Database = {
           cta_link?: string | null;
           cta_text: string;
           description: string;
+          fecha?: string | null;
           featured_notice?: string | null;
+          hora?: string | null;
           id?: string;
           image_alt?: string | null;
           image_url?: string | null;
           is_featured?: boolean | null;
           is_published?: boolean | null;
+          quien_acompana?: string | null;
           sort_order?: number | null;
           status_badges?: string[] | null;
           subtitle?: string | null;
@@ -49,12 +55,15 @@ export type Database = {
           cta_link?: string | null;
           cta_text?: string;
           description?: string;
+          fecha?: string | null;
           featured_notice?: string | null;
+          hora?: string | null;
           id?: string;
           image_alt?: string | null;
           image_url?: string | null;
           is_featured?: boolean | null;
           is_published?: boolean | null;
+          quien_acompana?: string | null;
           sort_order?: number | null;
           status_badges?: string[] | null;
           subtitle?: string | null;
@@ -195,8 +204,10 @@ export type Database = {
       manual_payments: {
         Row: {
           created_at: string;
+          fecha_pago: string | null;
           formacion_id: string | null;
           id: string;
+          medio_pago: string | null;
           notes: string | null;
           receipt_url: string | null;
           reference_number: string | null;
@@ -207,8 +218,10 @@ export type Database = {
         };
         Insert: {
           created_at?: string;
+          fecha_pago?: string | null;
           formacion_id?: string | null;
           id?: string;
+          medio_pago?: string | null;
           notes?: string | null;
           receipt_url?: string | null;
           reference_number?: string | null;
@@ -219,8 +232,10 @@ export type Database = {
         };
         Update: {
           created_at?: string;
+          fecha_pago?: string | null;
           formacion_id?: string | null;
           id?: string;
+          medio_pago?: string | null;
           notes?: string | null;
           receipt_url?: string | null;
           reference_number?: string | null;
