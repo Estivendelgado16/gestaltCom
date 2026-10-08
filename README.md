@@ -197,4 +197,4 @@ npx vercel
 
 ## 👤 Autor
 
-**Brallam E. Delgado git: Estivendelgado16** 
+**Brallam E. Delgado - git: Estivendelgado16** 
