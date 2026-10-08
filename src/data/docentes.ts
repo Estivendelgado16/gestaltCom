@@ -79,7 +79,7 @@ export const docentes: Docente[] = [
     pais: "Venezuela · Colombia",
     descripcion:
       "Psicólogo, magíster en Orientación. Terapeuta Gestáltico con formación en psicopatología. Fundador de Comunidad Gestáltica: Estudios de Gestalt de Campo.",
-    foto: "/img/DanyMoraBracho.png",
+    foto: "/img/DanyMora.jpg",
     bandera: "/img/bandera-venezuela.png",
     banderas: ["/img/bandera-venezuela.png", "/img/bandera-colombia.png"],
   },

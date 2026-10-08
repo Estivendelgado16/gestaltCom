@@ -210,7 +210,7 @@ export function SiteLayout({
           </div>
           <div className="border-t border-white/10">
             <div className="container-clinic py-6 flex flex-wrap justify-between items-center gap-4 text-xs opacity-60">
-              <span>© {new Date().getFullYear()} Comunidad Gestáltica</span>
+              <span>© 2025 Comunidad Gestáltica</span>
               <span>Estudios de Gestalt de Campo · Dany R. Mora Bracho</span>
             </div>
           </div>
