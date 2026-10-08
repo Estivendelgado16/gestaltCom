@@ -1,56 +1,200 @@
-# Gestalt Space
+# Comunidad Gestáltica
 
-Actúa como un Arquitecto de Software Fullstack Senior. Quiero que desarrolles la plataforma "Comunidad Gestáltica" para el psicólogo Dany Mora Bracho utilizando React, TypeScript y Tailwind CSS. Este proyecto requiere una arquitectura escalable de alto rendimiento con un sistema de administración de contenido estático (Headless CMS).
+> Plataforma web de **Comunidad Gestáltica — Estudios de Terapia Gestalt de Campo**: un espacio de encuentro, formación y divulgación de la psicoterapia gestáltica con perspectiva de campo.
 
-### 1. Identidad Visual (Guía de HUV):
+Aplicación fullstack con renderizado en servidor (SSR) para el psicólogo **Dany Mora Bracho**. Expone el sitio público de la comunidad, un área privada para estudiantes con acceso por pago y un panel de administración para gestionar contenidos, formaciones, actividades, clases y pagos.
 
-- Aplica estrictamente los colores de la marca: Oscuros (`#1D2444`, `#294461`), Dorados/Arena (`#C9A982`), Claros (`#EFD6BA`, `#FDEAD3`).
+---
 
-- Utiliza fuentes sans-serif geométricas limpias y sofisticadas (estilo Nexa) con amplios márgenes que transmitan "silencio y espacio clínico".
+## ✨ Características
 
-### 2. Arquitectura de Datos y Escalabilidad (CMS Estático):
+- **Sitio público** con páginas independientes: Inicio, Sobre mí, Servicios, Formaciones, Actividades, YouTube y Contacto.
+- **Formaciones dinámicas** clasificadas automáticamente por estado (Próximo, En curso, Finalizado) y con historial de formaciones finalizadas.
+- **Área privada de estudiantes** (`/usuarios/clases`) con módulos y clases que se desbloquean al aprobar el pago.
+- **Flujo de pagos** con registro de medio de pago y fecha, verificación y aprobación por el administrador.
+- **Panel de administración** (`/admin`) para contenidos, formaciones, actividades, clases, pagos y enlaces de YouTube.
+- **Headless CMS** respaldado por Supabase (PostgreSQL + Storage + Auth + RLS).
+- **SSR + hidratación** con TanStack Start, navegación por archivos con TanStack Router y consultas con TanStack Query.
+- Animaciones de entrada y de scroll, diseño responsivo y accesible.
 
-- El sitio debe consumir la información de la sección "Formaciones" desde archivos locales JSON estructurados.
+---
 
-- Prepara y simula en el frontend la ruta privada `/admin` de Decap CMS (antiguo Netlify CMS). Diseña la interfaz visual de este panel de control privado que vería el cliente:
+## 🧱 Stack tecnológico
 
-  - Interfaz de Login minimalista y limpia para Dany Mora.
+| Capa            | Tecnología                                             |
+| --------------- | ------------------------------------------------------ |
+| Framework       | [TanStack Start](https://tanstack.com/start) (SSR)     |
+| UI              | [React 19](https://react.dev) + [TypeScript](https://www.typescriptlang.org) |
+| Estilos         | [Tailwind CSS v4](https://tailwindcss.com)             |
+| Routing         | [TanStack Router](https://tanstack.com/router)         |
+| Datos           | [TanStack Query](https://tanstack.com/query)           |
+| Backend / DB    | [Supabase](https://supabase.com) (PostgreSQL, Auth, Storage) |
+| Componentes     | [Radix UI](https://www.radix-ui.com) + [lucide-react](https://lucide.dev) |
+| Validación      | [Zod](https://zod.dev)                                 |
+| Testing E2E     | [Playwright](https://playwright.dev)                   |
 
-  - Dashboard de administración visual donde se listen los cursos guardados en el JSON.
+---
 
-  - Formulario intuitivo para "Crear un Nuevo Curso" con los campos: Título, Fecha de Inicio, Descripción Corta, y un Selector de Estado (con las opciones: "Próximo", "En Curso" y "Finalizado").
+## 📦 Requisitos
 
-  - Simula la acción de guardar simulando que escribe o actualiza el archivo JSON de constantes locales.
+- **Node.js 20+** (recomendado instalar con [nvm](https://github.com/nvm-sh/nvm)).
+- Una cuenta y proyecto de [Supabase](https://supabase.com).
 
-### 3. Vistas Públicas Independientes:
+---
 
-- **Inicio, Sobre Mí, y Servicios:** Vistas independientes limpias, estéticas y responsivas.
-
-- **Formaciones (Dinámica):** Esta página debe leer los cursos y clasificarlos automáticamente en pantalla según su estado:
-
-  - Arriba: Tarjetas destacadas con animaciones fluidas para los cursos marcados como "Próximo" o "En Curso" (ej. Diplomado Internacional 2026-2027).
-
-  - Abajo: Un acordeón o sección sutil de "Historial de Formaciones" que agrupe y muestre de manera más opaca los cursos marcados como "Finalizado".
-
-- **Contacto:** Formulario validado conectado a un servicio simulado de emails que redirige también a WhatsApp.
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/ee23b2b1-6944-4527-841c-a1d91070cd2c).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## 🚀 Instalación
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+git clone <url-del-repositorio>
+cd <nombre-del-repositorio>
+npm install
+```
+
+Crea un archivo `.env` en la raíz (o copia de `.env.example`) con las variables de tu proyecto de Supabase:
+
+```sh
+VITE_SUPABASE_URL=tu-url-de-supabase
+VITE_SUPABASE_ANON_KEY=tu-anon-key
+DATABASE_URL=tu-cadena-de-conexion-postgres
+```
+
+> Nunca subas `.env` al repositorio (ya está en `.gitignore`).
+
+Aplica las migraciones de la base de datos:
+
+```sh
+supabase db push
+```
+
+Inicia el servidor de desarrollo:
+
+```sh
 npm run dev
 ```
+
+Abre `http://localhost:8080` (el puerto lo configura el dev server automáticamente).
+
+---
+
+## 🧪 Scripts disponibles
+
+| Comando                 | Descripción                                              |
+| ----------------------- | -------------------------------------------------------- |
+| `npm run dev`           | Levanta el servidor de desarrollo con Vite               |
+| `npm run build`         | Compila la versión de producción                         |
+| `npm run build:dev`     | Compila en modo desarrollo                               |
+| `npm run preview`       | Previsualiza el build de producción                      |
+| `npm run lint`          | Ejecuta ESLint                                           |
+| `npm run format`        | Formatea el código con Prettier                          |
+| `npm run test:e2e`      | Corre los tests end-to-end con Playwright                |
+| `npm run test:e2e:ui`   | Modo UI interactivo de Playwright                        |
+| `npm run test:e2e:debug`| Ejecuta los tests paso a paso                            |
+
+---
+
+## 📁 Estructura del proyecto
+
+```
+.
+├── e2e/                      # Tests end-to-end (Playwright)
+├── public/                   # Estáticos (imágenes, videos, banners)
+├── supabase/
+│   ├── functions/            # Edge Functions
+│   └── migrations/           # Migraciones SQL (consolidadas por dominio)
+└── src/
+    ├── components/           # UI (ui, site, layout, auth, admin)
+    ├── context/              # Contexto de autenticación
+    ├── hooks/                # Hooks de datos
+    ├── lib/                  # Clientes (Supabase, etc.)
+    ├── pages/                # Vistas por página
+    ├── routes/               # Rutas (file-based, TanStack Router)
+    ├── services/             # Acceso a datos por dominio
+    ├── types/                # Tipos y tipos generados de la DB
+    ├── styles.css            # Estilos globales y tokens de marca
+    ├── router.tsx            # Configuración del router
+    └── start.ts              # Instancia de TanStack Start (SSR + middleware de errores)
+```
+
+---
+
+## 🗄️ Base de datos
+
+Las migraciones están **consolidadas por dominio** en `supabase/migrations/`:
+
+| Archivo                                | Dominio                              |
+| -------------------------------------- | ------------------------------------ |
+| `20260830000001_pagos_y_acceso.sql`    | Pagos, acceso y aprobación           |
+| `20260830000002_clases.sql`            | Módulos, lecciones y archivos        |
+| `20260830000003_formaciones.sql`       | Formaciones e inscripciones          |
+| `20260830000004_youtube.sql`           | Listas de reproducción de YouTube    |
+| `20260830000005_actividades.sql`       | Actividades y espacios de encuentro  |
+| `20260830000006_archivos.sql`          | Archivos únicos editables            |
+
+La seguridad se aplica mediante **Row Level Security (RLS)**: los usuarios ven su propio acceso y pagos, y solo los administradores gestionan el contenido.
+
+---
+
+## ✅ Testing (E2E)
+
+Se usa **Playwright** para los flujos públicos (home, navegación, páginas públicas, contacto y redirecciones de autenticación).
+
+- Configuración: `playwright.config.ts` (levanta el dev server automáticamente en `http://localhost:8080`).
+- Tests: `e2e/public.spec.ts`.
+
+```sh
+npm run test:e2e        # corre todos los tests
+npm run test:e2e:ui     # modo UI interactivo
+npm run test:e2e:debug  # paso a paso
+npx playwright show-report  # ver reporte HTML con trazas
+```
+
+Notas:
+- Con SSR + hidratación (TanStack Start) hay que esperar `window.__TSR_ROUTER__` antes de interactuar con formularios (ver helper `waitForHydration`).
+- `/clases` y `/pagos` redirigen a `/admin` sin sesión; los flujos autenticados requieren credenciales de prueba.
+- No commitear `test-results/` ni `playwright-report/` (ya están en `.gitignore`).
+
+---
+
+## 🌐 Despliegue (Vercel)
+
+El proyecto está configurado para **Vercel** usando Nitro con el preset `vercel` (definido en `vite.config.ts`).
+
+```sh
+npm run build
+```
+
+El build genera la salida en `.vercel/output/`, lista para desplegar.
+
+### Opción A — Conectar el repositorio (recomendado)
+
+1. Sube el repositorio a GitHub.
+2. En Vercel: **Add New → Project** e importa el repositorio.
+3. Vercel detecta el framework automáticamente. Configura las variables de entorno:
+
+| Variable                 | Descripción                        |
+| ------------------------ | ---------------------------------- |
+| `VITE_SUPABASE_URL`      | URL del proyecto en Supabase       |
+| `VITE_SUPABASE_ANON_KEY` | Clave anónima (pública) de Supabase |
+
+4. Deploy.
+
+### Opción B — Vercel CLI
+
+```sh
+npx vercel
+```
+
+> Para cambiar el destino de despliegue, edita el `preset` de Nitro en `vite.config.ts` (ej. `node-server`, `netlify`, `cloudflare-module`).
+
+---
+
+## ⚠️ Notas de desarrollo
+
+- La ruta privada usa **file-based routing**: no crear `src/pages/`, `src/routes/_app/index.tsx` ni `app/layout.tsx` (convenciones de Next/Remix).
+- `routeTree.gen.ts` se genera automáticamente; no editar a mano.
+
+---
+
+## 👤 Autor
+
+**Dany Mora Bracho** — Psicólogo, terapeuta gestáltico y fundador de Comunidad Gestáltica.
